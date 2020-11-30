@@ -7,6 +7,9 @@ import {
 } from 'react-router-dom';
 
 import MyNavbar from '../Components/shared/MyNavbar/MyNavbar';
+import Home from '../Components/pages/Home/Home';
+import ViewAllBudgets from '../Components/pages/ViewAllBudgets/ViewAllBudgets';
+import AddNewBudget from '../Components/pages/AddNewBudget/AddNewBudget';
 
 import './App.scss';
 
@@ -19,6 +22,10 @@ function App() {
             <div className="container">
               <div className="row">
                 <Switch>
+                  <Route path='/home' component={Home}/>
+                  <Route path='/viewAllBudgets' component={ViewAllBudgets}/>
+                  <Route path='/addNewBudget' component={AddNewBudget}/>
+                  <Redirect from='*' to='/home' />
                 </Switch>
               </div>
             </div>

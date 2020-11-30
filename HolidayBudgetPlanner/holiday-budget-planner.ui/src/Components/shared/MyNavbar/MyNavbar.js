@@ -29,33 +29,22 @@ class MyNavbar extends React.Component {
     return (
       <div>
       <Navbar color="light" light expand="md">
-        <NavbarBrand href="/">Holiday Budget Planner</NavbarBrand>
+        <NavbarBrand href="/home">Holiday Budget Planner</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
           <Nav className="ml-auto" navbar>
             <NavItem>
-              <NavLink href="/components/">Components</NavLink>
+              <NavLink href="/viewAllBudgets">View All Budgets</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+              <NavLink href="/addNewBudget">New Budget</NavLink>
             </NavItem>
-            <UncontrolledDropdown nav inNavbar>
-              <DropdownToggle nav caret>
-                Options
-              </DropdownToggle>
-              <DropdownMenu right>
-                <DropdownItem>
-                  Option 1
-                </DropdownItem>
-                <DropdownItem>
-                  Option 2
-                </DropdownItem>
-                <DropdownItem divider />
-                <DropdownItem>
-                  Reset
-                </DropdownItem>
-              </DropdownMenu>
-            </UncontrolledDropdown>
+            <NavItem>
+              <button className='btn btn-primary'>Login</button>
+            </NavItem>
+            <NavItem>
+              <button className='btn btn-danger'>Logout</button>
+            </NavItem>
           </Nav>
         </Collapse>
       </Navbar>
