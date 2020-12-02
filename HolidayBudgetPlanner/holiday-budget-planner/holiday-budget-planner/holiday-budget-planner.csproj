@@ -5,5 +5,11 @@
     <RootNamespace>holiday_budget_planner</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.78" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.10" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="2.0.1" />
+  </ItemGroup>
+
 
 </Project>
