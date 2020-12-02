@@ -21,11 +21,20 @@ namespace holiday_budget_planner.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetCurrentPlan()
+        public IActionResult GetAllBudgets()
         {
-            var currentPlanBudget = _budgetRepo.GetCurrentPlan();
+            var allBudget = _budgetRepo.GetAllBudgets();
 
-            return Ok(currentPlanBudget);
+            return Ok(allBudget);
+
+        }
+
+        [HttpGet("currentPlan")]
+        public IActionResult GetCurrentBudget()
+        {
+            var currentBudget = _budgetRepo.GetCurrentBudget();
+
+            return Ok(currentBudget);
 
         }
 

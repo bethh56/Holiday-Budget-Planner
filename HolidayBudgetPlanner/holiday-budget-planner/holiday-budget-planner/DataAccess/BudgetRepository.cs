@@ -14,15 +14,28 @@ namespace holiday_budget_planner.DataAccess
 
         const string _connectionString = "Server=localhost;Database=HolidayBudgetPlanner;Trusted_Connection=True";
 
-        public IEnumerable<Budget> GetCurrentPlan()
+        public IEnumerable<Budget> GetAllBudgets()
         {
             using var db = new SqlConnection(_connectionString);
             var sql = @"select *
                         from Budget";
 
-            var currentBudgetPlan = db.Query<Budget>(sql);
+            var budgetPlan = db.Query<Budget>(sql);
 
-            return currentBudgetPlan;
+            return budgetPlan;
+
+        }
+
+        public IEnumerable<Budget> GetCurrentBudget()
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"select *
+                        from Budget
+                        where currentPlan = 1";
+
+            var budgetPlan = db.Query<Budget>(sql);
+
+            return budgetPlan;
 
         }
     }
