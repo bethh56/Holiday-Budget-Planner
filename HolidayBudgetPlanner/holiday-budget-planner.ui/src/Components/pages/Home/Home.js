@@ -6,13 +6,12 @@ import './Home.scss';
 class Home extends React.Component {
   state = {
     budget: [],
-    userId: 1,
   }
 
-  getBudgetInfo = (userId) => {
-    budgetData.getCurrentBudget(7)
+  getBudgetInfo = () => {
+    budgetData.getCurrentBudget(2)
       .then((budget) => this.setState({ budget }))
-      .catch((err) => console.error('unable to get order info'));
+      .catch((err) => console.error('unable to get budget info'));
   }
 
   componentDidMount() {

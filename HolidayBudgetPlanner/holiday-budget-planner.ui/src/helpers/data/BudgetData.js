@@ -5,7 +5,7 @@ const getCurrentBudget = (userId) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/budget/currentPlan/user${userId}`)
     .then((response) => {
       resolve(response.data);
-      console.error('budgetInfo', response.data);
+      // console.error('budgetInfo', response.data);
     })
     .catch((err) => reject(err, 'error'));
 });
