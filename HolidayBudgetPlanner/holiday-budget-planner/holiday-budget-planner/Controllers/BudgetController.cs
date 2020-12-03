@@ -29,10 +29,10 @@ namespace holiday_budget_planner.Controllers
 
         }
 
-        [HttpGet("currentPlan")]
-        public IActionResult GetCurrentBudget()
+        [HttpGet("currentPlan/user{userId}")]
+        public IActionResult GetCurrentBudgetByUserId(int userId)
         {
-            var currentBudget = _budgetRepo.GetCurrentBudget();
+            var currentBudget = _budgetRepo.GetCurrentBudget(userId);
 
             return Ok(currentBudget);
 

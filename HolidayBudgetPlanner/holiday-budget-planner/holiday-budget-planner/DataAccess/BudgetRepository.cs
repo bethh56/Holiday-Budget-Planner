@@ -26,14 +26,16 @@ namespace holiday_budget_planner.DataAccess
 
         }
 
-        public IEnumerable<Budget> GetCurrentBudget()
+        public Budget GetCurrentBudget(int userId)
         {
             using var db = new SqlConnection(_connectionString);
             var sql = @"select *
                         from Budget
-                        where currentPlan = 1";
+                        where currentPlan = 1 AND Id = @userId";
 
-            var budgetPlan = db.Query<Budget>(sql);
+            var parameters = new { userId };
+
+            var budgetPlan = db.QueryFirstOrDefault<Budget>(sql, parameters);
 
             return budgetPlan;
 
