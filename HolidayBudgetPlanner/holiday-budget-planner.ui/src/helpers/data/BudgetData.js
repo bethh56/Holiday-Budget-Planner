@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { baseUrl } from './constants.json';
 
-const getCurrentBudget = () => new Promise((resolve, reject) => {
-  axios.get(`${baseUrl}/budget/currentPlan/user1`)
+const getCurrentBudget = (userId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/budget/currentPlan/user${userId}`)
     .then((response) => {
       resolve(response.data);
       console.error('budgetInfo', response.data);
     })
-    .catch((err) => reject(err));
+    .catch((err) => reject(err, 'error'));
 });
 
 // eslint-disable-next-line import/no-anonymous-default-export
