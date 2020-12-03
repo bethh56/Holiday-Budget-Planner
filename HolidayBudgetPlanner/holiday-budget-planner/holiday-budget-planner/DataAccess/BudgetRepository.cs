@@ -31,7 +31,7 @@ namespace holiday_budget_planner.DataAccess
             using var db = new SqlConnection(_connectionString);
             var sql = @"select *
                         from Budget
-                        where currentPlan = 1 AND Id = @userId";
+                        where currentPlan = 1 AND userId = @userId";
 
             var parameters = new { userId };
 
