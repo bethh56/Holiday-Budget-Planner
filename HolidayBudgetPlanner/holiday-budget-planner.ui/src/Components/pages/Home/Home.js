@@ -1,5 +1,5 @@
 import React from 'react';
-import MyNavbar from '../../shared/MyNavbar/MyNavbar';
+import BudgetDetails from '../../shared/BudgetDetails/BudgetDetails';
 import './Home.scss';
 
 class Home extends React.Component {
@@ -7,6 +7,7 @@ class Home extends React.Component {
     return (
       <div className="home">
         <h1>Home</h1>
+        <BudgetDetails />
       </div>
     );
   }
