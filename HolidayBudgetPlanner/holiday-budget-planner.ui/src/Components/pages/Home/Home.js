@@ -9,7 +9,7 @@ class Home extends React.Component {
   }
 
   getBudgetInfo = () => {
-    budgetData.getCurrentBudget(2)
+    budgetData.getCurrentBudget(1)
       .then((budget) => this.setState({ budget }))
       .catch((err) => console.error('unable to get budget info'));
   }

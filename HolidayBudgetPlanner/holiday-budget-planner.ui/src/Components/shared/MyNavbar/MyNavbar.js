@@ -9,6 +9,10 @@ import {
   NavLink,
 } from 'reactstrap';
 
+import {
+  Link,
+} from 'react-router-dom';
+
 class MyNavbar extends React.Component {
   state = {
     isOpen: false,
@@ -33,10 +37,8 @@ class MyNavbar extends React.Component {
             </NavItem>
             <NavItem>
               <NavLink href="/addNewBudget">New Budget</NavLink>
-            </NavItem>
-            <NavItem>
-              <button className='btn btn-primary'>Login</button>
-            </NavItem>
+                <Link className='btn btn-primary' to="/login">Click to login </Link>
+              </NavItem>
             <NavItem>
               <button className='btn btn-danger'>Logout</button>
             </NavItem>
