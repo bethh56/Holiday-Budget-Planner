@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace holiday_budget_planner.Models
 {
-    public class ItemCategory
+    public class Item
     {
-        public int Id { get; set; }
-        public string CategoryName { get; set; }
+        public int id { get; set; }
+        public string ItemName { get; set; }
+        public decimal Price { get; set; }
         public bool IsActive { get; set; } = true;
         public int BudgetId { get; set; }
         public int userId { get; set; }
-        public List<Item> LineItems { get; set; } = new List<Item>();
     }
 }
