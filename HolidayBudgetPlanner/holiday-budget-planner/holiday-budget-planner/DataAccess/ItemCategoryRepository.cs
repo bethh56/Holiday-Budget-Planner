@@ -25,9 +25,9 @@ namespace holiday_budget_planner.DataAccess
 
             var parameters = new { userId };
 
-            var itemCategory = db.Query<Item>(itemSql, parameters);
+            var item = db.Query<Item>(itemSql, parameters);
 
-            var sql = @"select categoryName, budgetId, userId, ItemCategory.Id
+            var categorySql = @"select categoryName, budgetId, userId, ItemCategory.Id, SUM(price) AS TotalPrice
                         from ItemCategory
 	                    join Budget on
 	                    Budget.id = budgetId
@@ -35,11 +35,11 @@ namespace holiday_budget_planner.DataAccess
                         GROUP BY categoryName, budgetId, userId, ItemCategory.Id";
 
 
-            var budgetLineItems = db.QueryFirstOrDefault<ItemCategory>(sql, parameters);
-                budgetLineItems.LineItems = (List<Item>)itemCategory;
+            var categoryInfo = db.QueryFirstOrDefault<ItemCategory>(categorySql, parameters);
+            categoryInfo.LineItems = (List<Item>)item;
 
 
-            return budgetLineItems;
+            return categoryInfo;
 
         }
         
