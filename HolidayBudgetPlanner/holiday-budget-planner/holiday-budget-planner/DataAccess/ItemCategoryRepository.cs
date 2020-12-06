@@ -13,37 +13,33 @@ namespace holiday_budget_planner.DataAccess
 
         const string _connectionString = "Server=localhost;Database=HolidayBudgetPlanner;Trusted_Connection=True";
 
-        public IEnumerable<ItemCategory> GetAllCurrentItemCategoriesByUserId(int userId)
+        public ItemCategory GetAllCurrentItemCategoriesByUserId(int userId)
         {
             using var db = new SqlConnection(_connectionString);
-            var sql = @"select categoryName, budgetId, userId
+            var itemSql = @"select itemName, price
+	                            from ItemCategory
+	                            join Budget on
+	                            budgetId = Budget.id
+								where currentPlan = 1 AND userId = @userId
+                                GROUP BY itemName, price";
+
+            var parameters = new { userId };
+
+            var itemCategory = db.Query<Item>(itemSql, parameters);
+
+            var sql = @"select categoryName, budgetId, userId, ItemCategory.Id
                         from ItemCategory
 	                    join Budget on
 	                    Budget.id = budgetId
 	                    where Budget.currentPlan = 1 AND userId = @userId
-                        GROUP BY categoryName, budgetId, userId";
-
-            var parameters = new { userId };
-
-            var itemCategory = db.Query<ItemCategory>(sql, parameters);
-
-            List<Item> itemInCategory = new List<Item>();
-      
-            if (itemInCategory != null )
-            {
-                var itemSql = @"select categoryName, budgetId, userId, itemName, price
-	                            from ItemCategory
-	                            join Budget on
-	                            Budget.id = budgetId
-	                            where Budget.currentPlan = 1 AND userId = 1
-                                GROUP BY categoryName, budgetId, userId, itemName, price";
-
-                var item = db.Query<Item>(itemSql);
+                        GROUP BY categoryName, budgetId, userId, ItemCategory.Id";
 
 
-            }
+            var budgetLineItems = db.QueryFirstOrDefault<ItemCategory>(sql, parameters);
+                budgetLineItems.LineItems = (List<Item>)itemCategory;
 
-            return itemCategory;
+
+            return budgetLineItems;
 
         }
         
