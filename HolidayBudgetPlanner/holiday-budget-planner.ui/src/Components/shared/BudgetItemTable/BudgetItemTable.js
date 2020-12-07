@@ -1,13 +1,29 @@
 import React from 'react';
 import { Table } from 'reactstrap';
+import itemData from '../../../helpers/data/itemData';
 import './BudgetItemTable.scss';
 
 class BudgetItemTable extends React.Component {
+  state = {
+    lineItems: [],
+  }
+
+  getBudgetLineItems = () => {
+    itemData.getBudgetLineItems(2)
+      .then((lineItems) => this.setState({ lineItems }))
+      .catch((err) => console.error('unable to get budget line item info'));
+  }
+
+  componentDidMount() {
+    this.getBudgetLineItems();
+  }
+
   render() {
-    const { item, line } = this.props;
+    const { item } = this.props;
     return (
       <div className="BudgetItemTable">
-        <h1>{item.categoryName}</h1>
+        <h2>{item.categoryName}</h2>
+        <h3>${item.totalPrice}</h3>
         <Table>
       <thead>
         <tr>

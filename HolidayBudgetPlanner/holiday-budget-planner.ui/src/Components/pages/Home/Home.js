@@ -10,7 +10,6 @@ class Home extends React.Component {
   state = {
     budget: [],
     budgetItem: [],
-    lineItems: [],
   }
 
   getCurrentBudgetAmountInfo = () => {
@@ -35,7 +34,6 @@ class Home extends React.Component {
     const { budget, budgetItem } = this.state;
     const buildCurrentViewedBudget = [budget].map((budgetPlan) => (<BudgetDetails key={budgetPlan.id} budgetPlan={budgetPlan}/>));
     const buildItemTable = [budgetItem].map((item) => (<BudgetItemTable key={item.id} item={item}/>));
-    // const getLineItemsForTable = [lineItems].map((line) => (<BudgetItemTable key={line.id} line={line}/>));
 
     return (
       <div className="home">
