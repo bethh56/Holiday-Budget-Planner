@@ -18,12 +18,12 @@ namespace holiday_budget_planner.DataAccess
             using var db = new SqlConnection(_connectionString);
             var parameters = new { userId };
 
-            var categorySql = @"select categoryName, budgetId, userId, ItemCategory.Id, price
-                                    from ItemCategory
-	                                join Budget on
-	                                Budget.id = budgetId
-	                                where Budget.currentPlan = 1 AND userId = @userId
-                                    GROUP BY categoryName, budgetId, userId, ItemCategory.Id, price";
+            var categorySql = @"select categoryName, budgetId, userId, SUM(price) AS TotalPrice
+                                from ItemCategory
+                                join Budget on
+                                Budget.id = budgetId
+                                where Budget.currentPlan = 1 AND userId = @userId
+                                GROUP BY categoryName, budgetId, userId";
 
 
             var categoryInfo = db.QueryFirstOrDefault<ItemCategory>(categorySql, parameters);

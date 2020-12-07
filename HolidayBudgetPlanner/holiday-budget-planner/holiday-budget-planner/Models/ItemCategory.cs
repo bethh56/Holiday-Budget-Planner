@@ -12,7 +12,7 @@ namespace holiday_budget_planner.Models
         public bool IsActive { get; set; } = true;
         public int BudgetId { get; set; }
         public int userId { get; set; }
-        public decimal Price { get; set; }
+        public decimal TotalPrice { get; set; }
         public List<Item> LineItems { get; set; } = new List<Item>();
     }
 }
