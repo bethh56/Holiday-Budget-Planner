@@ -17,7 +17,7 @@ class BudgetItemTable extends React.Component {
       </thead>
       <tbody>
         <tr>
-          <td>{line.price}</td>
+          {/* <td>{line.price}</td> */}
           <td></td>
         </tr>
       </tbody>

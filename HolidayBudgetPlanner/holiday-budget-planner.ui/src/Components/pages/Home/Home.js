@@ -25,30 +25,23 @@ class Home extends React.Component {
       .catch((err) => console.error('unable to get budget item info'));
   }
 
-  getBudgetLineItems = () => {
-    itemData.getBudgetLineItems(2)
-      .then((lineItems) => this.setState({ lineItems }))
-      .catch((err) => console.error('unable to get budget item info'));
-  }
-
   componentDidMount() {
     this.getCurrentBudgetAmountInfo();
     this.getBudgetItems();
-    this.getBudgetLineItems();
+    // this.getBudgetLineItems();
   }
 
   render() {
-    const { budget, budgetItem, lineItems } = this.state;
+    const { budget, budgetItem } = this.state;
     const buildCurrentViewedBudget = [budget].map((budgetPlan) => (<BudgetDetails key={budgetPlan.id} budgetPlan={budgetPlan}/>));
     const buildItemTable = [budgetItem].map((item) => (<BudgetItemTable key={item.id} item={item}/>));
-    const getLineItemsForTable = [lineItems].map((line) => (<BudgetItemTable key={line.id} line={line}/>));
+    // const getLineItemsForTable = [lineItems].map((line) => (<BudgetItemTable key={line.id} line={line}/>));
 
     return (
       <div className="home">
         <h1>Home</h1>
         {buildCurrentViewedBudget}
         {buildItemTable}
-        {getLineItemsForTable}
       </div>
     );
   }
