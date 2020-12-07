@@ -16,6 +16,17 @@ namespace holiday_budget_planner.DataAccess
         public ItemCategory GetAllCurrentItemCategoriesByUserId(int userId)
         {
             using var db = new SqlConnection(_connectionString);
+            var parameters = new { userId };
+
+            var categorySql = @"select categoryName, budgetId, userId, ItemCategory.Id, price
+                                    from ItemCategory
+	                                join Budget on
+	                                Budget.id = budgetId
+	                                where Budget.currentPlan = 1 AND userId = @userId
+                                    GROUP BY categoryName, budgetId, userId, ItemCategory.Id, price";
+
+
+            var categoryInfo = db.QueryFirstOrDefault<ItemCategory>(categorySql, parameters);
             var itemSql = @"select itemName, price
 	                            from ItemCategory
 	                            join Budget on
@@ -23,21 +34,9 @@ namespace holiday_budget_planner.DataAccess
 								where currentPlan = 1 AND userId = @userId
                                 GROUP BY itemName, price";
 
-            var parameters = new { userId };
-
             var item = db.Query<Item>(itemSql, parameters);
 
-            var categorySql = @"select categoryName, budgetId, userId, ItemCategory.Id, SUM(price) AS TotalPrice
-                        from ItemCategory
-	                    join Budget on
-	                    Budget.id = budgetId
-	                    where Budget.currentPlan = 1 AND userId = @userId
-                        GROUP BY categoryName, budgetId, userId, ItemCategory.Id";
-
-
-            var categoryInfo = db.QueryFirstOrDefault<ItemCategory>(categorySql, parameters);
             categoryInfo.LineItems = (List<Item>)item;
-
 
             return categoryInfo;
 
