@@ -16,18 +16,11 @@ axios.interceptors.request.use((request) => {
 }, (err) => Promise.reject(err));
 
 const registerUser = (user) =>
+
   // sub out whatever auth method firebase provides that you want to use.
   firebase.auth().createUserWithEmailAndPassword(user.email, user.password).then((cred) => {
-    console.error('logincred', cred.user);
     // get email from firebase
-    console.error('register', user);
-    const userInfo = {
-      uid: firebase.auth().currentUser.uid,
-      email: user.email,
-      password: user.password,
-      firstName: user.firstName,
-      lastName: user.lastName,
-    };
+    const userInfo = { email: cred.user.email };
 
     // get token from firebase
     cred.user.getIdToken()
@@ -35,7 +28,6 @@ const registerUser = (user) =>
       .then((token) => sessionStorage.setItem('token', token))
       // save the user to the the api
       .then(() => axios.post(`${baseUrl}/users`, userInfo));
-    console.error('register', user);
   });
 const loginUser = (user) =>
   // sub out whatever auth method firebase provides that you want to use.
@@ -45,25 +37,10 @@ const loginUser = (user) =>
     // save the token to the session storage
       .then((token) => sessionStorage.setItem('token', token));
   });
-const logoutUser = () => {
-  sessionStorage.removeItem('token');
-  return firebase.auth().signOut();
-};
+const logoutUser = () => firebase.auth().signOut();
 
-const getUid = () => {
-  const token = sessionStorage.getItem('token');
-  let uid = '';
+const getUid = () => firebase.auth().currentUser.uid;
 
-  if (token != null) {
-    uid = firebase.auth().currentUser.uid;
-  }
-  return uid;
-};
-
-// eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  getUid,
-  loginUser,
-  logoutUser,
-  registerUser,
+  getUid, loginUser, logoutUser, registerUser,
 };

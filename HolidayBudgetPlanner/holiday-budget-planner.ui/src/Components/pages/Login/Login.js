@@ -59,7 +59,7 @@ class Login extends React.Component {
               </div>
             </div>
             <div className="form-group">
-              <label htmlFor="inputPassword" className="control-label">
+              <label htmlFor="inputPassword" className="col-sm-4 control-label">
                 Password:
               </label>
               <div>
@@ -78,7 +78,7 @@ class Login extends React.Component {
                 <Link to="/register">Need to Register?</Link>
               </div>
             </div>
-            <div className="form-group text-center">
+            <div className="form-group">
               <div className="col-sm-12">
                 <button
                   type="submit"

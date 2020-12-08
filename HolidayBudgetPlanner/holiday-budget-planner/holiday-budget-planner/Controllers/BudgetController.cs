@@ -31,6 +31,7 @@ namespace holiday_budget_planner.Controllers
         }
 
         [HttpGet("currentPlan/user{userId}")]
+        [AllowAnonymous]
         public IActionResult GetCurrentBudgetByUserId(int userId)
         {
             var currentBudget = _budgetRepo.GetCurrentBudget(userId);
