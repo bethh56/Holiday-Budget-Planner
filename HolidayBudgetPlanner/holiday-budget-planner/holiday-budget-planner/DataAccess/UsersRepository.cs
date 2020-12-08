@@ -25,5 +25,26 @@ namespace holiday_budget_planner.DataAccess
             return users;
 
         }
+        public void AddUser(Users userToAdd)
+        {
+            var sql = @"INSERT INTO [dbo].[Users]
+                                 ([FirstName]
+                                 ,[LastName]
+                                 ,[Email]
+                                 ,[Password]
+                                 ,[IsActive]
+                                 ,[Uid]   
+                                 )
+                                Output inserted.id
+                                VALUES
+                                (@Email,@FirstName,@LastName,@Password,@IsActive,@Uid)";
+            using var db = new SqlConnection(_connectionString);
+
+            var newId = db.ExecuteScalar<int>(sql, userToAdd);
+
+            userToAdd.Id = newId;
+
+        }
+
     }
 }

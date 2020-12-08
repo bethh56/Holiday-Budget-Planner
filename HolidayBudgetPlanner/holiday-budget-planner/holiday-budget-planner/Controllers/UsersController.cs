@@ -28,5 +28,12 @@ namespace holiday_budget_planner.Controllers
             return Ok(allUsers);
 
         }
+
+        [HttpPut]
+        public IActionResult AddUser(Users user)
+        {
+            _userRepo.AddUser(user);
+            return Created($"/api/users/{user.Id}", user);
+        }
     }
 }
