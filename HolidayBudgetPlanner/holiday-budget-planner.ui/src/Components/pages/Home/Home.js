@@ -27,7 +27,6 @@ class Home extends React.Component {
   componentDidMount() {
     this.getCurrentBudgetAmountInfo();
     this.getBudgetItems();
-    // this.getBudgetLineItems();
   }
 
   render() {

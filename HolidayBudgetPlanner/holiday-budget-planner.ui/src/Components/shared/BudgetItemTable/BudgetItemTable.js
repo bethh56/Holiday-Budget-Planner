@@ -20,6 +20,8 @@ class BudgetItemTable extends React.Component {
 
   render() {
     const { item } = this.props;
+    const { lineItems } = this.state;
+
     return (
       <div className="BudgetItemTable">
         <h2>{item.categoryName}</h2>
@@ -33,8 +35,8 @@ class BudgetItemTable extends React.Component {
       </thead>
       <tbody>
         <tr>
-          <td>{item.totalPrice}</td>
-          <td>{item.totalPrice}</td>
+          <td>{lineItems.map((i, indx) => <p key={i}>{i.itemName}</p>)}</td>
+          <td>{lineItems.map((i, indx) => <p key={i}>${i.price}</p>)}</td>
         </tr>
       </tbody>
       </Table>
