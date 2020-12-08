@@ -1,31 +1,44 @@
 import React from 'react';
-import BudgetDetails from '../../shared/BudgetDetails/BudgetDetails';
 import budgetData from '../../../helpers/data/budgetData';
+import itemData from '../../../helpers/data/itemData';
+
+import BudgetDetails from '../../shared/BudgetDetails/BudgetDetails';
+import BudgetItemTable from '../../shared/BudgetItemTable/BudgetItemTable';
 import './Home.scss';
 
 class Home extends React.Component {
   state = {
     budget: [],
+    budgetItem: [],
   }
 
-  getBudgetInfo = () => {
-    budgetData.getCurrentBudget(1)
+  getCurrentBudgetAmountInfo = () => {
+    budgetData.getCurrentBudget(2)
       .then((budget) => this.setState({ budget }))
       .catch((err) => console.error('unable to get budget info'));
   }
 
+  getBudgetItems = () => {
+    itemData.getBudgetItems(2)
+      .then((budgetItem) => this.setState({ budgetItem }))
+      .catch((err) => console.error('unable to get budget item info'));
+  }
+
   componentDidMount() {
-    this.getBudgetInfo();
+    this.getCurrentBudgetAmountInfo();
+    this.getBudgetItems();
   }
 
   render() {
-    const { budget } = this.state;
+    const { budget, budgetItem } = this.state;
     const buildCurrentViewedBudget = [budget].map((budgetPlan) => (<BudgetDetails key={budgetPlan.id} budgetPlan={budgetPlan}/>));
+    const buildItemTable = [budgetItem].map((item) => (<BudgetItemTable key={item.id} item={item}/>));
 
     return (
       <div className="home">
         <h1>Home</h1>
         {buildCurrentViewedBudget}
+        {buildItemTable}
       </div>
     );
   }
