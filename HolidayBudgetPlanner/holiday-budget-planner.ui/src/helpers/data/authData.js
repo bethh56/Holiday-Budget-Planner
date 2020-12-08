@@ -25,7 +25,6 @@ const registerUser = (user) =>
       uid: firebase.auth().currentUser.uid,
       email: user.email,
       password: user.password,
-      userName: user.userName,
       firstName: user.firstName,
       lastName: user.lastName,
     };
