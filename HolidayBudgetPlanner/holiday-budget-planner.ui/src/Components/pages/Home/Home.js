@@ -24,6 +24,14 @@ class Home extends React.Component {
       .catch((err) => console.error('unable to get budget item info'));
   }
 
+  addBudget = (addBudget) => {
+    budgetData.addNewBudget(addBudget)
+      .then(() => {
+        this.getCurrentBudgetAmountInfo();
+      })
+      .catch((err) => console.error('unable to add new budget', err));
+  }
+
   componentDidMount() {
     this.getCurrentBudgetAmountInfo();
     this.getBudgetItems();
