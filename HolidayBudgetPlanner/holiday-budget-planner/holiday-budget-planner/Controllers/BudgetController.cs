@@ -40,5 +40,15 @@ namespace holiday_budget_planner.Controllers
 
         }
 
+        [HttpPost]
+        [AllowAnonymous]
+        public IActionResult AddNewBudget(Budget newBudget)
+        {
+            _budgetRepo.AddNewBudget(newBudget);
+
+            return Created($"/api/budget/{newBudget.Id}", newBudget);
+
+        }
+
     }
 }

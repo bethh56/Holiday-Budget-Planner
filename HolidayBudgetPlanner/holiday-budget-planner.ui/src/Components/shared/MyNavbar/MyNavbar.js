@@ -9,7 +9,6 @@ import {
   NavLink,
 } from 'reactstrap';
 
-import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import authData from '../../../helpers/data/authData';
 import './MyNavbar.scss';

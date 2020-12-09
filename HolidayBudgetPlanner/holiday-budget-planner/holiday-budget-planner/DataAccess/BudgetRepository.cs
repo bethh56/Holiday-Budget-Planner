@@ -40,5 +40,24 @@ namespace holiday_budget_planner.DataAccess
             return budgetPlan;
 
         }
+
+        public void AddNewBudget(Budget budgetAdded)
+        {
+            var sql = @"INSERT INTO [dbo].[Budget]
+                        ([HolidayId]
+                        ,[BudgetAmount]
+                        ,[DateCreated]
+                        ,[IsActive]
+                        ,[CurrentPlan]
+                        ,[UserId])
+                       Output inserted.Id
+                        VALUES
+                             (@holidayId, @budgetAmount, @dateCreated, @isActive, @currentPlan, @userId)";
+            using var db = new SqlConnection(_connectionString);
+
+            var newId = db.ExecuteScalar<int>(sql, budgetAdded);
+
+            budgetAdded.Id = newId;
+        }
     }
 }
