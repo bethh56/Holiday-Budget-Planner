@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
-import authRequests from '../../../helpers/data/authData';
+import authData from '../../../helpers/data/authData';
 
 class Login extends React.Component {
   state = {
@@ -14,32 +13,31 @@ class Login extends React.Component {
   loginClickEvent = (e) => {
     const { user } = this.state;
     e.preventDefault();
-    authRequests
-      .loginUser(user)
+    authData.loginUser(user)
       .then(() => {
         this.props.history.push('/home');
       })
       .catch((error) => {
-        console.error('there was an error in registering', error);
+        console.error('there was an error with login', error);
       });
   };
 
   emailChange = (e) => {
-    const tempUser = { ...this.state.user };
-    tempUser.email = e.target.value;
-    this.setState({ user: tempUser });
+    const userInfo = { ...this.state.user };
+    userInfo.email = e.target.value;
+    this.setState({ user: userInfo });
   };
 
   passwordChange = (e) => {
-    const tempUser = { ...this.state.user };
-    tempUser.password = e.target.value;
-    this.setState({ user: tempUser });
+    const userInfo = { ...this.state.user };
+    userInfo.password = e.target.value;
+    this.setState({ user: userInfo });
   };
 
   render() {
     const { user } = this.state;
     return (
-      <div className="Login">
+      <div className="Login m-auto">
         <div id="login-form">
           <h1 className="text-center">Login</h1>
           <form className="form-horizontal">
@@ -59,7 +57,7 @@ class Login extends React.Component {
               </div>
             </div>
             <div className="form-group">
-              <label htmlFor="inputPassword" className="col-sm-4 control-label">
+              <label htmlFor="inputPassword" className="control-label">
                 Password:
               </label>
               <div>
@@ -75,16 +73,16 @@ class Login extends React.Component {
             </div>
             <div className="form-group">
               <div className="col-sm-12 text-center">
-                <Link to="/register">Need to Register?</Link>
+                {/* change back to a link */}
+                <p>Need to Register?</p>
               </div>
             </div>
             <div className="form-group">
-              <div className="col-sm-12">
+              <div>
                 <button
                   type="submit"
-                  className="btn btn-default col-xs-12"
-                  onClick={this.loginClickEvent}
-                >
+                  className="btn btn-primary"
+                  onClick={this.loginClickEvent}>
                   Login
                 </button>
               </div>
