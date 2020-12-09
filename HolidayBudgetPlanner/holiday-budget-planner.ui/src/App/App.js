@@ -34,6 +34,9 @@ class App extends React.Component {
   componentDidMount() {
     this.removeListener = firebase.auth().onAuthStateChanged((user) => {
       if (user) {
+        user.getIdToken()
+        // save the token to the session storage
+          .then((token) => sessionStorage.setItem('token', token));
         this.setState({ authed: true });
       } else {
         this.setState({ authed: false });
