@@ -1,8 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import authData from '../../../helpers/data/authData';
 
-class Login extends React.Component {
+class Auth extends React.Component {
+  static propTypes = {
+    authed: PropTypes.bool.isRequired,
+  }
+
   state = {
     user: {
       email: '',
@@ -94,4 +99,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default Auth;

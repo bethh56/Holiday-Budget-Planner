@@ -9,9 +9,9 @@ import {
   NavLink,
 } from 'reactstrap';
 
+import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import firebase from 'firebase';
-
+import authData from '../../../helpers/data/authData';
 import './MyNavbar.scss';
 
 class MyNavbar extends React.Component {
@@ -24,8 +24,15 @@ class MyNavbar extends React.Component {
   }
 
   logoutClickEvent = (e) => {
+    const { user } = this.state;
     e.preventDefault();
-    firebase.auth().signOut();
+    authData.logoutUser(user)
+      .then(() => {
+        this.props.history.push('/auth');
+      })
+      .catch((error) => {
+        console.error('there was an error logging out', error);
+      });
   };
 
   render() {

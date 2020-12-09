@@ -12,19 +12,12 @@ import MyNavbar from '../Components/shared/MyNavbar/MyNavbar';
 import Home from '../Components/pages/Home/Home';
 import ViewAllBudgets from '../Components/pages/ViewAllBudgets/ViewAllBudgets';
 import AddNewBudget from '../Components/pages/AddNewBudget/AddNewBudget';
-import Login from '../Components/pages/Login/Login';
+import Auth from '../Components/pages/Auth/Auth';
 
 // import ordersData from '../helpers/data/ordersData';
 import './App.scss';
 
 fbConnection();
-
-const PrivateRoute = ({ component: Component, authed, ...rest }) => {
-  const routeChecker = (props) => (authed === true
-    ? (<Component { ...props } />)
-    : (<Redirect to={{ pathname: '/login', state: { from: props.location } }} />));
-  return <Route {...rest} render={(props) => routeChecker(props)} />;
-};
 
 class App extends React.Component {
   state = {
@@ -60,10 +53,10 @@ class App extends React.Component {
             <div className="container">
               <div className="row">
               <Switch authed={authed}>
+                  <Route path='/auth' component={Auth} authed={authed}/>
                   <Route path='/home' component={Home} authed={authed}/>
                   <Route path='/viewAllBudgets' component={ViewAllBudgets} authed={authed}/>
                   <Route path='/addNewBudget' component={AddNewBudget} authed={authed}/>
-                  <Route path='/login' component={Login} authed={authed}/>
                   <Redirect from='*' to='/home' />
                 </Switch>
               </div>
