@@ -35,8 +35,8 @@ class BudgetItemTable extends React.Component {
       </thead>
       <tbody>
         <tr>
-          <td>{lineItems.map((i, indx) => <p key={i}>{i.itemName}</p>)}</td>
-          <td>{lineItems.map((i, indx) => <p key={i}>${i.price}</p>)}</td>
+          <td>{lineItems.map((i, indx) => <p key={indx}>{i.itemName}</p>)}</td>
+          <td>{lineItems.map((i, indx) => <p key={indx}>${i.price}</p>)}</td>
         </tr>
       </tbody>
       </Table>
