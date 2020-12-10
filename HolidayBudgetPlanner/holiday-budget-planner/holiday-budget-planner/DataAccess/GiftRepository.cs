@@ -14,22 +14,36 @@ namespace holiday_budget_planner.DataAccess
 
         const string _connectionString = "Server=localhost;Database=HolidayBudgetPlanner;Trusted_Connection=True";
 
-        public IEnumerable<Gift> GetGift(int userId)
+        public Gift GetGift(int userId)
         {
             using var db = new SqlConnection(_connectionString);
 
             var parameters = new { userId };
 
-            var sql = @"select G.recepient, G.item, G.budgetId, G.price
+            var sqlForTotalPrice = @"select G.budgetId, SUM(price) as TotalPrice
+                                        from Gift G
+	                                        join Budget B on 
+	                                        B.id = G.budgetId
+	                                        where B.currentPlan = 1 AND userId = @userId AND G.isActive = 1
+                                        GROUP BY G.budgetId";
+
+            var giftTotalByBudgetId = db.QueryFirstOrDefault<Gift>(sqlForTotalPrice, parameters);
+
+            var sql = @"select G.recepient, G.item, G.price
                         from Gift G
 	                        join Budget B on 
 	                        B.id = G.budgetId
 	                        where B.currentPlan = 1 AND userId = @userId AND G.isActive = 1
-                        GROUP BY  G.recepient, G.item, G.budgetId, G.price";
+                        GROUP BY  G.recepient, G.item, G.price";
 
-            var gift = db.Query<Gift>(sql, parameters);
+            var giftItems = db.Query<GiftItem>(sql, parameters);
 
-            return gift;
+            giftTotalByBudgetId.GiftInfo = (List<GiftItem>)giftItems;
+
+            return giftTotalByBudgetId;
+
         }
     }
 }
+
+
