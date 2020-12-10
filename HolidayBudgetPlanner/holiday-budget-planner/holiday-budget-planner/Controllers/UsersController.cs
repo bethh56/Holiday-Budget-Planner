@@ -19,13 +19,31 @@ namespace holiday_budget_planner.Controllers
         {
             _userRepo = new UsersRepository();
         }
-
+        
         [HttpGet]
         public IActionResult GetAllUsers()
         {
             var allUsers = _userRepo.GetAllUsers();
 
             return Ok(allUsers);
+
+        }
+
+        [HttpGet("{userId}")]
+        public IActionResult GetUserById(int userId)
+        {
+            var singleUser = _userRepo.GetUserById(userId);
+
+            return Ok(singleUser);
+
+        }
+
+        [HttpPost]
+        public IActionResult AddUser(Users newUser)
+        {
+            _userRepo.Add(newUser);
+
+            return Created($"/api/users/{newUser.Id}", newUser);
 
         }
     }

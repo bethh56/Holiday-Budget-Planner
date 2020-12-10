@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using holiday_budget_planner.DataAccess;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
@@ -31,6 +32,7 @@ namespace holiday_budget_planner
             services.AddControllers();
             services.AddSingleton<IConfiguration>(Configuration);
 
+            services.AddTransient<UsersRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>
@@ -59,6 +61,10 @@ namespace holiday_budget_planner
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(policy => policy.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod());
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

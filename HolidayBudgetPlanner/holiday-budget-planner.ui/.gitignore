@@ -5,7 +5,6 @@ dist/
 .firebase/
 src/helpers/apiKeys.json
 
-
 # dependencies
 /node_modules
 /.pnp

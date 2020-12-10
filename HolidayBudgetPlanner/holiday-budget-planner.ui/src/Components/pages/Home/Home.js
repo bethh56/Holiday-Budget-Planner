@@ -1,5 +1,5 @@
 import React from 'react';
-import budgetData from '../../../helpers/data/budgetData';
+import budgetData from '../../../helpers/data/bugdgetData';
 import giftData from '../../../helpers/data/giftData';
 import itemData from '../../../helpers/data/itemData';
 
