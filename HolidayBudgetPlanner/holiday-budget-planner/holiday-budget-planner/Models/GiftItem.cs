@@ -11,5 +11,6 @@ namespace holiday_budget_planner.Models
         public string Recepient { get; set; }
         public string Item { get; set; }
         public decimal Price { get; set; }
+        public bool isActive { get; set; }
     }
 }

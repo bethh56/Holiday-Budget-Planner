@@ -31,13 +31,13 @@ namespace holiday_budget_planner.Controllers
             return Ok(gifts);
         }
 
-     /*   [HttpPost("removeGift/{id}")]
+        [HttpDelete("removeGift/{id}")]
         public IActionResult RemoveGift(int id)
         {
-            var giftToRemove = _giftRepo.RemoveGift(id);
+            _giftRepo.RemoveGift(id);
 
-            return Ok(giftToRemove);
-        }*/
+            return Ok();
+        }
 
     }
 }
