@@ -29,7 +29,15 @@ namespace holiday_budget_planner.Controllers
             var gifts = _giftRepo.GetGift(userId);
 
             return Ok(gifts);
-
         }
+
+     /*   [HttpPost("removeGift/{id}")]
+        public IActionResult RemoveGift(int id)
+        {
+            var giftToRemove = _giftRepo.RemoveGift(id);
+
+            return Ok(giftToRemove);
+        }*/
+
     }
 }

@@ -7,6 +7,7 @@ namespace holiday_budget_planner.Models
 {
     public class GiftItem
     {   
+        public int id { get; set; }
         public string Recepient { get; set; }
         public string Item { get; set; }
         public decimal Price { get; set; }
