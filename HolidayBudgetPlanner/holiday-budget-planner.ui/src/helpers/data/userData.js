@@ -5,7 +5,7 @@ const getAllUsers = () => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/users`)
     .then((response) => {
       resolve(response.data);
-      console.error('users', response.data);
+      // console.error('users', response.data);
     })
     .catch((err) => reject(err, 'error'));
 });

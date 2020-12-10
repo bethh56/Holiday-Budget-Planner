@@ -44,7 +44,7 @@ class MyNavbar extends React.Component {
 
     const buildNavbar = () => {
       const { authed } = this.props;
-      console.error('auth in navbar', { authed });
+      // console.error('auth in navbar', { authed });
       if (authed) {
         return (
           <React.Fragment>

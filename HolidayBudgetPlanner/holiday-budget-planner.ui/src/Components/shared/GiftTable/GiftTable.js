@@ -1,25 +1,26 @@
 import React from 'react';
 import { Table } from 'reactstrap';
-// import itemData from '../../../helpers/data/itemData';
+import giftData from '../../../helpers/data/giftData';
 import './GiftTable.scss';
 
 class GiftTable extends React.Component {
-  // state = {
-  //   lineItems: [],
-  // }
+  state = {
+    gifts: [],
+  }
 
-  // getBudgetLineItems = () => {
-  //   itemData.getBudgetLineItems(2)
-  //     .then((lineItems) => this.setState({ lineItems }))
-  //     .catch((err) => console.error('unable to get budget line item info'));
-  // }
+  getGifts = () => {
+    giftData.getGiftItems(1)
+      .then((gifts) => this.setState({ gifts }))
+      .catch((err) => console.error('unable to get budget line item info'));
+  }
 
-  // componentDidMount() {
-  //   this.getBudgetLineItems();
-  // }
+  componentDidMount() {
+    this.getGifts();
+  }
 
   render() {
     const { item } = this.props;
+    const { gifts } = this.state;
 
     return (
       <div className="BudgetItemTable">
@@ -28,14 +29,16 @@ class GiftTable extends React.Component {
         <Table>
       <thead>
         <tr>
-          <th>Item Name</th>
-          <th>price</th>
+          <th>Gift Recepient</th>
+          <th>Item</th>
+          <th>Cost</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          {/* <td>{lineItems.map((i, indx) => <p key={i}>{i.itemName}</p>)}</td>
-          <td>{lineItems.map((i, indx) => <p key={i}>${i.price}</p>)}</td> */}
+          <td>{gifts.map((i, indx) => <p key={indx}>{i.recepient}</p>)}</td>
+          <td>{gifts.map((i, indx) => <p key={indx}>{i.item}</p>)}</td>
+          <td>{gifts.map((i, indx) => <p key={indx}>${i.price}</p>)}</td>
         </tr>
       </tbody>
       </Table>
