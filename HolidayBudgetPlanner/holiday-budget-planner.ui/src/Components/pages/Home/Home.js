@@ -1,5 +1,5 @@
 import React from 'react';
-import budgetData from '../../../helpers/data/bugdgetData';
+import budgetData from '../../../helpers/data/budgetData';
 import giftData from '../../../helpers/data/giftData';
 import itemData from '../../../helpers/data/itemData';
 
@@ -31,12 +31,13 @@ class Home extends React.Component {
   getGiftInfo = () => {
     giftData.getGiftBudget(1)
       .then((gift) => this.setState({ gift }))
-      .catch((err) => console.error('unable to get budget item info'));
+      .catch((err) => console.error('unable to get gift info'));
   }
 
   componentDidMount() {
     this.getCurrentBudgetAmountInfo();
     this.getBudgetItems();
+    this.getGiftInfo();
   }
 
   render() {
