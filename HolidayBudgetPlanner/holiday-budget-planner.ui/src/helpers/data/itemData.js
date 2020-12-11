@@ -18,5 +18,7 @@ const getBudgetLineItems = (userId) => new Promise((resolve, reject) => {
     .catch((err) => reject(err, 'error'));
 });
 
+const deleteItem = (itemId) => axios.delete(`${baseUrl}/gift/removeGift/${itemId}`);
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getBudgetItems, getBudgetLineItems };
+export default { getBudgetItems, getBudgetLineItems, deleteItem };
