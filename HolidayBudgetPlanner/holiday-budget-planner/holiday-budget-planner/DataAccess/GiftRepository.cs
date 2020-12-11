@@ -38,7 +38,8 @@ namespace holiday_budget_planner.DataAccess
 
             var giftItems = db.Query<GiftItem>(sql, parameters);
 
-            giftTotalByBudgetId.GiftInfo = (List<GiftItem>)giftItems;
+            if (giftItems.Count() > 0) 
+                giftTotalByBudgetId.GiftInfo = (List<GiftItem>)giftItems;
 
             return giftTotalByBudgetId;
         }

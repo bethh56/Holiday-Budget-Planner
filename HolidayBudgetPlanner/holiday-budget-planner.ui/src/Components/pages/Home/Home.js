@@ -40,11 +40,17 @@ class Home extends React.Component {
     this.getGiftInfo();
   }
 
+  removeGift = (giftId) => {
+    giftData.deleteGift(giftId)
+      .then(() => this.componentDidMount())
+      .catch((err) => console.error('unable to delete gift', err));
+  }
+
   render() {
     const { budget, category, gift } = this.state;
     const buildCurrentViewedBudget = [budget].map((budgetPlan) => (<BudgetDetails key={budgetPlan.id} budgetPlan={budgetPlan}/>));
     const buildItemTable = [category].map((item) => (<BudgetItemTable key={item.id} item={item}/>));
-    const buildGiftTable = [gift].map((item) => (<GiftTable key={item.id} item={item}/>));
+    const buildGiftTable = [gift].map((item) => (<GiftTable key={item.id} item={item} removeGift={this.removeGift}/>));
 
     return (
       <div className="home">
