@@ -1,9 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Table } from 'reactstrap';
 import giftData from '../../../helpers/data/giftData';
 import './GiftTable.scss';
 
 class GiftTable extends React.Component {
+  static propTypes = {
+    removeGift: PropTypes.func.isRequired,
+  }
+
   state = {
     gifts: [],
   }
@@ -19,7 +24,7 @@ class GiftTable extends React.Component {
   }
 
   render() {
-    const { item } = this.props;
+    const { item, removeGift } = this.props;
     const { gifts } = this.state;
 
     return (
@@ -35,11 +40,14 @@ class GiftTable extends React.Component {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>{gifts.map((i, indx) => <p key={indx}>{i.recepient}</p>)}</td>
-          <td>{gifts.map((i, indx) => <p key={indx}>{i.item}</p>)}</td>
-          <td>{gifts.map((i, indx) => <p key={indx}>${i.price}</p>)}</td>
-        </tr>
+          {gifts?.map((i, indx) => (
+          <tr>
+          <td><p key={indx}>{i.recepient}</p></td>
+          <td><p key={indx}>{i.item}</p></td>
+          <td><p key={indx}>${i.price}</p></td>
+          <td> <button key={indx} className="btn btn-danger" onClick={() => removeGift(i.id)}><i className="fas fa-trash-alt"></i></button> </td>
+          </tr>
+          ))}
       </tbody>
       </Table>
       </div>

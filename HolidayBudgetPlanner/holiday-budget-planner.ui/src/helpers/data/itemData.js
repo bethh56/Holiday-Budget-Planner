@@ -13,6 +13,7 @@ const getBudgetLineItems = (userId) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/ItemCategory/user${userId}`)
     .then((response) => {
       resolve(response.data.lineItems);
+      console.error(response.data.lineItems);
     })
     .catch((err) => reject(err, 'error'));
 });
