@@ -20,7 +20,7 @@ namespace holiday_budget_planner.DataAccess
 
             var parameters = new { userId };
 
-            var sqlForTotalPrice = @"select G.budgetId, SUM(price) as TotalPrice
+            var sqlForTotalPrice = @"select G.budgetId AS id, SUM(price) as TotalPrice
                                         from Gift G
 	                                        join Budget B on 
 	                                        B.id = G.budgetId
@@ -29,18 +29,29 @@ namespace holiday_budget_planner.DataAccess
 
             var giftTotalByBudgetId = db.QueryFirstOrDefault<Gift>(sqlForTotalPrice, parameters);
 
-            var sql = @"select G.recepient, G.item, G.price
+            var sql = @"select G.recepient, G.item, G.price, G.id, G.IsActive
                         from Gift G
 	                        join Budget B on 
 	                        B.id = G.budgetId
 	                        where B.currentPlan = 1 AND userId = @userId AND G.isActive = 1
-                        GROUP BY  G.recepient, G.item, G.price";
+                        GROUP BY  G.recepient, G.item, G.price, G.id, G.IsActive";
 
             var giftItems = db.Query<GiftItem>(sql, parameters);
 
-            giftTotalByBudgetId.GiftInfo = (List<GiftItem>)giftItems;
+            if (giftItems.Count() > 0) 
+                giftTotalByBudgetId.GiftInfo = (List<GiftItem>)giftItems;
 
             return giftTotalByBudgetId;
+        }
+
+        public void RemoveGift(int id)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"DELETE
+                        FROM Gift
+                        WHERE Id = @id";
+
+            db.Execute(sql, new { id = id });
 
         }
     }
