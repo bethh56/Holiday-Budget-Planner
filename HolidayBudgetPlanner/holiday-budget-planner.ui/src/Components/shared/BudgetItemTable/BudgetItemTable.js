@@ -19,7 +19,7 @@ class BudgetItemTable extends React.Component {
   }
 
   render() {
-    const { item } = this.props;
+    const { item, removeItem } = this.props;
     const { lineItems } = this.state;
 
     return (
@@ -34,10 +34,13 @@ class BudgetItemTable extends React.Component {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>{lineItems.map((i, indx) => <p key={indx}>{i.itemName}</p>)}</td>
-          <td>{lineItems.map((i, indx) => <p key={indx}>${i.price}</p>)}</td>
-        </tr>
+        {lineItems.map((i, indx) => (
+          <tr>
+          <td key={indx}>{i.itemName}</td>
+          <td key={indx}>${i.price}</td>
+          <td><button key={indx} className="btn btn-danger" onClick={() => removeItem(i.id)}><i className="fas fa-trash-alt"></i></button> </td>
+          </tr>
+        ))}
       </tbody>
       </Table>
       </div>
