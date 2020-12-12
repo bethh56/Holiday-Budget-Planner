@@ -7,7 +7,6 @@ namespace holiday_budget_planner.Models
 {
     public class ItemCategory
     {
-        public int Id { get; set; }
         public string CategoryName { get; set; }
         public bool IsActive { get; set; } = true;
         public int BudgetId { get; set; }
