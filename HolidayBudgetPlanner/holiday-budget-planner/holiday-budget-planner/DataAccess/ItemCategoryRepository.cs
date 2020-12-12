@@ -18,29 +18,40 @@ namespace holiday_budget_planner.DataAccess
             using var db = new SqlConnection(_connectionString);
             var parameters = new { userId };
 
-            var categorySql = @"select categoryName, budgetId, userId, SUM(price) AS TotalPrice
-                                from ItemCategory
-                                join Budget on
-                                Budget.id = budgetId
-                                where Budget.currentPlan = 1 AND userId = @userId
-                                GROUP BY categoryName, budgetId, userId";
+            var categorySql = @"select Ic.categoryName, Ic.budgetId, B.userId, SUM(price) AS TotalPrice
+                                from ItemCategory Ic
+                                join Budget B on
+                                B.id = Ic.budgetId
+                                where B.currentPlan = 1 AND B.userId = @userId
+                                GROUP BY Ic.categoryName, Ic.budgetId, B.userId";
 
 
             var categoryInfo = db.QueryFirstOrDefault<ItemCategory>(categorySql, parameters);
-            var itemSql = @"select itemName, price
-	                            from ItemCategory
-	                            join Budget on
-	                            budgetId = Budget.id
-								where currentPlan = 1 AND userId = @userId
-                                GROUP BY itemName, price";
+            var itemSql = @"select Ic.itemName, Ic.price, Ic.id
+	                            from ItemCategory Ic
+	                            join Budget B on
+	                            Ic.budgetId = B.id
+								where B.currentPlan = 1 AND B.userId = @userId
+                                GROUP BY Ic.itemName, Ic.price, Ic.id";
 
-            var item = db.Query<Item>(itemSql, parameters);
+            var item = db.Query<Item>(itemSql, parameters); 
 
-            categoryInfo.LineItems = (List<Item>)item;
+            if (item.Count() > 0)
+                categoryInfo.LineItems = (List<Item>)item;
 
             return categoryInfo;
+        }
+
+        public void RemoveItem(int id)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"DELETE
+                        FROM ItemCategory
+                        WHERE Id = @id";
+
+            db.Execute(sql, new { id = id });
 
         }
-        
+
     }
 }
