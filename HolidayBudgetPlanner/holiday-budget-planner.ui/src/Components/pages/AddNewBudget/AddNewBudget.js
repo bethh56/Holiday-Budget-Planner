@@ -1,5 +1,5 @@
 import React from 'react';
-import budgetData from '../../../helpers/data/budgetData';
+// import budgetData from '../../../helpers/data/budgetData';
 import './AddNewBudget.scss';
 
 class AddNewBudget extends React.Component {
@@ -9,9 +9,9 @@ class AddNewBudget extends React.Component {
     currentPlan: false,
   }
 
-  componentDidMount() {
-    this.createNewBudget();
-  }
+  // componentDidMount() {
+  //   this.createNewBudget();
+  // }
 
   render() {
     return (

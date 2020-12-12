@@ -29,9 +29,10 @@ namespace holiday_budget_planner.DataAccess
         public Budget GetCurrentBudget(int userId)
         {
             using var db = new SqlConnection(_connectionString);
-            var sql = @"select *
+            var sql = @"select TOP 1 *
                         from Budget
-                        where currentPlan = 1 AND userId = @userId";
+                        where currentPlan = 1 AND userId = @userId
+                        ORDER BY B.dateCreated desc";
 
             var parameters = new { userId };
 
