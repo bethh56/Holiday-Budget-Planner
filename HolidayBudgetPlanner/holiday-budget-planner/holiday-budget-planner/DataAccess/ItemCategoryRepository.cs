@@ -13,7 +13,7 @@ namespace holiday_budget_planner.DataAccess
 
         const string _connectionString = "Server=localhost;Database=HolidayBudgetPlanner;Trusted_Connection=True";
 
-        public ItemCategory GetAllCurrentItemCategoriesByUserId(int userId)
+        public IEnumerable<ItemCategory> GetAllCurrentItemCategoriesByUserId(int userId)
         {
             using var db = new SqlConnection(_connectionString);
             var parameters = new { userId };
@@ -25,22 +25,35 @@ namespace holiday_budget_planner.DataAccess
                                 where B.userId = @userId
                                 GROUP BY Ic.categoryName, Ic.budgetId, B.userId";
 
+            var categoryInfo = db.Query<ItemCategory>(categorySql, parameters);
 
-            var categoryInfo = db.QueryFirstOrDefault<ItemCategory>(categorySql, parameters);
-            var itemSql = @"select Ic.itemName, Ic.price, Ic.id
+            foreach (var ic in categoryInfo)
+            {
+                var categoryName = new
+                {
+                    categoryName = ic.CategoryName
+                } {
+                    userId = ic.userId;
+                }
+                };
+
+
+                var itemSql = @"select Ic.itemName, Ic.price, Ic.id, B.userId
 	                            from ItemCategory Ic
 	                            join Budget B on
 	                            Ic.budgetId = B.id
-								where B.userId = @userId
-                                GROUP BY Ic.itemName, Ic.price, Ic.id";
+								where Ic.categoryName = @categoryName AND B.userId = @userId
+                                GROUP BY Ic.itemName, Ic.price, Ic.id, B.userId";
 
-            var item = db.Query<Item>(itemSql, parameters);
+                var item = db.Query<Item>(itemSql, categoryName);
 
-
-           if (item.Count() > 0)
-                categoryInfo.LineItems = (List<Item>)item;
+                if (item.Count() > 0)
+                    ic.LineItems = (List<Item>)item;
+                    
+            }
 
             return categoryInfo;
+
         }
 
         public void RemoveItem(int id)
