@@ -18,12 +18,13 @@ namespace holiday_budget_planner.DataAccess
             using var db = new SqlConnection(_connectionString);
             var parameters = new { userId };
 
-            var categorySql = @"select Ic.categoryName, Ic.budgetId, B.userId, SUM(price) AS TotalPrice
+            var categorySql = @"select TOP 1 Ic.categoryName, Ic.budgetId, B.userId, B.dateCreated, SUM(price) AS TotalPrice
                                 from ItemCategory Ic
                                 join Budget B on
                                 B.id = Ic.budgetId
                                 where B.userId = @userId
-                                GROUP BY Ic.categoryName, Ic.budgetId, B.userId";
+                                GROUP BY Ic.categoryName, Ic.budgetId, B.userId, B.dateCreated
+                                ORDER BY B.dateCreated desc";
 
             var categoryInfo = db.Query<ItemCategory>(categorySql, parameters);
 
@@ -33,8 +34,6 @@ namespace holiday_budget_planner.DataAccess
                 var dynamicParameters = new DynamicParameters();
                 dynamicParameters.Add("categoryName", categoryName);
                 dynamicParameters.Add("userid", userId);
-               /* { categoryName = ic.CategoryName };*/
-
 
                 var itemSql = @"select Ic.itemName, Ic.price, Ic.id, B.userId
 	                            from ItemCategory Ic

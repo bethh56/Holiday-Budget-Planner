@@ -20,12 +20,13 @@ namespace holiday_budget_planner.DataAccess
 
             var parameters = new { userId };
 
-            var sqlForTotalPrice = @"select G.budgetId, SUM(price) as TotalPrice
+            var sqlForTotalPrice = @"select G.budgetId, B.dateCreated, SUM(price) as TotalPrice
                                         from Gift G
 	                                        join Budget B on 
 	                                        B.id = G.budgetId
 	                                        where userId = @userId AND G.isActive = 1
-                                        GROUP BY G.budgetId";
+                                        GROUP BY G.budgetId, B.dateCreated
+                                        ORDER BY B.dateCreated desc";
 
             var giftTotalByBudgetId = db.QueryFirstOrDefault<Gift>(sqlForTotalPrice, parameters);
 
