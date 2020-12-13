@@ -1,4 +1,10 @@
 import React from 'react';
+import {
+  Button,
+  NavItem,
+  NavLink,
+} from 'reactstrap';
+
 import budgetData from '../../../helpers/data/budgetData';
 import giftData from '../../../helpers/data/giftData';
 import itemData from '../../../helpers/data/itemData';
@@ -68,7 +74,6 @@ class Home extends React.Component {
 
     return (
       <div className="home">
-        <h1>Home</h1>
         {buildCurrentViewedBudget}
         {buildGiftTable}
         {buildItemTable}
