@@ -29,13 +29,11 @@ namespace holiday_budget_planner.DataAccess
 
             foreach (var ic in categoryInfo)
             {
-                var categoryName = new
-                {
-                    categoryName = ic.CategoryName
-                } {
-                    userId = ic.userId;
-                }
-                };
+                var categoryName = ic.CategoryName;
+                var dynamicParameters = new DynamicParameters();
+                dynamicParameters.Add("categoryName", categoryName);
+                dynamicParameters.Add("userid", userId);
+               /* { categoryName = ic.CategoryName };*/
 
 
                 var itemSql = @"select Ic.itemName, Ic.price, Ic.id, B.userId
@@ -45,7 +43,7 @@ namespace holiday_budget_planner.DataAccess
 								where Ic.categoryName = @categoryName AND B.userId = @userId
                                 GROUP BY Ic.itemName, Ic.price, Ic.id, B.userId";
 
-                var item = db.Query<Item>(itemSql, categoryName);
+                var item = db.Query<Item>(itemSql, dynamicParameters);
 
                 if (item.Count() > 0)
                     ic.LineItems = (List<Item>)item;
