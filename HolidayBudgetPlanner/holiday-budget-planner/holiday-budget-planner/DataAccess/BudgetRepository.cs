@@ -29,9 +29,11 @@ namespace holiday_budget_planner.DataAccess
         public Budget GetCurrentBudget(int userId)
         {
             using var db = new SqlConnection(_connectionString);
-            var sql = @"select TOP 1 *
-                        from Budget
-                        where currentPlan = 1 AND userId = @userId
+            var sql = @"select TOP 1 B.id, B.dateCreated, B.userId, B.budgetAmount, Holiday.holidayName
+                        from Budget B
+	                        join Holiday
+	                        on Holiday.id = B.holidayId
+                        where userId = @userId
                         ORDER BY B.dateCreated desc";
 
             var parameters = new { userId };
@@ -49,11 +51,10 @@ namespace holiday_budget_planner.DataAccess
                         ,[BudgetAmount]
                         ,[DateCreated]
                         ,[IsActive]
-                        ,[CurrentPlan]
                         ,[UserId])
                        Output inserted.Id
                         VALUES
-                             (@holidayId, @budgetAmount, @dateCreated, @isActive, @currentPlan, @userId)";
+                             (@holidayId, @budgetAmount, @dateCreated, @isActive, @userId)";
             using var db = new SqlConnection(_connectionString);
 
             var newId = db.ExecuteScalar<int>(sql, budgetAdded);

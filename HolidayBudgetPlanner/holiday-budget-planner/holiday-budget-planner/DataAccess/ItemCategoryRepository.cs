@@ -22,7 +22,7 @@ namespace holiday_budget_planner.DataAccess
                                 from ItemCategory Ic
                                 join Budget B on
                                 B.id = Ic.budgetId
-                                where B.currentPlan = 1 AND B.userId = @userId
+                                where B.userId = @userId
                                 GROUP BY Ic.categoryName, Ic.budgetId, B.userId";
 
 
@@ -31,12 +31,13 @@ namespace holiday_budget_planner.DataAccess
 	                            from ItemCategory Ic
 	                            join Budget B on
 	                            Ic.budgetId = B.id
-								where B.currentPlan = 1 AND B.userId = @userId
+								where B.userId = @userId
                                 GROUP BY Ic.itemName, Ic.price, Ic.id";
 
-            var item = db.Query<Item>(itemSql, parameters); 
+            var item = db.Query<Item>(itemSql, parameters);
 
-            if (item.Count() > 0)
+
+           if (item.Count() > 0)
                 categoryInfo.LineItems = (List<Item>)item;
 
             return categoryInfo;

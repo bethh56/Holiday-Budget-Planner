@@ -11,6 +11,7 @@ namespace holiday_budget_planner.Models
         public decimal TotalPrice { get; set; }
         public bool IsActive { get; set; } = true;
         public int BudgetId { get; set; }
+        public DateTime BudgetDateCreated { get; set; }
         public List<GiftItem> GiftInfo { get; set; } = new List<GiftItem>();
     }
 }
