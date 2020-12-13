@@ -29,7 +29,7 @@ namespace holiday_budget_planner.DataAccess
         public Budget GetCurrentBudget(int userId)
         {
             using var db = new SqlConnection(_connectionString);
-            var sql = @"select TOP 1 B.id, B.dateCreated, B.userId, B.budgetAmount, Holiday.holidayName
+            var sql = @"select TOP 1 B.id, B.dateCreated, B.userId, B.budgetAmount, Holiday.holidayName, B.holidayId
                         from Budget B
 	                        join Holiday
 	                        on Holiday.id = B.holidayId

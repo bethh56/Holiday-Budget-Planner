@@ -10,7 +10,10 @@ class BudgetItemTable extends React.Component {
 
   getBudgetLineItems = () => {
     itemData.getBudgetLineItems(1)
-      .then((lineItems) => this.setState({ lineItems }))
+      .then((lineItems) => {
+        this.setState({ lineItems });
+        console.error('lineItems', lineItems);
+      })
       .catch((err) => console.error('unable to get budget line item info'));
   }
 

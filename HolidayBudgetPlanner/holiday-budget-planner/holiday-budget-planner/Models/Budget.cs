@@ -9,6 +9,7 @@ namespace holiday_budget_planner.Models
     {
         public int Id { get; set; }
         public string HolidayName { get; set; }
+        public int HolidayId { get; set; }
         public decimal BudgetAmount { get; set; }
         public DateTime DateCreated { get; set; }
         public bool IsActive { get; set; } = true;

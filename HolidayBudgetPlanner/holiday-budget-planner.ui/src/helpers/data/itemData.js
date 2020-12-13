@@ -5,6 +5,7 @@ const getBudgetItems = (userId) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/ItemCategory/user${userId}`)
     .then((response) => {
       resolve(response.data);
+      // console.error(response.data);
     })
     .catch((err) => reject(err, 'error'));
 });
@@ -12,8 +13,11 @@ const getBudgetItems = (userId) => new Promise((resolve, reject) => {
 const getBudgetLineItems = (userId) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/ItemCategory/user${userId}`)
     .then((response) => {
-      resolve(response.data.lineItems);
-      console.error(response.data.lineItems);
+      const items = response.data;
+      items.forEach((i) => {
+        // console.error(i.lineItems);
+        resolve(i.lineItems);
+      });
     })
     .catch((err) => reject(err, 'error'));
 });
