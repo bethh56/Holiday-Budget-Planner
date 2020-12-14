@@ -20,6 +20,7 @@ class AddNewBudget extends React.Component {
 
   setHoliday = (e) => {
     e.preventDefault();
+    console.error(e.value);
     this.setState({ idOfHoliday: e.target.value });
   }
 
@@ -33,14 +34,14 @@ class AddNewBudget extends React.Component {
     } = this.state;
 
     const newItem = {
-      holidayId: idOfHoliday,
+      holidayName: idOfHoliday,
       budgetAmount: budget,
       userId: 1,
       dateCreated: moment().format('MMMM Do YYYY, h:mm:ss a'),
     };
     budgetData.addNewBudget(newItem)
       .then(() => this.props.history.push('/home'))
-      .catch((err) => console.error('unable to save new budget', err));
+      .catch((err) => console.error(newItem, err));
   }
 
   displayHolidayOptions = () => {
@@ -65,10 +66,10 @@ class AddNewBudget extends React.Component {
         <form>
         <label>
           Select a Holiday
-          <select>
+          <select value={idOfHoliday} onChange={this.setHoliday}>
             {
-              holiday.map((h, indx) => (
-                <option value={idOfHoliday} onChange={this.setHoliday}>{h.holidayName}</option>
+              holiday.map((h) => (
+                <option value={h.holidayId}>{h.holidayName}</option>
               ))
             }
           </select>

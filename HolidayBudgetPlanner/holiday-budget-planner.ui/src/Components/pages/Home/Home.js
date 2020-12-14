@@ -1,9 +1,4 @@
 import React from 'react';
-import {
-  Button,
-  NavItem,
-  NavLink,
-} from 'reactstrap';
 
 import budgetData from '../../../helpers/data/budgetData';
 import giftData from '../../../helpers/data/giftData';
@@ -19,6 +14,7 @@ class Home extends React.Component {
     budget: [],
     category: [],
     gift: [],
+    holiday: [],
   }
 
   // gets the amount in the budget and is displayed in Budget Details
