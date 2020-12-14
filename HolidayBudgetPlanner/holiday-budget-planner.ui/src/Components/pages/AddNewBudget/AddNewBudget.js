@@ -20,7 +20,6 @@ class AddNewBudget extends React.Component {
 
   setHoliday = (e) => {
     e.preventDefault();
-    console.error(e.value);
     this.setState({ idOfHoliday: e.target.value });
   }
 
@@ -39,9 +38,10 @@ class AddNewBudget extends React.Component {
       userId: 1,
       dateCreated: moment().format('MMMM Do YYYY, h:mm:ss a'),
     };
+
     budgetData.addNewBudget(newItem)
       .then(() => this.props.history.push('/home'))
-      .catch((err) => console.error(newItem, err));
+      .catch((err) => console.error('unable to save', err));
   }
 
   displayHolidayOptions = () => {
