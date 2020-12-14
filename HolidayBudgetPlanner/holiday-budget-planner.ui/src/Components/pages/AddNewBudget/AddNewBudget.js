@@ -8,9 +8,9 @@ class AddNewBudget extends React.Component {
   state = {
     idOfHoliday: '',
     budget: '',
-    user: '2',
     holiday: [],
-    date: '11/17/2020',
+    // user: '2',
+    // date: '11/17/2020',
   }
 
   setBudget = (e) => {
@@ -23,25 +23,20 @@ class AddNewBudget extends React.Component {
     this.setState({ idOfHoliday: e.target.value });
   }
 
-  getDate = (e) => {
-    e.preventDefault();
-    this.setState({ dateCreated: moment().format('MMMM Do YYYY, h:mm:ss a') });
-  }
-
   saveNewBudget = (e) => {
     e.preventDefault();
     const {
       idOfHoliday,
       budget,
-      user,
-      date,
+      // user,
+      // date,
     } = this.state;
 
     const newItem = {
       holidayId: idOfHoliday,
       budgetAmount: budget,
-      userId: user,
-      dateCreated: date,
+      userId: 1,
+      dateCreated: moment().format('MMMM Do YYYY, h:mm:ss a'),
     };
     budgetData.addNewBudget(newItem)
       .then(() => this.props.history.push('/home'))
