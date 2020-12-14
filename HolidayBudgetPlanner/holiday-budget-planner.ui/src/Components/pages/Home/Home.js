@@ -58,14 +58,6 @@ class Home extends React.Component {
       .catch((err) => console.error('unable to delete gift', err));
   }
 
-  addBudget = (addBudget) => {
-    budgetData.addNewBudget(addBudget)
-      .then(() => {
-        this.getCurrentBudgetAmountInfo();
-      })
-      .catch((err) => console.error('unable to add new budget', err));
-  }
-
   render() {
     const { budget, category, gift } = this.state;
     const buildCurrentViewedBudget = [budget].map((budgetPlan) => (<BudgetDetails key={budgetPlan.id} budgetPlan={budgetPlan}/>));

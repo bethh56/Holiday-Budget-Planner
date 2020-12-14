@@ -1,41 +1,47 @@
 import React from 'react';
+import moment from 'moment';
 import budgetData from '../../../helpers/data/budgetData';
 import holidayData from '../../../helpers/data/holidayData';
 import './AddNewBudget.scss';
 
 class AddNewBudget extends React.Component {
   state = {
-    holidayId: '',
-    budgetAmount: '',
-    userId: '',
+    idOfHoliday: '',
+    budget: '',
+    user: '2',
     holiday: [],
-    dateCreated: '',
+    date: '11/17/2020',
   }
 
-  budget = (e) => {
+  setBudget = (e) => {
     e.preventDefault();
-    this.setState({ budgetAmount: e.target.value });
+    this.setState({ budget: e.target.value });
   }
 
   setHoliday = (e) => {
     e.preventDefault();
-    this.setState({ holidayId: e.target.value });
+    this.setState({ idOfHoliday: e.target.value });
+  }
+
+  getDate = (e) => {
+    e.preventDefault();
+    this.setState({ dateCreated: moment().format('MMMM Do YYYY, h:mm:ss a') });
   }
 
   saveNewBudget = (e) => {
     e.preventDefault();
     const {
-      holidayId,
-      budgetAmount,
-      userId,
-      dateCreated,
+      idOfHoliday,
+      budget,
+      user,
+      date,
     } = this.state;
 
     const newItem = {
-      holidayById: holidayId,
-      plannedBudget: budgetAmount,
-      2: userId,
-      date: dateCreated,
+      holidayId: idOfHoliday,
+      budgetAmount: budget,
+      userId: user,
+      dateCreated: date,
     };
     budgetData.addNewBudget(newItem)
       .then(() => this.props.history.push('/home'))
@@ -55,8 +61,8 @@ class AddNewBudget extends React.Component {
   render() {
     const {
       holiday,
-      budgetAmount,
-      holidayId,
+      budget,
+      idOfHoliday,
     } = this.state;
     return (
       <div className="addNewBudget">
@@ -67,7 +73,7 @@ class AddNewBudget extends React.Component {
           <select>
             {
               holiday.map((h, indx) => (
-                <option value={holidayId} onChange={this.setHoliday}>{h.holidayName}</option>
+                <option value={idOfHoliday} onChange={this.setHoliday}>{h.holidayName}</option>
               ))
             }
           </select>
@@ -78,8 +84,8 @@ class AddNewBudget extends React.Component {
           type="text"
           className="form-control"
           id="item-name"
-          value={budgetAmount}
-          onChange={this.budget}/>
+          value={budget}
+          onChange={this.setBudget}/>
         </label>
         <button classname="btn btn-danger" onClick={this.saveNewBudget}>Submit</button>
       </form>
