@@ -18,15 +18,26 @@ namespace holiday_budget_planner.DataAccess
             using var db = new SqlConnection(_connectionString);
             var parameters = new { userId };
 
-            var categorySql = @"select TOP 1 Ic.categoryName, Ic.budgetId, B.userId, B.dateCreated, SUM(price) AS TotalPrice
+            var getNewestBudgetSql = @"select TOP 1 B.DateCreated, B.id
+                                      from Budget B
+                                      where B.userId = @userId
+                                      ORDER BY B.dateCreated desc";
+
+            var newestBudget = db.QueryFirstOrDefault<Budget>(getNewestBudgetSql, parameters);
+
+            var categoryDynamicParameters = new DynamicParameters();
+            categoryDynamicParameters.Add("id", newestBudget.Id);
+            categoryDynamicParameters.Add("userId", newestBudget.UserId);
+
+            var categorySql = @"select Ic.categoryName, Ic.budgetId, B.userId, B.dateCreated, SUM(price) AS TotalPrice
                                 from ItemCategory Ic
                                 join Budget B on
                                 B.id = Ic.budgetId
-                                where B.userId = @userId
+                                where B.userId = @userId AND B.Id = @id
                                 GROUP BY Ic.categoryName, Ic.budgetId, B.userId, B.dateCreated
                                 ORDER BY B.dateCreated desc";
 
-            var categoryInfo = db.Query<ItemCategory>(categorySql, parameters);
+            var categoryInfo = db.Query<ItemCategory>(categorySql, categoryDynamicParameters);
 
             foreach (var ic in categoryInfo)
             {
