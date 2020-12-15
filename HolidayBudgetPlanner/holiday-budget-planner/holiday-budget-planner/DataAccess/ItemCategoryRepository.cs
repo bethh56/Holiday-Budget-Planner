@@ -13,33 +13,55 @@ namespace holiday_budget_planner.DataAccess
 
         const string _connectionString = "Server=localhost;Database=HolidayBudgetPlanner;Trusted_Connection=True";
 
-        public ItemCategory GetAllCurrentItemCategoriesByUserId(int userId)
+        public IEnumerable<ItemCategory> GetAllCurrentItemCategoriesByUserId(int userId)
         {
             using var db = new SqlConnection(_connectionString);
             var parameters = new { userId };
 
-            var categorySql = @"select Ic.categoryName, Ic.budgetId, B.userId, SUM(price) AS TotalPrice
+            var getNewestBudgetSql = @"select TOP 1 B.DateCreated, B.id
+                                      from Budget B
+                                      where B.userId = @userId
+                                      ORDER BY B.dateCreated desc";
+
+            var newestBudget = db.QueryFirstOrDefault<Budget>(getNewestBudgetSql, parameters);
+
+            var categoryDynamicParameters = new DynamicParameters();
+            categoryDynamicParameters.Add("id", newestBudget.Id);
+            categoryDynamicParameters.Add("userId", newestBudget.UserId);
+
+            var categorySql = @"select Ic.categoryName, Ic.budgetId, B.userId, B.dateCreated, SUM(price) AS TotalPrice
                                 from ItemCategory Ic
                                 join Budget B on
                                 B.id = Ic.budgetId
-                                where B.currentPlan = 1 AND B.userId = @userId
-                                GROUP BY Ic.categoryName, Ic.budgetId, B.userId";
+                                where B.userId = @userId AND B.Id = @id
+                                GROUP BY Ic.categoryName, Ic.budgetId, B.userId, B.dateCreated
+                                ORDER BY B.dateCreated desc";
 
+            var categoryInfo = db.Query<ItemCategory>(categorySql, categoryDynamicParameters);
 
-            var categoryInfo = db.QueryFirstOrDefault<ItemCategory>(categorySql, parameters);
-            var itemSql = @"select Ic.itemName, Ic.price, Ic.id
+            foreach (var ic in categoryInfo)
+            {
+                var categoryName = ic.CategoryName;
+                var dynamicParameters = new DynamicParameters();
+                dynamicParameters.Add("categoryName", categoryName);
+                dynamicParameters.Add("userid", userId);
+
+                var itemSql = @"select Ic.itemName, Ic.price, Ic.id, B.userId
 	                            from ItemCategory Ic
 	                            join Budget B on
 	                            Ic.budgetId = B.id
-								where B.currentPlan = 1 AND B.userId = @userId
-                                GROUP BY Ic.itemName, Ic.price, Ic.id";
+								where Ic.categoryName = @categoryName AND B.userId = @userId
+                                GROUP BY Ic.itemName, Ic.price, Ic.id, B.userId";
 
-            var item = db.Query<Item>(itemSql, parameters); 
+                var item = db.Query<Item>(itemSql, dynamicParameters);
 
-            if (item.Count() > 0)
-                categoryInfo.LineItems = (List<Item>)item;
+                if (item.Count() > 0)
+                    ic.LineItems = (List<Item>)item;
+                    
+            }
 
             return categoryInfo;
+
         }
 
         public void RemoveItem(int id)
