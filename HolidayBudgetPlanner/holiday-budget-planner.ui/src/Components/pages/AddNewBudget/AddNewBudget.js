@@ -33,10 +33,10 @@ class AddNewBudget extends React.Component {
     } = this.state;
 
     const newItem = {
-      holidayName: idOfHoliday,
-      budgetAmount: budget,
+      holidayId: parseInt(idOfHoliday, NaN),
+      budgetAmount: parseInt(budget, NaN),
+      dateCreated: moment().format(),
       userId: 1,
-      dateCreated: moment().format('MMMM Do YYYY, h:mm:ss a'),
     };
 
     budgetData.addNewBudget(newItem)
@@ -69,7 +69,7 @@ class AddNewBudget extends React.Component {
           <select value={idOfHoliday} onChange={this.setHoliday}>
             {
               holiday.map((h) => (
-                <option value={h.holidayId}>{h.holidayName}</option>
+                <option value={h.id}>{h.holidayName}</option>
               ))
             }
           </select>

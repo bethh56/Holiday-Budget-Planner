@@ -12,7 +12,6 @@ namespace holiday_budget_planner.Models
         public string LastName { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-        public bool isActive { get; set; } = true;
         public string Uid { get; set; }
     }
 }

@@ -8,7 +8,6 @@ namespace holiday_budget_planner.Models
     public class ItemCategory
     {
         public string CategoryName { get; set; }
-        public bool IsActive { get; set; } = true;
         public int BudgetId { get; set; }
         public int userId { get; set; }
         public decimal TotalPrice { get; set; }

@@ -43,17 +43,17 @@ namespace holiday_budget_planner.DataAccess
             return budgetPlan;
 
         }
-
+        
         public void AddNewBudget(Budget budgetAdded)
         {
             var sql = @"INSERT INTO [dbo].[Budget]
-                        ([HolidayName]
+                        ([HolidayId]
                         ,[BudgetAmount]
                         ,[DateCreated]
                         ,[UserId])
                        Output inserted.Id
                         VALUES
-                             (@HolidayName, @budgetAmount, @dateCreated, @userId)";
+                             (@holidayId, @budgetAmount, @dateCreated, @userId)";
             using var db = new SqlConnection(_connectionString);
 
             var newId = db.ExecuteScalar<int>(sql, budgetAdded);
