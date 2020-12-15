@@ -8,7 +8,7 @@ import './PreviousBudget.scss';
 class PreviousBudget extends React.Component {
   render() {
     return (
-      <div className="home">
+      <div className="previousBudget">
         <BudgetDetails/>
         <BudgetItemTable/>
         <GiftTable/>

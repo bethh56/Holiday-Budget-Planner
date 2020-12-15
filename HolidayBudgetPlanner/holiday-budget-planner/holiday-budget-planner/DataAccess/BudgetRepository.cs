@@ -18,7 +18,7 @@ namespace holiday_budget_planner.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
             var parameters = new { userId };
-            var sql = @"select *
+            var sql = @"select B.Id AS Id, B.budgetAmount, B.dateCreated, B.userId AS userId, H.holidayName
 	                    from Budget B
 	                    join Holiday H
 	                    on B.holidayId = H.id

@@ -1,7 +1,7 @@
 import React from 'react';
-import { ListGroup, ListGroupItem } from 'reactstrap';
+import { ListGroup } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import budgetData from '../../../helpers/data/budgetData';
-import PreviousBudget from '../PreviousBudget/PreviousBudget';
 import './ViewAllBudgets.scss';
 
 class ViewAllBudgets extends React.Component {
@@ -26,7 +26,7 @@ class ViewAllBudgets extends React.Component {
         <h1>View All Budgets</h1>
         {budget.map((b) => (
            <ListGroup>
-              <ListGroupItem href="/previousBudget">{b.holidayName} ({b.dateCreated})</ListGroupItem>
+              <Link className="btn btn-secondary" to ={`/previousBudget/${b.id}`}>{b.holidayName} ({b.dateCreated})</Link>
            </ListGroup>
         ))}
       </div>
