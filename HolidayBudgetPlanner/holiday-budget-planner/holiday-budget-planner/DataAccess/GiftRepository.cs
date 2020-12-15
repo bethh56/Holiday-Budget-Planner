@@ -24,34 +24,33 @@ namespace holiday_budget_planner.DataAccess
                                       where B.userId = @userId
                                       ORDER BY B.dateCreated desc";
 
-            var newestBudget = db.QueryFirstOrDefault<Budget>(getNewestBudgetSql, parameters);
+            var recentBudget = db.QueryFirstOrDefault<Budget>(getNewestBudgetSql, parameters);
 
-
-            var giftDynamicParameters = new DynamicParameters();
-            giftDynamicParameters.Add("id", newestBudget.Id);
-            giftDynamicParameters.Add("userId", newestBudget.UserId);
+            DynamicParameters gift = new DynamicParameters();
+            gift.Add("id", recentBudget.Id);
+            gift.Add("userId", recentBudget.UserId);
 
             var sqlForTotalPrice = @"select G.budgetId, B.dateCreated, SUM(price) as TotalPrice
                                         from Gift G
 	                                        join Budget B on 
 	                                        B.id = G.budgetId
-	                                        where userId = @userId AND B.Id = @id
+	                                        where B.userId = @userId AND B.Id = @id
                                         GROUP BY G.budgetId, B.dateCreated
                                         ORDER BY B.dateCreated desc";
 
-            var giftTotalByBudgetId = db.QueryFirstOrDefault<Gift>(sqlForTotalPrice, giftDynamicParameters);
+            var giftTotalByBudgetId = db.QueryFirstOrDefault<Gift>(sqlForTotalPrice, gift);
 
             var sql = @"select G.recepient, G.item, G.price, G.id
-                        from Gift G
-	                        join Budget B on 
-	                        B.id = G.budgetId
-	                        where userId = @userId AND B.Id = @id
-                        GROUP BY  G.recepient, G.item, G.price, G.id";
+                                   from Gift G
+                                       join Budget B on 
+                                       B.id = G.budgetId
+                                       where userId = @userId AND B.Id = @id
+                                   GROUP BY  G.recepient, G.item, G.price, G.id";
 
-            var giftItems = db.Query<GiftItem>(sql, giftDynamicParameters);
+                       var giftItems = db.Query<GiftItem>(sql, gift);
 
-            if (giftItems.Count() > 0) 
-                giftTotalByBudgetId.GiftInfo = (List<GiftItem>)giftItems;
+                       if (giftItems.Count() > 0) 
+                           giftTotalByBudgetId.GiftInfo = (List<GiftItem>)giftItems;
 
             return giftTotalByBudgetId;
         }

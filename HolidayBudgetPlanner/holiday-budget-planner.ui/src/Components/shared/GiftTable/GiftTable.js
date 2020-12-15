@@ -59,10 +59,10 @@ class GiftTable extends React.Component {
           <td> <button key={indx} className="btn btn-danger" onClick={() => removeGift(i.id)}><i className="fas fa-trash-alt"></i></button> </td>
           </tr>
           ))}
+        </tbody>
+        </Table>
         <button className="btn btn-primary" onClick={() => this.setState({ formOpen: true })}>Add Gift</button>
         { formOpen ? <GiftForm addGiftEvent={this.addGiftEvent}/> : ''}
-      </tbody>
-      </Table>
       </div>
     );
   }

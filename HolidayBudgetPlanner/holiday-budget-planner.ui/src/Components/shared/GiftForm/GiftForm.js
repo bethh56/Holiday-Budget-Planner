@@ -8,17 +8,45 @@ class GiftForm extends React.Component {
   }
 
   state = {
-    recepient: '',
-    item: '',
-    price: '',
+    recepientOfGift: '',
+    itemForGift: '',
+    priceOfGift: '',
     budgetId: '',
+  }
+
+  saveGift = (e) => {
+    e.preventDefault();
+    // const { recepientOfGift, itemForGift, priceOfGift } = this.state;
+    const { addGiftEvent } = this.props;
+    const newGift = {
+      recepient: 'recepientOfGift',
+      item: 'itemForGift',
+      price: 5,
+      budgetId: 28,
+    };
+    addGiftEvent(newGift);
+  }
+
+  recepientChange = (e) => {
+    e.preventDefault();
+    this.setState({ recepientOfGift: e.target.value });
+  }
+
+  itemChange = (e) => {
+    e.preventDefault();
+    this.setState({ itemForGift: e.target.value });
+  }
+
+  priceChange = (e) => {
+    e.preventDefault();
+    this.setState({ priceOfGift: e.target.value });
   }
 
   render() {
     const {
-      recepient,
-      item,
-      price,
+      recepientOfGift,
+      itemForGift,
+      priceOfGift,
     } = this.setState;
 
     return (
@@ -31,7 +59,7 @@ class GiftForm extends React.Component {
             className="form-control"
             id="recipientName"
             placeholder="Enter recipient"
-            value={recepient}
+            value={recepientOfGift}
             onChange={this.recepientChange}
             />
           </div>
@@ -41,7 +69,7 @@ class GiftForm extends React.Component {
             className="form-control"
             id="itemName"
             placeholder="Enter item name"
-            value={item}
+            value={itemForGift}
             onChange={this.itemChange}
             />
           </div>
@@ -51,12 +79,12 @@ class GiftForm extends React.Component {
             className="form-control"
             id="priceOfItem"
             placeholder="Enter Price"
-            value={price}
+            value={priceOfGift}
             onChange={this.priceChange}
             />
           </div>
-          <button type="submit" className="submit" onClick={this.saveGift}>Submit</button>
-          <button className="btn btn-primary" onClick={() => this.setState({ formOpen: false })}>Close Form</button>
+          <button type="submit" className="submit btn btn-primary" onClick={this.saveGift}>Submit</button>
+          <button className="btn btn-primary ml-2" onClick={() => this.setState({ formOpen: false })}>Close Form</button>
         </form>
       </div>
     );
