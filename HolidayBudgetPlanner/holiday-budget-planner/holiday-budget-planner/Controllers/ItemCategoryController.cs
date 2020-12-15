@@ -38,5 +38,14 @@ namespace holiday_budget_planner.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        public IActionResult AddNewItemCategory(ItemCategory newItemCategory)
+        {
+            _itemCategoryRepo.AddNewItemCategory(newItemCategory);
+
+            return Created($"/api/itemCategory/{newItemCategory.Id}", newItemCategory);
+
+        }
+
     }
 }

@@ -75,5 +75,22 @@ namespace holiday_budget_planner.DataAccess
 
         }
 
+        public void AddNewItemCategory(ItemCategory itemCategoryAdded)
+        {
+            var sql = @"INSERT INTO [dbo].[ItemCategory]
+                        ([categoryName]
+                        ,[itemName]
+                        ,[price]
+                        ,[budgetId])
+                       Output inserted.Id
+                        VALUES
+                             (@categoryName, @itemName, @price, @budgetId)";
+            using var db = new SqlConnection(_connectionString);
+
+            var newId = db.ExecuteScalar<int>(sql, itemCategoryAdded);
+
+            itemCategoryAdded.Id = newId;
+        }
+
     }
 }
