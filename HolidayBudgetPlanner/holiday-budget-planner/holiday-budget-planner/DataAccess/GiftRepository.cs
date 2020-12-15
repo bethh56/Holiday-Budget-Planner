@@ -67,7 +67,7 @@ namespace holiday_budget_planner.DataAccess
 
         }
 
-        public void AddNewGIft(Gift giftAdded)
+        public void AddNewGIft(GiftItem giftAdded)
         {
             var sql = @"INSERT INTO [dbo].[Gift]
                         ([Recepient]
@@ -80,7 +80,7 @@ namespace holiday_budget_planner.DataAccess
 
             var newId = db.ExecuteScalar<int>(sql, giftAdded);
 
-            giftAdded.Id = newId;
+            giftAdded.id = newId;
         }
     }
 }

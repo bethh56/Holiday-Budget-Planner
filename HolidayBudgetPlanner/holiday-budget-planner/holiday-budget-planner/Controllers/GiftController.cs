@@ -40,11 +40,11 @@ namespace holiday_budget_planner.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddNewGIft(Gift newGift)
+        public IActionResult AddNewGIft(GiftItem newGift)
         {
             _giftRepo.AddNewGIft(newGift);
 
-            return Created($"/api/gift/{newGift.Id}", newGift);
+            return Created($"/api/gift/{newGift.id}", newGift);
 
         }
 
