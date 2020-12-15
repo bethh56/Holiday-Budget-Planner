@@ -39,5 +39,14 @@ namespace holiday_budget_planner.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        public IActionResult AddNewGIft(Gift newGift)
+        {
+            _giftRepo.AddNewGIft(newGift);
+
+            return Created($"/api/gift/{newGift.Id}", newGift);
+
+        }
+
     }
 }

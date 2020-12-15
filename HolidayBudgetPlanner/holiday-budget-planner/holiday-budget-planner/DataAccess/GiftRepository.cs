@@ -35,18 +35,18 @@ namespace holiday_budget_planner.DataAccess
                                         from Gift G
 	                                        join Budget B on 
 	                                        B.id = G.budgetId
-	                                        where userId = @userId AND G.isActive = 1 AND B.Id = @id
+	                                        where userId = @userId AND B.Id = @id
                                         GROUP BY G.budgetId, B.dateCreated
                                         ORDER BY B.dateCreated desc";
 
             var giftTotalByBudgetId = db.QueryFirstOrDefault<Gift>(sqlForTotalPrice, giftDynamicParameters);
 
-            var sql = @"select G.recepient, G.item, G.price, G.id, G.IsActive
+            var sql = @"select G.recepient, G.item, G.price, G.id
                         from Gift G
 	                        join Budget B on 
 	                        B.id = G.budgetId
-	                        where userId = @userId AND G.isActive = 1 AND B.Id = @id
-                        GROUP BY  G.recepient, G.item, G.price, G.id, G.IsActive";
+	                        where userId = @userId AND B.Id = @id
+                        GROUP BY  G.recepient, G.item, G.price, G.id";
 
             var giftItems = db.Query<GiftItem>(sql, giftDynamicParameters);
 
@@ -65,6 +65,22 @@ namespace holiday_budget_planner.DataAccess
 
             db.Execute(sql, new { id = id });
 
+        }
+
+        public void AddNewGIft(Gift giftAdded)
+        {
+            var sql = @"INSERT INTO [dbo].[Gift]
+                        ([Recepient]
+                        ,[Item]
+                        ,[Price]
+                        ,[BudgetId])
+                       VALUES
+                         (@recepient, @item, @price, @budgetId)";
+            using var db = new SqlConnection(_connectionString);
+
+            var newId = db.ExecuteScalar<int>(sql, giftAdded);
+
+            giftAdded.Id = newId;
         }
     }
 }
