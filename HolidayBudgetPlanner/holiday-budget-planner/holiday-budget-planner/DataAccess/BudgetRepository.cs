@@ -18,7 +18,8 @@ namespace holiday_budget_planner.DataAccess
         {
             using var db = new SqlConnection(_connectionString);
             var sql = @"select *
-                        from Budget";
+                        from Budget B
+                        join Holiday H on H.id= B.holidayId";
 
             var budgetPlan = db.Query<Budget>(sql);
 

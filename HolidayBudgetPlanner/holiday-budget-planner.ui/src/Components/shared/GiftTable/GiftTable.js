@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'reactstrap';
 import giftData from '../../../helpers/data/giftData';
+import GiftForm from '../GiftForm/GiftForm';
 import './GiftTable.scss';
 
 class GiftTable extends React.Component {
@@ -11,6 +12,7 @@ class GiftTable extends React.Component {
 
   state = {
     gifts: [],
+    formOpen: false,
   }
 
   getGifts = () => {
@@ -23,9 +25,18 @@ class GiftTable extends React.Component {
     this.getGifts();
   }
 
+  addGiftEvent = (newGift) => {
+    giftData.addGift(newGift)
+      .then(() => {
+        this.getGifts();
+        this.setState({ formOpen: false });
+      })
+      .catch((err) => console.error('unable to add gift', err));
+  }
+
   render() {
     const { item, removeGift } = this.props;
-    const { gifts } = this.state;
+    const { gifts, formOpen } = this.state;
 
     return (
       <div className="BudgetItemTable">
@@ -48,6 +59,8 @@ class GiftTable extends React.Component {
           <td> <button key={indx} className="btn btn-danger" onClick={() => removeGift(i.id)}><i className="fas fa-trash-alt"></i></button> </td>
           </tr>
           ))}
+        <button className="btn btn-primary" onClick={() => this.setState({ formOpen: true })}>Add Gift</button>
+        { formOpen ? <GiftForm addGiftEvent={this.addGiftEvent}/> : ''}
       </tbody>
       </Table>
       </div>
