@@ -14,13 +14,18 @@ namespace holiday_budget_planner.DataAccess
 
         const string _connectionString = "Server=localhost;Database=HolidayBudgetPlanner;Trusted_Connection=True";
 
-        public IEnumerable<Budget> GetAllBudgets()
+        public IEnumerable<Budget> GetAllBudgetsByUserId(int userId)
         {
             using var db = new SqlConnection(_connectionString);
+            var parameters = new { userId };
             var sql = @"select *
-                        from Budget";
+	                    from Budget B
+	                    join Holiday H
+	                    on B.holidayId = H.id
+	                    where B.userId = @userId
+	                    ORDER BY H.holidayName, B.dateCreated desc";
 
-            var budgetPlan = db.Query<Budget>(sql);
+            var budgetPlan = db.Query<Budget>(sql, parameters);
 
             return budgetPlan;
 
