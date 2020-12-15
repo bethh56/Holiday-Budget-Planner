@@ -1,4 +1,5 @@
 import React from 'react';
+
 import budgetData from '../../../helpers/data/budgetData';
 import giftData from '../../../helpers/data/giftData';
 import itemData from '../../../helpers/data/itemData';
@@ -13,6 +14,7 @@ class Home extends React.Component {
     budget: [],
     category: [],
     gift: [],
+    holiday: [],
   }
 
   // gets the amount in the budget and is displayed in Budget Details
@@ -55,12 +57,11 @@ class Home extends React.Component {
   render() {
     const { budget, category, gift } = this.state;
     const buildCurrentViewedBudget = [budget].map((budgetPlan) => (<BudgetDetails key={budgetPlan.id} budgetPlan={budgetPlan}/>));
-    const buildItemTable = [category].map((item) => (<BudgetItemTable key={item.id} item={item} removeItem={this.removeItem}/>));
+    const buildItemTable = category.map((item) => (<BudgetItemTable key={item.id} item={item} removeItem={this.removeItem}/>));
     const buildGiftTable = [gift].map((item) => (<GiftTable key={item.id} item={item} removeGift={this.removeGift}/>));
 
     return (
       <div className="home">
-        <h1>Home</h1>
         {buildCurrentViewedBudget}
         {buildGiftTable}
         {buildItemTable}
