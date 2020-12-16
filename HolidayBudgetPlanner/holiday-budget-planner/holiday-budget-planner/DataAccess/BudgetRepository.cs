@@ -65,5 +65,15 @@ namespace holiday_budget_planner.DataAccess
 
             budgetAdded.Id = newId;
         }
+        public void RemoveBudget(int id)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"DELETE
+                        FROM Budget
+                        WHERE Id = @id";
+
+            db.Execute(sql, new { id = id });
+
+        }
     }
 }
