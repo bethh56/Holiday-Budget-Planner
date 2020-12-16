@@ -16,13 +16,13 @@ class GiftForm extends React.Component {
 
   saveGift = (e) => {
     e.preventDefault();
-    // const { recepientOfGift, itemForGift, priceOfGift } = this.state;
+    const { recepientOfGift, itemForGift, priceOfGift } = this.state;
     const { addGiftEvent } = this.props;
     const newGift = {
-      recepient: 'recepientOfGift',
-      item: 'itemForGift',
-      price: 5,
-      budgetId: 28,
+      recepient: recepientOfGift,
+      item: itemForGift,
+      price: parseInt(priceOfGift, NaN),
+      budgetId: 29,
     };
     addGiftEvent(newGift);
   }

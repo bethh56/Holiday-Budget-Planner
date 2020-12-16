@@ -19,7 +19,7 @@ namespace holiday_budget_planner.DataAccess
             using var db = new SqlConnection(_connectionString);
 
             var parameters = new { userId };
-            var getNewestBudgetSql = @"select TOP 1 B.DateCreated, B.id
+            var getNewestBudgetSql = @"select TOP 1 B.DateCreated, B.id, B.userId
                                       from Budget B
                                       where B.userId = @userId
                                       ORDER BY B.dateCreated desc";
@@ -47,10 +47,10 @@ namespace holiday_budget_planner.DataAccess
                                        where userId = @userId AND B.Id = @id
                                    GROUP BY  G.recepient, G.item, G.price, G.id";
 
-                       var giftItems = db.Query<GiftItem>(sql, gift);
+            var giftItems = db.Query<GiftItem>(sql, gift);
 
-                       if (giftItems.Count() > 0) 
-                           giftTotalByBudgetId.GiftInfo = (List<GiftItem>)giftItems;
+            if (giftItems.Count() > 0) 
+                giftTotalByBudgetId.GiftInfo = giftItems.ToList();
 
             return giftTotalByBudgetId;
         }
