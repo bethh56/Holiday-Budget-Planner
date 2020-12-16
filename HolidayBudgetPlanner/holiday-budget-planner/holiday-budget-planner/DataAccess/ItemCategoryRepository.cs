@@ -16,8 +16,8 @@ namespace holiday_budget_planner.DataAccess
         public IEnumerable<ItemCategory> GetAllCurrentItemCategoriesByUserId(int userId)
         {
             using var db = new SqlConnection(_connectionString);
+            
             var parameters = new { userId };
-
             var getNewestBudgetSql = @"select TOP 1 B.DateCreated, B.id
                                       from Budget B
                                       where B.userId = @userId
