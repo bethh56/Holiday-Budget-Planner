@@ -41,19 +41,11 @@ namespace holiday_budget_planner.DataAccess
             var giftTotalByBudgetId = db.QueryFirstOrDefault<Gift>(sqlForTotalPrice, gift);
 
             var sql = @"select G.recepient, G.item, G.price, G.id
-<<<<<<< HEAD
                         from Gift G
 	                        join Budget B on 
 	                        B.id = G.budgetId
 	                        where userId = @userId AND B.Id = @id
                         GROUP BY  G.recepient, G.item, G.price, G.id";
-=======
-                                   from Gift G
-                                       join Budget B on 
-                                       B.id = G.budgetId
-                                       where userId = @userId AND B.Id = @id
-                                   GROUP BY  G.recepient, G.item, G.price, G.id";
->>>>>>> master
 
             var giftItems = db.Query<GiftItem>(sql, gift);
 

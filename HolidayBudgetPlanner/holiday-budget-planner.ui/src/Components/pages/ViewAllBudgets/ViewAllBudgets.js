@@ -28,7 +28,7 @@ class ViewAllBudgets extends React.Component {
         <h1>View All Budgets</h1>
         {budget.map((b) => (
           <ListGroup>
-            <Link className="btn btn-secondary" to ={`/previousBudget/${b.id}`}>{b.holidayName} ( { this.formatDate(b.dateCreated) } ) </Link>
+            <Link className="btn btn-secondary mb-2" to ={`/previousBudget/${b.id}`}>{b.holidayName}  { this.formatDate(b.dateCreated) } </Link>
           </ListGroup>
         ))}
       </div>
