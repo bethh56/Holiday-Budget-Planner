@@ -9,6 +9,7 @@ class BudgetDetails extends React.Component {
         <h1>Budget Amount</h1>
         <h2>${budgetPlan.budgetAmount}</h2>
         <h2>{budgetPlan.holidayName}</h2>
+        <h2>BudgetId: {budgetPlan.id}</h2>
       </div>
     );
   }
