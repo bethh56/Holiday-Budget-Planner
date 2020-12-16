@@ -95,7 +95,7 @@ class Home extends React.Component {
         {buildCurrentViewedBudget}
         {buildGiftTable}
         <button className="btn btn-primary" onClick={() => this.setState({ formOpen: true })}>Add Gift</button>
-        { formOpen ? <GiftForm formOpen={formOpen} addGiftEvent={this.addGiftEvent}/> : ''}
+        { formOpen ? <GiftForm formOpen={formOpen} budget={budget.id} addGiftEvent={this.addGiftEvent}/> : ''}
         {buildItemTable}
       </div>
     );

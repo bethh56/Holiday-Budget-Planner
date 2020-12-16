@@ -17,12 +17,13 @@ class GiftForm extends React.Component {
   saveGift = (e) => {
     e.preventDefault();
     const { recepientOfGift, itemForGift, priceOfGift } = this.state;
-    const { addGiftEvent } = this.props;
+    const { addGiftEvent, budget } = this.props;
+
     const newGift = {
       recepient: recepientOfGift,
       item: itemForGift,
       price: parseInt(priceOfGift, NaN),
-      budgetId: 29,
+      budgetId: budget,
     };
     addGiftEvent(newGift);
   }
@@ -49,6 +50,7 @@ class GiftForm extends React.Component {
       priceOfGift,
     } = this.setState;
 
+    const { budget } = this.props;
     return (
       <div className="GiftForm">
         <h4>Gift Form</h4>
