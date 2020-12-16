@@ -22,6 +22,7 @@ namespace holiday_budget_planner.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult GetAllBudgets()
         {
             var allBudget = _budgetRepo.GetAllBudgets();

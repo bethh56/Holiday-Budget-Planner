@@ -21,5 +21,12 @@ const getGiftItems = (userId) => new Promise((resolve, reject) => {
 
 const deleteGift = (giftId) => axios.delete(`${baseUrl}/gift/removeGift/${giftId}`);
 
+const addGift = (newGift) => axios.post(`${baseUrl}/gift/`, newGift);
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getGiftBudget, getGiftItems, deleteGift };
+export default {
+  getGiftBudget,
+  getGiftItems,
+  deleteGift,
+  addGift,
+};
