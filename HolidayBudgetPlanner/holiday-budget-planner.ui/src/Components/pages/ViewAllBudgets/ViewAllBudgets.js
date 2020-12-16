@@ -19,6 +19,14 @@ class ViewAllBudgets extends React.Component {
     this.getListOfAllBudgets();
   }
 
+  removeBudget = (budgetId) => {
+    budgetData.deleteBudget(budgetId)
+      .then(() => {
+        this.getAllBudgets();
+      })
+      .catch((err) => console.error('unable to delete budget', err));
+  }
+
   formatDate = (date) => `${date.slice(5, 10)}-${date.slice(0, 4)}`;
 
   render() {
@@ -27,9 +35,10 @@ class ViewAllBudgets extends React.Component {
       <div className="viewAllBudgets">
         <h1>View All Budgets</h1>
         {budget.map((b) => (
-          <ListGroup>
-            <Link className="btn btn-secondary mb-2" to ={`/previousBudget/${b.id}`}>{b.holidayName}  { this.formatDate(b.dateCreated) } </Link>
-          </ListGroup>
+          <li className="mb-2">
+            <Link to ={`/previousBudget/${b.id}`}>{b.holidayName}  { this.formatDate(b.dateCreated) } </Link>
+            <button className="btn btn-danger mb-2" onClick={ this.removeBudget(b.id) }><i className="fas fa-trash-alt"></i></button>
+          </li>
         ))}
       </div>
     );
