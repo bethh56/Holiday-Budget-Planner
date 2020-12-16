@@ -9,24 +9,8 @@ class GiftTable extends React.Component {
     removeGift: PropTypes.func.isRequired,
   }
 
-  state = {
-    gifts: [],
-  }
-
-  getGifts = () => {
-    giftData.getGiftItems(1)
-      .then((gifts) => this.setState({ gifts }))
-      .catch((err) => console.error('unable to get budget line item info'));
-  }
-
-  componentDidMount() {
-    this.getGifts();
-  }
-
   render() {
-    const { item, removeGift } = this.props;
-    const { gifts } = this.state;
-
+    const { item, removeGift, giftLineItem } = this.props;
     return (
       <div className="BudgetItemTable">
         <h4>Purchased Gifts</h4>
@@ -40,7 +24,7 @@ class GiftTable extends React.Component {
         </tr>
       </thead>
       <tbody>
-          {gifts?.map((i, indx) => (
+          {giftLineItem?.map((i, indx) => (
           <tr>
           <td><p key={indx}>{i.recepient}</p></td>
           <td><p key={indx}>{i.item}</p></td>
@@ -48,8 +32,8 @@ class GiftTable extends React.Component {
           <td> <button key={indx} className="btn btn-danger" onClick={() => removeGift(i.id)}><i className="fas fa-trash-alt"></i></button> </td>
           </tr>
           ))}
-      </tbody>
-      </Table>
+        </tbody>
+        </Table>
       </div>
     );
   }
