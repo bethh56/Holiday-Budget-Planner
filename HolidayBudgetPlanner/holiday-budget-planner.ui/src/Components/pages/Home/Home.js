@@ -22,25 +22,25 @@ class Home extends React.Component {
 
   // gets the amount in the budget and is displayed in Budget Details
   getCurrentBudgetAmountInfo = () => {
-    budgetData.getCurrentBudget(1)
+    budgetData.getCurrentBudget(2)
       .then((budget) => this.setState({ budget }))
       .catch((err) => console.error('unable to get budget info'));
   }
 
   getBudgetItems = () => {
-    itemData.getBudgetItems(1)
+    itemData.getBudgetItems(2)
       .then((category) => this.setState({ category }))
       .catch((err) => console.error('unable to get budget item info'));
   }
 
   getGiftInfo = () => {
-    giftData.getGiftBudget(1)
+    giftData.getGiftBudget(2)
       .then((gift) => this.setState({ gift }))
       .catch((err) => console.error('unable to get gift info'));
   }
 
   getGiftLineItems = () => {
-    giftData.getGiftItems(1)
+    giftData.getGiftItems(2)
       .then((giftLineItem) => this.setState({ giftLineItem }))
       .catch((err) => console.error('unable to get budget line item info'));
   }
