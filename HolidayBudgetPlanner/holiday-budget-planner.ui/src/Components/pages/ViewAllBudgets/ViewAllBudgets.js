@@ -10,7 +10,7 @@ class ViewAllBudgets extends React.Component {
   }
 
   getListOfAllBudgets = () => {
-    budgetData.getAllBudgets(1)
+    budgetData.getAllBudgets(2)
       .then((budget) => this.setState({ budget }))
       .catch((err) => console.error('unable to get budget line item info'));
   }
@@ -19,13 +19,13 @@ class ViewAllBudgets extends React.Component {
     this.getListOfAllBudgets();
   }
 
-  removeBudget = (budgetId) => {
-    budgetData.deleteBudget(budgetId)
-      .then(() => {
-        this.getAllBudgets();
-      })
-      .catch((err) => console.error('unable to delete budget', err));
-  }
+  // removeBudget = (budgetId) => {
+  //   budgetData.deleteBudget(budgetId)
+  //     .then(() => {
+  //       this.getAllBudgets();
+  //     })
+  //     .catch((err) => console.error('unable to delete budget', err));
+  // }
 
   formatDate = (date) => `${date.slice(5, 10)}-${date.slice(0, 4)}`;
 
