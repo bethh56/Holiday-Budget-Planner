@@ -18,7 +18,7 @@ namespace holiday_budget_planner.DataAccess
             using var db = new SqlConnection(_connectionString);
             
             var parameters = new { userId };
-            var getNewestBudgetSql = @"select TOP 1 B.DateCreated, B.id
+            var getNewestBudgetSql = @"select TOP 1 B.DateCreated, B.id, B.userId
                                       from Budget B
                                       where B.userId = @userId
                                       ORDER BY B.dateCreated desc";
@@ -55,8 +55,8 @@ namespace holiday_budget_planner.DataAccess
 
                 var item = db.Query<Item>(itemSql, dynamicParameters);
 
-                if (item.Count() > 0)
-                    ic.LineItems = (List<Item>)item;
+             if (item.Count() > 0)
+                ic.LineItems = (List<Item>)item;
                     
             }
 
