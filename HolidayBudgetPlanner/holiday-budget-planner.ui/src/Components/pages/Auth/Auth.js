@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import authData from '../../../helpers/data/authData';
@@ -78,8 +79,7 @@ class Auth extends React.Component {
             </div>
             <div className="form-group">
               <div className="col-sm-12 text-center">
-                {/* change back to a link */}
-                <p>Need to Register?</p>
+                <Link to ={'/createNewUser'}>Need to Register?</Link>
               </div>
             </div>
             <div className="form-group">

@@ -22,7 +22,13 @@ const registerUser = (user) =>
     // get email from firebase
     console.error('register', user);
     // get email from firebase
-    const userInfo = { email: cred.user.email };
+    const userInfo = {
+      email: cred.user.email,
+      password: user.password,
+      uid: firebase.auth().currentUser.uid,
+      firstName: user.firstName,
+      lastName: user.lastName,
+    };
 
     // get token from firebase
     cred.user.getIdToken()
@@ -40,10 +46,25 @@ const loginUser = (user) =>
       .then((token) => sessionStorage.setItem('token', token));
   });
 
-const getUid = () => firebase.auth().currentUser.uid;
+const logoutUser = () => {
+  sessionStorage.removeItem('token');
+  return firebase.auth().signOut();
+};
 
-const logoutUser = () => firebase.auth().signOut();
+const getUid = () => {
+  const token = sessionStorage.getItem('token');
+  let uid = '';
 
+  if (token != null) {
+    uid = firebase.auth().currentUser.uid;
+  }
+  return uid;
+};
+
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  getUid, loginUser, registerUser, logoutUser,
+  getUid,
+  loginUser,
+  registerUser,
+  logoutUser,
 };
