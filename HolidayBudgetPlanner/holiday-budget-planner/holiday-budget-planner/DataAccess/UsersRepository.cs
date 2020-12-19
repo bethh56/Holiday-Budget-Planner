@@ -59,5 +59,19 @@ namespace holiday_budget_planner.DataAccess
             userToAdd.Id = newId;
         }
 
+        public int GetUserIdByUid(string uid)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var queryForUserByUid = @"select *
+                            from Users
+                            where Uid = @uid";
+
+            var parameterForUserUid = new { uid };
+
+            var selectedUserId = db.ExecuteScalar<int>(queryForUserByUid, parameterForUserUid);
+
+            return selectedUserId;
+        }
     }
 }
