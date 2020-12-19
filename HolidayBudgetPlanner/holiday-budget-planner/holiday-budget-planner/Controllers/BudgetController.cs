@@ -21,11 +21,11 @@ namespace holiday_budget_planner.Controllers
             _budgetRepo = new BudgetRepository();
         }
 
-        [HttpGet]
+        [HttpGet("user{userId}")]
         [AllowAnonymous]
-        public IActionResult GetAllBudgets()
+        public IActionResult GetAllBudgetsByUserId(int userId)
         {
-            var allBudget = _budgetRepo.GetAllBudgets();
+            var allBudget = _budgetRepo.GetAllBudgetsByUserId(userId);
 
             return Ok(allBudget);
 
