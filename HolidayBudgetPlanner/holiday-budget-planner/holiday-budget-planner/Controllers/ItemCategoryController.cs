@@ -31,7 +31,7 @@ namespace holiday_budget_planner.Controllers
 
 
         [HttpDelete("removeItem/{id}")]
-        public IActionResult RemoveGift(int id)
+        public IActionResult RemoveItem(int id)
         {
             _itemCategoryRepo.RemoveItem(id);
 
