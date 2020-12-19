@@ -15,7 +15,7 @@ const getBudgetLineItems = (userId) => new Promise((resolve, reject) => {
     .then((response) => {
       const items = response.data;
       items.forEach((i) => {
-        // console.error(i.lineItems);
+        console.error(i.lineItems);
         resolve(i.lineItems);
       });
     })

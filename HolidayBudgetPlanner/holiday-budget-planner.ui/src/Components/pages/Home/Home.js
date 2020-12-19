@@ -16,6 +16,7 @@ class Home extends React.Component {
     category: [],
     gift: [],
     giftLineItem: [],
+    itemlineItems: [],
     holiday: [],
     formOpen: false,
   }
@@ -45,11 +46,21 @@ class Home extends React.Component {
       .catch((err) => console.error('unable to get budget line item info'));
   }
 
+  getBudgetLineItems = () => {
+    itemData.getBudgetLineItems(1)
+      .then((itemlineItems) => {
+        this.setState({ itemlineItems });
+        console.error('lineItems', itemlineItems);
+      })
+      .catch((err) => console.error('unable to get budget line item info'));
+  }
+
   componentDidMount() {
     this.getCurrentBudgetAmountInfo();
     this.getBudgetItems();
     this.getGiftInfo();
     this.getGiftLineItems();
+    this.getBudgetLineItems();
   }
 
   removeGift = (giftId) => {
@@ -84,10 +95,11 @@ class Home extends React.Component {
       gift,
       formOpen,
       giftLineItem,
+      itemlineItems,
     } = this.state;
 
     const buildCurrentViewedBudget = [budget].map((budgetPlan) => (<BudgetDetails key={budgetPlan.id} budgetPlan={budgetPlan}/>));
-    const buildItemTable = category.map((item) => (<BudgetItemTable key={item.id} item={item} removeItem={this.removeItem}/>));
+    const buildItemTable = category.map((item) => (<BudgetItemTable key={item.id} item={item} itemlineItems={itemlineItems} removeItem={this.removeItem}/>));
     const buildGiftTable = [gift].map((item) => (<GiftTable key={item.id} item={item} giftLineItem={giftLineItem} removeGift={this.removeGift}/>));
 
     return (
