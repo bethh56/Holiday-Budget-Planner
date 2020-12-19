@@ -10,11 +10,11 @@ namespace holiday_budget_planner.DataAccess
 {
     public class GiftRepository
     {
-        static List<Gift> budget = new List<Gift>();
+        static List<Gift> Gift = new List<Gift>();
 
         const string _connectionString = "Server=localhost;Database=HolidayBudgetPlanner;Trusted_Connection=True";
 
-        public Gift GetGift(int userId)
+        public IEnumerable<Gift> GetGift(int userId)
         {
             using var db = new SqlConnection(_connectionString);
 
@@ -25,9 +25,9 @@ namespace holiday_budget_planner.DataAccess
                                       where B.userId = @userId
                                       ORDER BY B.dateCreated desc";
 
-            var recentBudget = db.QueryFirstOrDefault<Budget>(getNewestBudgetSql, parameters);
+            var recentBudget = db.Query<Gift>(getNewestBudgetSql, parameters);
 
-            DynamicParameters gift = new DynamicParameters();
+            /*DynamicParameters gift = new DynamicParameters();
             gift.Add("id", recentBudget.Id);
             gift.Add("userId", recentBudget.UserId);
 
@@ -51,9 +51,9 @@ namespace holiday_budget_planner.DataAccess
             var giftItems = db.Query<GiftItem>(sql, gift);
 
             if (giftItems.Count() > 0) 
-                giftTotalByBudgetId.GiftInfo = giftItems.ToList();
-            
-            return giftTotalByBudgetId;
+                giftTotalByBudgetId.GiftInfo = giftItems.ToList();*/
+
+            return recentBudget;
         }
 
         public void RemoveGift(int id)
