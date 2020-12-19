@@ -13,6 +13,7 @@ import Home from '../Components/pages/Home/Home';
 import ViewAllBudgets from '../Components/pages/ViewAllBudgets/ViewAllBudgets';
 import AddNewBudget from '../Components/pages/AddNewBudget/AddNewBudget';
 import PreviousBudget from '../Components/pages/PreviousBudget/PreviousBudget';
+import NewUserForm from '../Components/pages/Auth/NewUserForm/NewUserForm';
 import Auth from '../Components/pages/Auth/Auth';
 
 // import ordersData from '../helpers/data/ordersData';
@@ -58,6 +59,7 @@ class App extends React.Component {
                   <Route path='/home' component={Home} authed={authed}/>
                   <Route path='/viewAllBudgets' component={ViewAllBudgets} authed={authed}/>
                   <Route path='/previousBudget' component={PreviousBudget} authed={authed}/>
+                  <Route path='/createNewUser' component={NewUserForm} authed={authed}/>
                   <Route path='/addNewBudget' component={AddNewBudget} authed={authed}/>
                   <Redirect from='*' to='/home' />
                 </Switch>
