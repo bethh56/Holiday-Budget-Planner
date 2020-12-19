@@ -25,7 +25,7 @@ namespace holiday_budget_planner.Controllers
         {
             var allItemCategories = _itemCategoryRepo.GetAllCurrentItemCategoriesByUserId(userId);
 
-            return Ok (allItemCategories);
+                return Ok(allItemCategories);
 
         }
 

@@ -51,5 +51,14 @@ namespace holiday_budget_planner.Controllers
 
         }
 
+        [HttpDelete("removeBudget/{id}")]
+        [AllowAnonymous]
+        public IActionResult RemoveBudget(int id)
+        {
+            _budgetRepo.RemoveBudget(id);
+
+            return Ok();
+        }
+
     }
 }

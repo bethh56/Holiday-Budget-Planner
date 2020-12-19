@@ -19,5 +19,12 @@ const getAllBudgets = (userId) => new Promise((resolve, reject) => {
 
 const addNewBudget = (newBudget) => axios.post(`${baseUrl}/budget/`, newBudget);
 
+const deleteBudget = (budgetId) => axios.delete(`${baseUrl}/budget/removeBudget/${budgetId}`);
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getCurrentBudget, addNewBudget, getAllBudgets };
+export default {
+  getCurrentBudget,
+  addNewBudget,
+  getAllBudgets,
+  deleteBudget,
+};

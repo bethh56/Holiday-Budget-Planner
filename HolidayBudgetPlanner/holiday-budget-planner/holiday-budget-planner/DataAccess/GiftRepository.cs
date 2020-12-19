@@ -19,6 +19,7 @@ namespace holiday_budget_planner.DataAccess
             using var db = new SqlConnection(_connectionString);
 
             var parameters = new { userId };
+
             var getNewestBudgetSql = @"select TOP 1 B.DateCreated, B.id, B.userId
                                       from Budget B
                                       where B.userId = @userId
@@ -51,7 +52,7 @@ namespace holiday_budget_planner.DataAccess
 
             if (giftItems.Count() > 0) 
                 giftTotalByBudgetId.GiftInfo = giftItems.ToList();
-
+            
             return giftTotalByBudgetId;
         }
 

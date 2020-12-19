@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'reactstrap';
-import giftData from '../../../helpers/data/giftData';
 import './GiftTable.scss';
 
 class GiftTable extends React.Component {
