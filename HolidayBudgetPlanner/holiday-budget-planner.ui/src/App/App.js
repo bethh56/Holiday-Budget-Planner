@@ -21,6 +21,13 @@ import './App.scss';
 
 fbConnection();
 
+const PrivateRoute = ({ component: Component, authed, ...rest }) => {
+  const routeChecker = (props) => (authed === true
+    ? (<Component { ...props } />)
+    : (<Redirect to={{ pathname: '/auth', state: { from: props.location } }} />));
+  return <Route {...rest} render={(props) => routeChecker(props)} />;
+};
+
 class App extends React.Component {
   state = {
     authed: false,
@@ -56,11 +63,11 @@ class App extends React.Component {
               <div className="row">
               <Switch authed={authed}>
                   <Route path='/auth' component={Auth} authed={authed}/>
-                  <Route path='/home' component={Home} authed={authed}/>
-                  <Route path='/viewAllBudgets' component={ViewAllBudgets} authed={authed}/>
-                  <Route path='/previousBudget' component={PreviousBudget} authed={authed}/>
                   <Route path='/createNewUser' component={NewUserForm} authed={authed}/>
-                  <Route path='/addNewBudget' component={AddNewBudget} authed={authed}/>
+                  <PrivateRoute path='/home' component={Home} authed={authed}/>
+                  <PrivateRoute path='/viewAllBudgets' component={ViewAllBudgets} authed={authed}/>
+                  <PrivateRoute path='/previousBudget' component={PreviousBudget} authed={authed}/>
+                  <PrivateRoute path='/addNewBudget' component={AddNewBudget} authed={authed}/>
                   <Redirect from='*' to='/home' />
                 </Switch>
               </div>
