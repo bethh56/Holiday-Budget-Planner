@@ -55,7 +55,7 @@ namespace holiday_budget_planner.DataAccess
 	                            join Budget B on
 	                            Ic.budgetId = B.id
 								where Ic.categoryName = @categoryName AND B.userId = @userId AND B.Id = @budgetId
-                                GROUP BY Ic.itemName, Ic.price, Ic.id, B.userId";
+                                GROUP BY Ic.itemName, Ic.price, Ic.id, B.userId, B.id";
 
                 var item = db.Query<Item>(itemSql, dynamicParameters);
 
