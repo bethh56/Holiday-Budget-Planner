@@ -20,10 +20,12 @@ namespace holiday_budget_planner.DataAccess
             var parameters = new { userId };
             var getNewestBudgetSql = @"select TOP 1 B.DateCreated, B.id, B.userId
                                       from Budget B
-                                      where B.userId = @userId
+                                      where B.userId = @userId AND B.id IS NOT null
                                       ORDER BY B.dateCreated desc";
 
             var newestBudget = db.QueryFirstOrDefault<Budget>(getNewestBudgetSql, parameters);
+
+
 
             var categoryDynamicParameters = new DynamicParameters();
             categoryDynamicParameters.Add("id", newestBudget.Id);
@@ -42,15 +44,17 @@ namespace holiday_budget_planner.DataAccess
             foreach (var ic in categoryInfo)
             {
                 var categoryName = ic.CategoryName;
+                var budgetId = ic.BudgetId;
                 var dynamicParameters = new DynamicParameters();
                 dynamicParameters.Add("categoryName", categoryName);
                 dynamicParameters.Add("userid", userId);
+                dynamicParameters.Add("budgetId", budgetId);
 
-                var itemSql = @"select Ic.itemName, Ic.price, Ic.id, B.userId
+                var itemSql = @"select Ic.itemName, Ic.price, Ic.id, B.userId, B.id
 	                            from ItemCategory Ic
 	                            join Budget B on
 	                            Ic.budgetId = B.id
-								where Ic.categoryName = @categoryName AND B.userId = @userId
+								where Ic.categoryName = @categoryName AND B.userId = @userId AND B.Id = @budgetId
                                 GROUP BY Ic.itemName, Ic.price, Ic.id, B.userId";
 
                 var item = db.Query<Item>(itemSql, dynamicParameters);

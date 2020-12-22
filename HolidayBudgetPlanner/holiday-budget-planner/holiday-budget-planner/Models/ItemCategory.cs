@@ -14,6 +14,7 @@ namespace holiday_budget_planner.Models
         public int BudgetId { get; set; }
         public int userId { get; set; }
         public decimal TotalPrice { get; set; }
+        public DateTime DateCreated { get; set; }
         public List<Item> LineItems { get; set; } = new List<Item>();
     }
 }

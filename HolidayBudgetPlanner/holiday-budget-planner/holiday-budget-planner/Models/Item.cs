@@ -11,6 +11,7 @@ namespace holiday_budget_planner.Models
         public int userId { get; set; }
         public string ItemName { get; set; }
         public decimal Price { get; set; }
+        public int BudgetId { get; set; }
 
     }
 }
