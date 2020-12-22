@@ -23,11 +23,13 @@ class BudgetItemTable extends React.Component {
         </tr>
       </thead>
       <tbody>
+      {itemlineItems?.map((i, indx) => (
           <tr>
-          <td>{itemlineItems.itemName}</td>
-          <td>${itemlineItems.price}</td>
-          <td> <button className="btn btn-danger" onClick={() => removeItem(itemlineItems.id)}><i className="fas fa-trash-alt"></i></button> </td>
+          <td>{i.itemName}</td>
+          <td>${i.price}</td>
+          <td> <button className="btn btn-danger" onClick={() => removeItem(i.id)}><i className="fas fa-trash-alt"></i></button> </td>
           </tr>
+      ))}
       </tbody>
       </Table>
       </div>
