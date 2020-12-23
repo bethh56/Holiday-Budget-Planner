@@ -31,12 +31,12 @@ namespace holiday_budget_planner.DataAccess
             categoryDynamicParameters.Add("id", newestBudget.Id);
             categoryDynamicParameters.Add("userId", newestBudget.UserId);
 
-            var categorySql = @"select Ic.categoryName, Ic.budgetId, B.userId, B.dateCreated, SUM(price) AS TotalPrice
+            var categorySql = @"select Ic.categoryName, Ic.budgetId, B.userId, B.dateCreated, Ic.id, SUM(price) AS TotalPrice
                                 from ItemCategory Ic
                                 join Budget B on
                                 B.id = Ic.budgetId
                                 where B.userId = @userId AND B.Id = @id
-                                GROUP BY Ic.categoryName, Ic.budgetId, B.userId, B.dateCreated
+                                GROUP BY Ic.categoryName, Ic.budgetId, B.userId, Ic.id, B.dateCreated
                                 ORDER BY B.dateCreated desc";
 
             var categoryInfo = db.Query<ItemCategory>(categorySql, categoryDynamicParameters);
@@ -83,12 +83,10 @@ namespace holiday_budget_planner.DataAccess
         {
             var sql = @"INSERT INTO [dbo].[ItemCategory]
                         ([categoryName]
-                        ,[itemName]
-                        ,[price]
                         ,[budgetId])
                        Output inserted.Id
                         VALUES
-                             (@categoryName, @itemName, @price, @budgetId)";
+                             (@categoryName,  @budgetId)";
             using var db = new SqlConnection(_connectionString);
 
             var newId = db.ExecuteScalar<int>(sql, itemCategoryAdded);
@@ -96,5 +94,20 @@ namespace holiday_budget_planner.DataAccess
             itemCategoryAdded.Id = newId;
         }
 
+        public void AddNewItem(Item itemAdded)
+        {
+            var sql = @"INSERT INTO [dbo].[ItemCategory]
+                        ([itemName]
+                        ,[categoryName]
+                        ,[id]
+                        ,[budgetId]
+                        ,[price])
+                        VALUES
+                             (@itemName,  @price, @id)";
+            using var db = new SqlConnection(_connectionString);
+
+            var newId = db.Execute(sql, itemAdded);
+        }
+        
     }
 }
