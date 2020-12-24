@@ -8,6 +8,7 @@ import BudgetDetails from '../../shared/BudgetDetails/BudgetDetails';
 import BudgetItemTable from '../../shared/BudgetItemTable/BudgetItemTable';
 import GiftTable from '../../shared/GiftTable/GiftTable';
 import GiftForm from '../../shared/GiftForm/GiftForm';
+import ItemCatergoryForm from '../../shared/ItemCategoryForm/ItemCatergoryForm';
 import './Home.scss';
 
 class Home extends React.Component {
@@ -88,6 +89,15 @@ class Home extends React.Component {
       .catch((err) => console.error('unable to add gift', err));
   }
 
+  addItemCategoryEvent = (newCategory) => {
+    itemData.addItemCategory(newCategory)
+      .then(() => {
+        this.getBudgetItems();
+        this.setState({ formOpen: false });
+      })
+      .catch((err) => console.error('unable to add item category', err));
+  }
+
   render() {
     const {
       budget,
@@ -108,6 +118,8 @@ class Home extends React.Component {
         {buildGiftTable}
         <button className="btn btn-primary" onClick={() => this.setState({ formOpen: true })}>Add Gift</button>
         { formOpen ? <GiftForm formOpen={formOpen} budget={budget.id} addGiftEvent={this.addGiftEvent}/> : ''}
+        <button className="btn btn-primary" onClick={() => this.setState({ formOpen: true })}>Add Category</button>
+        { formOpen ? <ItemCatergoryForm formOpen={formOpen} budget={budget.id} addItemCategoryEvent={this.addItemCategoryEvent}/> : ''}
         {buildItemTable}
       </div>
     );
