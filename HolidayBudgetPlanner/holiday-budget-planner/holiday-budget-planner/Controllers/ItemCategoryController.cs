@@ -46,7 +46,7 @@ namespace holiday_budget_planner.Controllers
             return Created($"/api/itemCategory/{newItemCategory.Id}", newItemCategory);
 
         }
-
+/*
         [HttpPost]
         public IActionResult AddNewItem(Item newItem)
         {
@@ -54,7 +54,7 @@ namespace holiday_budget_planner.Controllers
 
             return Created($"/api/itemCategory/newItem/{newItem.Id}", newItem);
 
-        }
+        }*/
 
     }
 }
