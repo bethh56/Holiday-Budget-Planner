@@ -8,6 +8,7 @@ import BudgetDetails from '../../shared/BudgetDetails/BudgetDetails';
 import BudgetItemTable from '../../shared/BudgetItemTable/BudgetItemTable';
 import GiftTable from '../../shared/GiftTable/GiftTable';
 import GiftForm from '../../shared/GiftForm/GiftForm';
+import ItemCatergoryForm from '../../shared/ItemCategoryForm/ItemCatergoryForm';
 import './Home.scss';
 
 class Home extends React.Component {
@@ -16,32 +17,43 @@ class Home extends React.Component {
     category: [],
     gift: [],
     giftLineItem: [],
+    itemlineItems: [],
     holiday: [],
-    formOpen: false,
+    giftFormOpen: false,
+    itemFormOpen: false,
   }
 
   // gets the amount in the budget and is displayed in Budget Details
   getCurrentBudgetAmountInfo = () => {
-    budgetData.getCurrentBudget(2)
+    budgetData.getCurrentBudget(1)
       .then((budget) => this.setState({ budget }))
       .catch((err) => console.error('unable to get budget info'));
   }
 
   getBudgetItems = () => {
-    itemData.getBudgetItems(2)
+    itemData.getBudgetItems(1)
       .then((category) => this.setState({ category }))
       .catch((err) => console.error('unable to get budget item info'));
   }
 
   getGiftInfo = () => {
-    giftData.getGiftBudget(2)
+    giftData.getGiftBudget(1)
       .then((gift) => this.setState({ gift }))
       .catch((err) => console.error('unable to get gift info'));
   }
 
   getGiftLineItems = () => {
-    giftData.getGiftItems(2)
+    giftData.getGiftItems(1)
       .then((giftLineItem) => this.setState({ giftLineItem }))
+      .catch((err) => console.error('unable to get budget line item info'));
+  }
+
+  getBudgetLineItems = () => {
+    itemData.getBudgetLineItems(1)
+      .then((itemlineItems) => {
+        this.setState({ itemlineItems });
+        console.error('lineItems', itemlineItems);
+      })
       .catch((err) => console.error('unable to get budget line item info'));
   }
 
@@ -50,6 +62,7 @@ class Home extends React.Component {
     this.getBudgetItems();
     this.getGiftInfo();
     this.getGiftLineItems();
+    this.getBudgetLineItems();
   }
 
   removeGift = (giftId) => {
@@ -72,9 +85,18 @@ class Home extends React.Component {
       .then(() => {
         this.getGiftInfo();
         this.getGiftLineItems();
-        this.setState({ formOpen: false });
+        this.setState({ giftFormOpen: false });
       })
       .catch((err) => console.error('unable to add gift', err));
+  }
+
+  addItemCategoryEvent = (newCategory) => {
+    itemData.addItemCategory(newCategory)
+      .then(() => {
+        this.getBudgetItems();
+        this.setState({ itemFormOpen: false });
+      })
+      .catch((err) => console.error('unable to add item category', err));
   }
 
   render() {
@@ -82,20 +104,25 @@ class Home extends React.Component {
       budget,
       category,
       gift,
-      formOpen,
+      giftFormOpen,
+      itemFormOpen,
       giftLineItem,
+      itemlineItems,
     } = this.state;
 
     const buildCurrentViewedBudget = [budget].map((budgetPlan) => (<BudgetDetails key={budgetPlan.id} budgetPlan={budgetPlan}/>));
-    const buildItemTable = category.map((item) => (<BudgetItemTable key={item.id} item={item} removeItem={this.removeItem}/>));
+    const buildItemTable = category.map((item) => (<BudgetItemTable key={item.id} item={item} itemlineItems={itemlineItems} removeItem={this.removeItem}/>));
     const buildGiftTable = [gift].map((item) => (<GiftTable key={item.id} item={item} giftLineItem={giftLineItem} removeGift={this.removeGift}/>));
 
     return (
       <div className="home">
         {buildCurrentViewedBudget}
         {buildGiftTable}
-        <button className="btn btn-primary" onClick={() => this.setState({ formOpen: true })}>Add Gift</button>
-        { formOpen ? <GiftForm formOpen={formOpen} budget={budget.id} addGiftEvent={this.addGiftEvent}/> : ''}
+        <button className="btn btn-primary" onClick={() => this.setState({ giftFormOpen: true })}>Add Gift</button>
+        { giftFormOpen ? <GiftForm giftFormOpen={giftFormOpen} budget={budget.id} addGiftEvent={this.addGiftEvent}/> : ''}
+        <button className="btn btn-primary" onClick={() => this.setState({ itemFormOpen: true })}>Add Category</button>
+        { itemFormOpen ? <ItemCatergoryForm itemFormOpen={itemFormOpen} budget={budget.id} addItemCategoryEvent={this.addItemCategoryEvent}/> : ''}
+        <h4>Purchased Items</h4>
         {buildItemTable}
       </div>
     );

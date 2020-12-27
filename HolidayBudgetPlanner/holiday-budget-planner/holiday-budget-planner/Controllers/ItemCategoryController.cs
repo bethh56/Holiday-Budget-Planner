@@ -31,12 +31,30 @@ namespace holiday_budget_planner.Controllers
 
 
         [HttpDelete("removeItem/{id}")]
-        public IActionResult RemoveGift(int id)
+        public IActionResult RemoveItem(int id)
         {
             _itemCategoryRepo.RemoveItem(id);
 
             return Ok();
         }
+
+        [HttpPost]
+        public IActionResult AddNewItemCategory(ItemCategory newItemCategory)
+        {
+            _itemCategoryRepo.AddNewItemCategory(newItemCategory);
+
+            return Created($"/api/itemCategory/{newItemCategory.Id}", newItemCategory);
+
+        }
+/*
+        [HttpPost]
+        public IActionResult AddNewItem(Item newItem)
+        {
+            _itemCategoryRepo.AddNewItem(newItem);
+
+            return Created($"/api/itemCategory/newItem/{newItem.Id}", newItem);
+
+        }*/
 
     }
 }

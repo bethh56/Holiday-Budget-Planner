@@ -50,7 +50,6 @@ class GiftForm extends React.Component {
       priceOfGift,
     } = this.setState;
 
-    const { budget } = this.props;
     return (
       <div className="GiftForm">
         <h4>Gift Form</h4>
@@ -86,7 +85,7 @@ class GiftForm extends React.Component {
             />
           </div>
           <button type="submit" className="submit btn btn-primary" onClick={this.saveGift}>Submit</button>
-          <button className="btn btn-primary ml-2" onClick={() => this.setState({ formOpen: false })}>Close Form</button>
+          <button className="btn btn-primary ml-2" onClick={() => this.setState({ giftFormOpen: false })}>Close Form</button>
         </form>
       </div>
     );
