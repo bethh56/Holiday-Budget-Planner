@@ -50,17 +50,23 @@ namespace holiday_budget_planner.DataAccess
                 dynamicParameters.Add("userid", userId);
                 dynamicParameters.Add("budgetId", budgetId);
 
-                var itemSql = @"select Ic.itemName, Ic.price, Ic.id, B.userId, B.id
+                var itemSql = @"select Ic.itemName, Ic.price, Ic.categoryName, Ic.Id
 	                            from ItemCategory Ic
 	                            join Budget B on
 	                            Ic.budgetId = B.id
 								where Ic.categoryName = @categoryName AND B.userId = @userId AND B.Id = @budgetId
-                                GROUP BY Ic.itemName, Ic.price, Ic.id, B.userId, B.id";
+                                GROUP BY Ic.itemName, Ic.price, Ic.categoryName, Ic.Id";
 
                 var item = db.Query<Item>(itemSql, dynamicParameters);
 
-             if (item.Count() > 0)
-                ic.LineItems = (List<Item>)item;
+                foreach (var itemName in item)
+                {
+                    if (itemName.ItemName != null)
+                    {
+                        if (item.Count() > 0)
+                            ic.LineItems = (List<Item>)item;
+                    }
+                }
                     
             }
 
