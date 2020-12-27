@@ -1,6 +1,5 @@
 import React from 'react';
 import { Table } from 'reactstrap';
-import itemData from '../../../helpers/data/itemData';
 import './BudgetItemTable.scss';
 
 class BudgetItemTable extends React.Component {
@@ -8,22 +7,8 @@ class BudgetItemTable extends React.Component {
     lineItems: [],
   }
 
-  getBudgetLineItems = () => {
-    itemData.getBudgetLineItems(1)
-      .then((lineItems) => {
-        this.setState({ lineItems });
-        console.error('lineItems', lineItems);
-      })
-      .catch((err) => console.error('unable to get budget line item info'));
-  }
-
-  componentDidMount() {
-    this.getBudgetLineItems();
-  }
-
   render() {
-    const { item, removeItem } = this.props;
-    const { lineItems } = this.state;
+    const { item, removeItem, itemlineItems } = this.props;
 
     return (
       <div className="BudgetItemTable">
@@ -37,13 +22,15 @@ class BudgetItemTable extends React.Component {
         </tr>
       </thead>
       <tbody>
-        {lineItems.map((i, indx) => (
-          <tr>
-          <td key={indx}>{i.itemName}</td>
-          <td key={indx}>${i.price}</td>
-          <td> <button key={indx} className="btn btn-danger" onClick={() => removeItem(i.id)}><i className="fas fa-trash-alt"></i></button> </td>
+      {itemlineItems?.map((i, indx) => (
+        (i.categoryName === item.categoryName)
+          ? <tr>
+          <td>{i.itemName}</td>
+          <td>${i.price}</td>
+          <td> <button className="btn btn-danger" onClick={() => removeItem(i.id)}><i className="fas fa-trash-alt"></i></button> </td>
           </tr>
-        ))}
+          : <></>
+      ))}
       </tbody>
       </Table>
       </div>

@@ -15,7 +15,7 @@ const getBudgetLineItems = (userId) => new Promise((resolve, reject) => {
     .then((response) => {
       const items = response.data;
       items.forEach((i) => {
-        // console.error(i.lineItems);
+        console.error(i.lineItems);
         resolve(i.lineItems);
       });
     })
@@ -24,5 +24,12 @@ const getBudgetLineItems = (userId) => new Promise((resolve, reject) => {
 
 const deleteItem = (itemId) => axios.delete(`${baseUrl}/ItemCategory/removeItem/${itemId}`);
 
+const addItemCategory = (newItem) => axios.post(`${baseUrl}/itemCategory/`, newItem);
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getBudgetItems, getBudgetLineItems, deleteItem };
+export default {
+  getBudgetItems,
+  getBudgetLineItems,
+  deleteItem,
+  addItemCategory,
+};
