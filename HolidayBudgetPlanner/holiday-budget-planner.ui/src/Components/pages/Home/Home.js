@@ -19,7 +19,8 @@ class Home extends React.Component {
     giftLineItem: [],
     itemlineItems: [],
     holiday: [],
-    formOpen: false,
+    giftFormOpen: false,
+    itemFormOpen: false,
   }
 
   // gets the amount in the budget and is displayed in Budget Details
@@ -84,7 +85,7 @@ class Home extends React.Component {
       .then(() => {
         this.getGiftInfo();
         this.getGiftLineItems();
-        this.setState({ formOpen: false });
+        this.setState({ giftFormOpen: false });
       })
       .catch((err) => console.error('unable to add gift', err));
   }
@@ -93,7 +94,7 @@ class Home extends React.Component {
     itemData.addItemCategory(newCategory)
       .then(() => {
         this.getBudgetItems();
-        this.setState({ formOpen: false });
+        this.setState({ itemFormOpen: false });
       })
       .catch((err) => console.error('unable to add item category', err));
   }
@@ -103,7 +104,8 @@ class Home extends React.Component {
       budget,
       category,
       gift,
-      formOpen,
+      giftFormOpen,
+      itemFormOpen,
       giftLineItem,
       itemlineItems,
     } = this.state;
@@ -116,10 +118,11 @@ class Home extends React.Component {
       <div className="home">
         {buildCurrentViewedBudget}
         {buildGiftTable}
-        <button className="btn btn-primary" onClick={() => this.setState({ formOpen: true })}>Add Gift</button>
-        { formOpen ? <GiftForm formOpen={formOpen} budget={budget.id} addGiftEvent={this.addGiftEvent}/> : ''}
-        <button className="btn btn-primary" onClick={() => this.setState({ formOpen: true })}>Add Category</button>
-        { formOpen ? <ItemCatergoryForm formOpen={formOpen} budget={budget.id} addItemCategoryEvent={this.addItemCategoryEvent}/> : ''}
+        <button className="btn btn-primary" onClick={() => this.setState({ giftFormOpen: true })}>Add Gift</button>
+        { giftFormOpen ? <GiftForm giftFormOpen={giftFormOpen} budget={budget.id} addGiftEvent={this.addGiftEvent}/> : ''}
+        <button className="btn btn-primary" onClick={() => this.setState({ itemFormOpen: true })}>Add Category</button>
+        { itemFormOpen ? <ItemCatergoryForm itemFormOpen={itemFormOpen} budget={budget.id} addItemCategoryEvent={this.addItemCategoryEvent}/> : ''}
+        <h4>Purchased Items</h4>
         {buildItemTable}
       </div>
     );

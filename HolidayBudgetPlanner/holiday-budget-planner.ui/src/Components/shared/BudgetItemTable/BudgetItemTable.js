@@ -1,6 +1,5 @@
 import React from 'react';
 import { Table } from 'reactstrap';
-import itemData from '../../../helpers/data/itemData';
 import './BudgetItemTable.scss';
 
 class BudgetItemTable extends React.Component {
@@ -24,11 +23,13 @@ class BudgetItemTable extends React.Component {
       </thead>
       <tbody>
       {itemlineItems?.map((i, indx) => (
-          <tr>
+        (i.categoryName === item.categoryName)
+          ? <tr>
           <td>{i.itemName}</td>
           <td>${i.price}</td>
           <td> <button className="btn btn-danger" onClick={() => removeItem(i.id)}><i className="fas fa-trash-alt"></i></button> </td>
           </tr>
+          : <></>
       ))}
       </tbody>
       </Table>
