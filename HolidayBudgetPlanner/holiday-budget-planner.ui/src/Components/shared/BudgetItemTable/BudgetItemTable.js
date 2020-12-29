@@ -1,12 +1,22 @@
 import React from 'react';
 import { Table } from 'reactstrap';
 import NewItemForm from '../NewItemForm/NewItemForm';
+import itemData from '../../../helpers/data/itemData';
 import './BudgetItemTable.scss';
 
 class BudgetItemTable extends React.Component {
   state = {
     lineItems: [],
     addItemForm: false,
+  }
+
+  addItemEvent = (newItem) => {
+    itemData.addItemCategory(newItem)
+      .then(() => {
+        this.getBudgetItems();
+        this.setState({ itemFormOpen: false });
+      })
+      .catch((err) => console.error('unable to add item category', err));
   }
 
   render() {
@@ -18,7 +28,7 @@ class BudgetItemTable extends React.Component {
         <h4>{item.categoryName}</h4>
         <h5>Amount Spent: ${item.totalPrice}</h5>
         <button className="btn btn-primary" onClick={() => this.setState({ addItemForm: true })}>Add Item</button>
-        { addItemForm ? <NewItemForm addItemForm={addItemForm} item={item.categoryName} itemBudgetId={item.budgetId} addItemEvent={this.addItemEvent}/> : ''}
+        { addItemForm ? <NewItemForm addItemForm={addItemForm} nameOfCategory={item.categoryName} itemBudgetId={item.budgetId} addItemEvent={this.addItemEvent}/> : ''}
         <Table>
       <thead>
         <tr>

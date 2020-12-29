@@ -1,51 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './NewItemForm.scss';
-import itemData from '../../../helpers/data/itemData';
 
 class ItemCatergoryForm extends React.Component {
   static propTypes = {
-    addItemCategoryEvent: PropTypes.func.isRequired,
+    addItemEvent: PropTypes.func.isRequired,
   }
 
   state = {
-    budgetId: '',
-    categoryName: [],
-    idOfCategory: '',
+    nameOfItem: '',
+    priceOfItem: '',
   }
 
-  setCategory = (e) => {
+  itemNameChange = (e) => {
     e.preventDefault();
-    this.setState({ idOfCategory: e.target.value });
+    this.setState({ nameOfItem: e.target.value });
   }
 
-  // saveCateogry = (e) => {
-  //   e.preventDefault();
-  //   const { categoryNameChange } = this.state;
-  //   const { budget } = this.props;
-
-  //   const newCategoryName = {
-  //     categoryName: categoryNameChange,
-  //     budgetId: budget,
-  //   };
-  //   addItemCategoryEvent(newCategoryName);
-  // }
-
-  getCategoryNameList = () => {
-    itemData.getCategoryNames()
-      .then((categoryName) => this.setState({ categoryName }))
-      .catch((err) => console.error('unable to get category names'));
+  priceChange = (e) => {
+    e.preventDefault();
+    this.setState({ priceOfItem: e.target.value });
   }
 
-  componentDidMount() {
-    this.getCategoryNameList();
+  saveItem = (e) => {
+    e.preventDefault();
+    const { nameOfItem, priceOfItem } = this.state;
+    const { itemBudgetId, nameOfCategory, addItemEvent } = this.props;
+
+    const newItem = {
+      categoryName: nameOfCategory,
+      budgetId: itemBudgetId,
+      itemName: nameOfItem,
+      price: priceOfItem,
+    };
+    addItemEvent(newItem);
   }
 
   render() {
     const {
-      categoryNameChange,
-      categoryName,
-      idOfCategory,
+      nameOfItem,
+      priceOfItem,
     } = this.state;
 
     return (
@@ -53,29 +47,27 @@ class ItemCatergoryForm extends React.Component {
         <h4>Add Item Category</h4>
         <form>
         <div className="form-group">
-        <label>
-          Select a Category
-          <select value={idOfCategory} onChange={this.setCategory}>
-            {
-              categoryName.map((h) => (
-              <option>{h.categoryName}</option>
-              ))
-            }
-          </select>
-        </label>
-        </div>
-        <div className="form-group">
-            <label className="formLabel" htmlFor="itemCategory">Category Name</label>
+            <label className="formLabel" htmlFor="itemName">Item Name</label>
             <input type="text"
             className="form-control"
-            id="itemCategory"
-            placeholder="Enter Category Name"
-            value={categoryNameChange}
-            onChange={this.itemCategoryNameChange}
+            id="itemName"
+            placeholder="Enter Item Name"
+            value={nameOfItem}
+            onChange={this.itemNameChange}
+            />
+          </div>
+          <div className="form-group">
+            <label className="formLabel" htmlFor="price">Price</label>
+            <input type="text"
+            className="form-control"
+            id="price"
+            placeholder="Enter Price as number only"
+            value={priceOfItem}
+            onChange={this.priceChange}
             />
           </div>
           <button type="submit" className="submit btn btn-primary" onClick={this.saveCateogry}>Submit</button>
-          <button className="btn btn-primary ml-2" onClick={() => this.setState({ itemFormOpen: false })}>Close Form</button>
+          <button className="btn btn-primary ml-2" onClick={() => this.setState({ addItemForm: false })}>Close Form</button>
         </form>
       </div>
     );
