@@ -100,20 +100,34 @@ namespace holiday_budget_planner.DataAccess
             itemCategoryAdded.Id = newId;
         }
 
-     /*   public void AddNewItem(Item itemAdded)
+        /*   public void AddNewItem(Item itemAdded)
+           {
+               var sql = @"INSERT INTO [dbo].[ItemCategory]
+                           ([itemName]
+                           ,[categoryName]
+                           ,[id]
+                           ,[budgetId]
+                           ,[price])
+                           VALUES
+                                (@itemName,  @price, @id)";
+               using var db = new SqlConnection(_connectionString);
+
+               var newId = db.Execute(sql, itemAdded);
+           }*/
+
+        public IEnumerable<ItemCategory> GetAllCategories()
         {
-            var sql = @"INSERT INTO [dbo].[ItemCategory]
-                        ([itemName]
-                        ,[categoryName]
-                        ,[id]
-                        ,[budgetId]
-                        ,[price])
-                        VALUES
-                             (@itemName,  @price, @id)";
             using var db = new SqlConnection(_connectionString);
 
-            var newId = db.Execute(sql, itemAdded);
-        }*/
-        
+            var sql = @"select categoryName 
+                        from ItemCategory
+                        GROUP BY categoryName";
+
+            var allCategories = db.Query<ItemCategory>(sql);
+
+            return allCategories;
+
+        }
+
     }
 }

@@ -22,6 +22,15 @@ const getBudgetLineItems = (userId) => new Promise((resolve, reject) => {
     .catch((err) => reject(err, 'error'));
 });
 
+const getCategoryNames = () => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/ItemCategory/category`)
+    .then((response) => {
+      resolve(response.data);
+      console.error('categoryName:', response.data);
+    })
+    .catch((err) => reject(err, 'error'));
+});
+
 const deleteItem = (itemId) => axios.delete(`${baseUrl}/ItemCategory/removeItem/${itemId}`);
 
 const addItemCategory = (newItem) => axios.post(`${baseUrl}/itemCategory/`, newItem);
@@ -32,4 +41,5 @@ export default {
   getBudgetLineItems,
   deleteItem,
   addItemCategory,
+  getCategoryNames,
 };

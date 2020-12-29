@@ -29,6 +29,15 @@ namespace holiday_budget_planner.Controllers
 
         }
 
+        [HttpGet("category")]
+        public IActionResult GetAllCategories()
+        {
+            var allItemCategories = _itemCategoryRepo.GetAllCategories();
+
+            return Ok(allItemCategories);
+
+        }
+
 
         [HttpDelete("removeItem/{id}")]
         public IActionResult RemoveItem(int id)

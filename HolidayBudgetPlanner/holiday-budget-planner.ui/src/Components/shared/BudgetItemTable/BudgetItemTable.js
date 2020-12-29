@@ -1,19 +1,24 @@
 import React from 'react';
 import { Table } from 'reactstrap';
+import NewItemForm from '../NewItemForm/NewItemForm';
 import './BudgetItemTable.scss';
 
 class BudgetItemTable extends React.Component {
   state = {
     lineItems: [],
+    addItemForm: false,
   }
 
   render() {
     const { item, removeItem, itemlineItems } = this.props;
+    const { addItemForm } = this.state;
 
     return (
       <div className="BudgetItemTable">
         <h4>{item.categoryName}</h4>
         <h5>Amount Spent: ${item.totalPrice}</h5>
+        <button className="btn btn-primary" onClick={() => this.setState({ addItemForm: true })}>Add Item</button>
+        { addItemForm ? <NewItemForm addItemForm={addItemForm} item={item.categoryName} itemBudgetId={item.budgetId} addItemEvent={this.addItemEvent}/> : ''}
         <Table>
       <thead>
         <tr>

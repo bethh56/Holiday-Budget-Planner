@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './ItemCatergoryForm.scss';
+import './NewItemForm.scss';
+import itemData from '../../../helpers/data/itemData';
 
 class ItemCatergoryForm extends React.Component {
   static propTypes = {
@@ -8,8 +9,9 @@ class ItemCatergoryForm extends React.Component {
   }
 
   state = {
-    categoryNameChange: '',
     budgetId: '',
+    categoryName: [],
+    idOfCategory: '',
   }
 
   setCategory = (e) => {
@@ -17,32 +19,51 @@ class ItemCatergoryForm extends React.Component {
     this.setState({ idOfCategory: e.target.value });
   }
 
-  itemCategoryNameChange = (e) => {
-    e.preventDefault();
-    this.setState({ categoryNameChange: e.target.value });
+  // saveCateogry = (e) => {
+  //   e.preventDefault();
+  //   const { categoryNameChange } = this.state;
+  //   const { budget } = this.props;
+
+  //   const newCategoryName = {
+  //     categoryName: categoryNameChange,
+  //     budgetId: budget,
+  //   };
+  //   addItemCategoryEvent(newCategoryName);
+  // }
+
+  getCategoryNameList = () => {
+    itemData.getCategoryNames()
+      .then((categoryName) => this.setState({ categoryName }))
+      .catch((err) => console.error('unable to get category names'));
   }
 
-  saveCateogry = (e) => {
-    e.preventDefault();
-    const { categoryNameChange } = this.state;
-    const { addItemCategoryEvent, budget } = this.props;
-
-    const newCategoryName = {
-      categoryName: categoryNameChange,
-      budgetId: budget,
-    };
-    addItemCategoryEvent(newCategoryName);
+  componentDidMount() {
+    this.getCategoryNameList();
   }
 
   render() {
     const {
       categoryNameChange,
+      categoryName,
+      idOfCategory,
     } = this.state;
 
     return (
       <div className="GiftForm">
         <h4>Add Item Category</h4>
         <form>
+        <div className="form-group">
+        <label>
+          Select a Category
+          <select value={idOfCategory} onChange={this.setCategory}>
+            {
+              categoryName.map((h) => (
+              <option>{h.categoryName}</option>
+              ))
+            }
+          </select>
+        </label>
+        </div>
         <div className="form-group">
             <label className="formLabel" htmlFor="itemCategory">Category Name</label>
             <input type="text"
