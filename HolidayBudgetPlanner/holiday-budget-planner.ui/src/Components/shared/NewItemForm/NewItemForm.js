@@ -31,7 +31,7 @@ class ItemCatergoryForm extends React.Component {
       categoryName: nameOfCategory,
       budgetId: itemBudgetId,
       itemName: nameOfItem,
-      price: priceOfItem,
+      price: parseInt(priceOfItem, NaN),
     };
     addItemEvent(newItem);
   }
@@ -66,7 +66,7 @@ class ItemCatergoryForm extends React.Component {
             onChange={this.priceChange}
             />
           </div>
-          <button type="submit" className="submit btn btn-primary" onClick={this.saveCateogry}>Submit</button>
+          <button type="submit" className="submit btn btn-primary" onClick={this.saveItem}>Submit</button>
           <button className="btn btn-primary ml-2" onClick={() => this.setState({ addItemForm: false })}>Close Form</button>
         </form>
       </div>

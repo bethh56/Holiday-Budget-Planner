@@ -1,19 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Table } from 'reactstrap';
 import NewItemForm from '../NewItemForm/NewItemForm';
 import itemData from '../../../helpers/data/itemData';
 import './BudgetItemTable.scss';
 
 class BudgetItemTable extends React.Component {
+  static propTypes = {
+    getBudgetItems: PropTypes.func.isRequired,
+    getBudgetLineItems: PropTypes.func.isRequired,
+  }
+
   state = {
     lineItems: [],
     addItemForm: false,
   }
 
   addItemEvent = (newItem) => {
+    const { getBudgetItems, getBudgetLineItems } = this.props;
     itemData.addItemCategory(newItem)
       .then(() => {
-        this.getBudgetItems();
+        getBudgetItems();
+        getBudgetLineItems();
         this.setState({ itemFormOpen: false });
       })
       .catch((err) => console.error('unable to add item category', err));

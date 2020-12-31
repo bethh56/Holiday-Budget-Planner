@@ -52,7 +52,6 @@ class App extends React.Component {
 
   render() {
     const { authed } = this.state;
-    console.error('is app auth', authed);
 
     return (
       <div className="App">
@@ -62,12 +61,14 @@ class App extends React.Component {
             <div className="container">
               <div className="row">
               <Switch authed={authed}>
-                  <Route path='/auth' component={Auth} authed={authed}/>
-                  <Route path='/createNewUser' component={NewUserForm} authed={authed}/>
                   <PrivateRoute path='/home' component={Home} authed={authed}/>
                   <PrivateRoute path='/viewAllBudgets' component={ViewAllBudgets} authed={authed}/>
                   <PrivateRoute path='/previousBudget' component={PreviousBudget} authed={authed}/>
                   <PrivateRoute path='/addNewBudget' component={AddNewBudget} authed={authed}/>
+
+                  <Route path='/auth' component={Auth} authed={authed}/>
+                  <Route path='/createNewUser' component={NewUserForm} authed={authed}/>
+
                   <Redirect from='*' to='/home' />
                 </Switch>
               </div>

@@ -4,10 +4,6 @@ import authData from '../../../../helpers/data/authData';
 import './NewUserForm.scss';
 
 class NewUserForm extends React.Component {
-  static propTypes = {
-    addGiftEvent: PropTypes.func.isRequired,
-  }
-
   state = {
     user: {
       email: '',

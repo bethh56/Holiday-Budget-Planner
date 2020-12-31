@@ -33,7 +33,7 @@ const getCategoryNames = () => new Promise((resolve, reject) => {
 
 const deleteItem = (itemId) => axios.delete(`${baseUrl}/ItemCategory/removeItem/${itemId}`);
 
-const addItemCategory = (newItem) => axios.post(`${baseUrl}/itemCategory/`, newItem);
+const addItemCategory = (newItemInfo) => axios.post(`${baseUrl}/itemCategory/`, newItemInfo);
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {

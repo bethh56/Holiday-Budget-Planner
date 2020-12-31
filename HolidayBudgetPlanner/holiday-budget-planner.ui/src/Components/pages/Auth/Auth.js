@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import authData from '../../../helpers/data/authData';
 
 class Auth extends React.Component {
-  static propTypes = {
-    authed: PropTypes.bool.isRequired,
-  }
+  // static propTypes = {
+  //   authed: PropTypes.bool.isRequired,
+  // }
 
   state = {
     user: {
