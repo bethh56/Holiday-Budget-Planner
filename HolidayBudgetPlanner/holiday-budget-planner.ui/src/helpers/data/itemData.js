@@ -10,12 +10,12 @@ const getBudgetItems = (userId) => new Promise((resolve, reject) => {
     .catch((err) => reject(err, 'error'));
 });
 
-const getBudgetLineItems = (userId) => new Promise((resolve, reject) => {
+const getBudgetUserLineItems = (userId) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/ItemCategory/user${userId}`)
     .then((response) => {
       const items = response.data;
       items.forEach((i) => {
-        console.error(i.lineItems);
+        console.error(i.categoryName, i.lineItems);
         resolve(i.lineItems);
       });
     })
@@ -38,7 +38,7 @@ const addItemCategory = (newItemInfo) => axios.post(`${baseUrl}/itemCategory/`, 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   getBudgetItems,
-  getBudgetLineItems,
+  getBudgetUserLineItems,
   deleteItem,
   addItemCategory,
   getCategoryNames,

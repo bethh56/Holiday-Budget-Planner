@@ -49,10 +49,10 @@ class Home extends React.Component {
   }
 
   getBudgetLineItems = () => {
-    itemData.getBudgetLineItems(1)
+    itemData.getBudgetUserLineItems(1)
       .then((itemlineItems) => {
         this.setState({ itemlineItems });
-        console.error('lineItems', itemlineItems);
+        console.error('get line items', itemlineItems);
       })
       .catch((err) => console.error('unable to get budget line item info'));
   }
