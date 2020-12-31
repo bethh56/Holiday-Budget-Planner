@@ -22,7 +22,7 @@ class BudgetItemTable extends React.Component {
       .then(() => {
         getBudgetItems();
         getBudgetLineItems();
-        this.setState({ itemFormOpen: false });
+        this.setState({ addItemForm: false });
       })
       .catch((err) => console.error('unable to add item category', err));
   }
