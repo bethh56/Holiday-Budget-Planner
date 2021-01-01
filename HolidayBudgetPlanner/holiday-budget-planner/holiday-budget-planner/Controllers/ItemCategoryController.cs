@@ -29,6 +29,15 @@ namespace holiday_budget_planner.Controllers
 
         }
 
+       /* [HttpGet("lineItems")]
+        public IActionResult GetItemsByBudgetId()
+        {
+            var items = _itemCategoryRepo.GetItemsByBudgetId();
+
+            return Ok(items);
+
+        }*/
+
         [HttpGet("category")]
         public IActionResult GetAllCategories()
         {

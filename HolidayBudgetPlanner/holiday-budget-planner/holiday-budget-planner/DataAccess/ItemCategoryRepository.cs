@@ -116,5 +116,26 @@ namespace holiday_budget_planner.DataAccess
 
         }
 
+  /*      public IEnumerable<ItemCategory> GetItemsByBudgetId(int userId, int budgetId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var dynamicParameters = new DynamicParameters();
+            dynamicParameters.Add("userid", userId);
+            dynamicParameters.Add("budgetId", budgetId);
+
+            var sql = @"select Ic.categoryName, Ic.budgetId, Ic.price, Ic.itemName
+                        from ItemCategory Ic
+                        join Budget B on
+                        B.id = Ic.budgetId
+                        where B.Id = @budgetId and B.userId = @userId and Ic.itemName IS NOT null and Ic.price IS NOT NULL
+                        GROUP BY Ic.categoryName, Ic.budgetId, Ic.price, Ic.itemName";
+
+            var items = db.Query<ItemCategory>(sql, dynamicParameters);
+
+            return items;
+
+        }*/
+
     }
 }
