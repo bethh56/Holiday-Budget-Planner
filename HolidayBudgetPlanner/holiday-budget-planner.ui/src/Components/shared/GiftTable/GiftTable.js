@@ -13,13 +13,14 @@ class GiftTable extends React.Component {
     return (
       <div className="BudgetItemTable">
         <h4>Purchased Gifts</h4>
-        <h5>Amount Spent: ${item.totalPrice}</h5>
+        <h5 className="amountSpent">Amount Spent: ${item.totalPrice}</h5>
         <Table>
       <thead>
         <tr>
           <th>Gift Recepient</th>
           <th>Item</th>
           <th>Cost</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>

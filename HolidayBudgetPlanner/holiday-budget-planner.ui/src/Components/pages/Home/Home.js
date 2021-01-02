@@ -119,7 +119,7 @@ class Home extends React.Component {
     const buildGiftTable = [gift].map((item) => (<GiftTable key={item.id} item={item} giftLineItem={giftLineItem} removeGift={this.removeGift}/>));
 
     return (
-      <div className="home text-center">
+      <div className="home align-center">
         {buildCurrentViewedBudget}
         {buildGiftTable}
         <button className="btn btn-primary" onClick={() => this.setState({ giftFormOpen: true })}>Add Gift</button>
