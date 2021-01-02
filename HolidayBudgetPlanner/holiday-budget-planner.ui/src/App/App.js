@@ -28,9 +28,16 @@ const PrivateRoute = ({ component: Component, authed, ...rest }) => {
   return <Route {...rest} render={(props) => routeChecker(props)} />;
 };
 
+const PublicRoute = ({ component: Component, authed, ...rest }) => {
+  const routeChecker = (props) => (authed === false
+    ? (<Component {...props} />)
+    : (<Redirect to={{ pathname: '/home', state: { from: props.location } }} />));
+  return <Route {...rest} render={(props) => routeChecker(props)} />;
+};
+
 class App extends React.Component {
   state = {
-    authed: false,
+    authed: true,
   }
 
   componentDidMount() {
@@ -52,7 +59,6 @@ class App extends React.Component {
 
   render() {
     const { authed } = this.state;
-    console.error('is app auth', authed);
 
     return (
       <div className="App">
@@ -61,15 +67,15 @@ class App extends React.Component {
             <MyNavbar authed={authed} />
             <div className="container">
               <div className="row">
-              <Switch authed={authed}>
-                  <Route path='/auth' component={Auth} authed={authed}/>
-                  <Route path='/createNewUser' component={NewUserForm} authed={authed}/>
-                  <PrivateRoute path='/home' component={Home} authed={authed}/>
-                  <PrivateRoute path='/viewAllBudgets' component={ViewAllBudgets} authed={authed}/>
-                  <PrivateRoute path='/previousBudget' component={PreviousBudget} authed={authed}/>
-                  <PrivateRoute path='/addNewBudget' component={AddNewBudget} authed={authed}/>
-                  <Redirect from='*' to='/home' />
-                </Switch>
+              <Switch>
+                <PublicRoute path='/auth' component={Auth} authed= {authed}/>
+                <PublicRoute path='/createNewUser' component={NewUserForm} authed= {authed}/>
+                <PrivateRoute path='/viewAllBudgets' component={ViewAllBudgets} authed={authed}/>
+                <PrivateRoute path='/previousBudget' component={PreviousBudget} authed={authed}/>
+                <PrivateRoute path='/addNewBudget' component={AddNewBudget} authed={authed}/>
+                <PrivateRoute path='/home' component={Home} authed={authed}/>
+                <Redirect from='*' to='/home' />
+              </Switch>
               </div>
             </div>
           </React.Fragment>

@@ -49,10 +49,10 @@ class Home extends React.Component {
   }
 
   getBudgetLineItems = () => {
-    itemData.getBudgetLineItems(1)
+    itemData.getBudgetUserLineItems(1)
       .then((itemlineItems) => {
         this.setState({ itemlineItems });
-        console.error('lineItems', itemlineItems);
+        console.error('get line items', itemlineItems);
       })
       .catch((err) => console.error('unable to get budget line item info'));
   }
@@ -76,7 +76,10 @@ class Home extends React.Component {
 
   removeItem = (itemId) => {
     itemData.deleteItem(itemId)
-      .then(() => this.getBudgetItems())
+      .then(() => {
+        this.getBudgetItems();
+        this.getBudgetLineItems();
+      })
       .catch((err) => console.error('unable to delete gift', err));
   }
 
@@ -111,7 +114,8 @@ class Home extends React.Component {
     } = this.state;
 
     const buildCurrentViewedBudget = [budget].map((budgetPlan) => (<BudgetDetails key={budgetPlan.id} budgetPlan={budgetPlan}/>));
-    const buildItemTable = category.map((item) => (<BudgetItemTable key={item.id} item={item} itemlineItems={itemlineItems} removeItem={this.removeItem}/>));
+    // eslint-disable-next-line max-len
+    const buildItemTable = category.map((item) => (<BudgetItemTable key={item.id} item={item} getBudgetLineItems={this.getBudgetLineItems} itemlineItems={itemlineItems} getBudgetItems={this.getBudgetItems} removeItem={this.removeItem}/>));
     const buildGiftTable = [gift].map((item) => (<GiftTable key={item.id} item={item} giftLineItem={giftLineItem} removeGift={this.removeGift}/>));
 
     return (

@@ -29,6 +29,24 @@ namespace holiday_budget_planner.Controllers
 
         }
 
+       /* [HttpGet("lineItems")]
+        public IActionResult GetItemsByBudgetId()
+        {
+            var items = _itemCategoryRepo.GetItemsByBudgetId();
+
+            return Ok(items);
+
+        }*/
+
+        [HttpGet("category")]
+        public IActionResult GetAllCategories()
+        {
+            var allItemCategories = _itemCategoryRepo.GetAllCategories();
+
+            return Ok(allItemCategories);
+
+        }
+
 
         [HttpDelete("removeItem/{id}")]
         public IActionResult RemoveItem(int id)
@@ -39,22 +57,13 @@ namespace holiday_budget_planner.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddNewItemCategory(ItemCategory newItemCategory)
+        public IActionResult AddNewItemInfo(ItemCategory newItemCategory)
         {
-            _itemCategoryRepo.AddNewItemCategory(newItemCategory);
+            _itemCategoryRepo.AddNewItemInfo(newItemCategory);
 
             return Created($"/api/itemCategory/{newItemCategory.Id}", newItemCategory);
 
         }
-/*
-        [HttpPost]
-        public IActionResult AddNewItem(Item newItem)
-        {
-            _itemCategoryRepo.AddNewItem(newItem);
-
-            return Created($"/api/itemCategory/newItem/{newItem.Id}", newItem);
-
-        }*/
 
     }
 }

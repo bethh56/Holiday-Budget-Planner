@@ -12,6 +12,16 @@ class ItemCatergoryForm extends React.Component {
     budgetId: '',
   }
 
+  setCategory = (e) => {
+    e.preventDefault();
+    this.setState({ idOfCategory: e.target.value });
+  }
+
+  itemCategoryNameChange = (e) => {
+    e.preventDefault();
+    this.setState({ categoryNameChange: e.target.value });
+  }
+
   saveCateogry = (e) => {
     e.preventDefault();
     const { categoryNameChange } = this.state;
@@ -24,15 +34,10 @@ class ItemCatergoryForm extends React.Component {
     addItemCategoryEvent(newCategoryName);
   }
 
-  itemCategoryNameChange = (e) => {
-    e.preventDefault();
-    this.setState({ categoryNameChange: e.target.value });
-  }
-
   render() {
     const {
       categoryNameChange,
-    } = this.setState;
+    } = this.state;
 
     return (
       <div className="GiftForm">
