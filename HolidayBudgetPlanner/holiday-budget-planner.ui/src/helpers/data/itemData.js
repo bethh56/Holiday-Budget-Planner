@@ -13,11 +13,11 @@ const getBudgetItems = (userId) => new Promise((resolve, reject) => {
 const getBudgetUserLineItems = (userId) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/ItemCategory/user${userId}`)
     .then((response) => {
-      const items = response.data;
-      items.forEach((i) => {
-        resolve(i.lineItems);
-        console.error(i.lineItems);
-      });
+      // allItems.forEach((i) => {
+      //   console.error(Object.keys(i));
+      // });
+      resolve(response.data);
+      console.error(response.data);
     })
     .catch((err) => reject(err, 'error'));
 });

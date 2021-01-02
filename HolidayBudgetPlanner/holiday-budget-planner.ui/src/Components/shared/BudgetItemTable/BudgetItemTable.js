@@ -45,14 +45,16 @@ class BudgetItemTable extends React.Component {
         </tr>
       </thead>
       <tbody>
-      {itemlineItems?.map((i, indx) => (
-        (i.categoryName === item.categoryName)
-          ? <tr>
-          <td>{i.itemName}</td>
-          <td>${i.price}</td>
+      {itemlineItems.map((i, indx) => (
+        i.lineItems.map((j) => (
+          (j.categoryName === item.categoryName)
+            ? <tr>
+          <td>{j.itemName}</td>
+          <td>${j.price}</td>
           <td> <button className="btn btn-danger" onClick={() => removeItem(i.id)}><i className="fas fa-trash-alt"></i></button> </td>
           </tr>
-          : <></>
+            : <></>
+        ))
       ))}
       </tbody>
       </Table>
