@@ -76,7 +76,10 @@ class Home extends React.Component {
 
   removeItem = (itemId) => {
     itemData.deleteItem(itemId)
-      .then(() => this.getBudgetItems())
+      .then(() => {
+        this.getBudgetItems();
+        this.getBudgetLineItems();
+      })
       .catch((err) => console.error('unable to delete gift', err));
   }
 

@@ -51,7 +51,7 @@ class BudgetItemTable extends React.Component {
             ? <tr>
           <td>{j.itemName}</td>
           <td>${j.price}</td>
-          <td> <button className="btn btn-danger" onClick={() => removeItem(i.id)}><i className="fas fa-trash-alt"></i></button> </td>
+          <td> <button className="btn btn-danger" onClick={() => removeItem(j.id)}><i className="fas fa-trash-alt"></i></button> </td>
           </tr>
             : <></>
         ))
