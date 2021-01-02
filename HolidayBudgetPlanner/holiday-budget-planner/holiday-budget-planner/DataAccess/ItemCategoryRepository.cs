@@ -31,12 +31,12 @@ namespace holiday_budget_planner.DataAccess
             categoryDynamicParameters.Add("id", newestBudget.Id);
             categoryDynamicParameters.Add("userId", newestBudget.UserId);
 
-            var categorySql = @"select Ic.categoryName, Ic.budgetId, B.userId, B.dateCreated, Ic.id, SUM(price) AS TotalPrice
+            var categorySql = @"select Ic.categoryName, Ic.budgetId, B.userId, B.dateCreated, SUM(price) AS TotalPrice
                                 from ItemCategory Ic
                                 join Budget B on
                                 B.id = Ic.budgetId
                                 where B.userId = @userId AND B.Id = @id
-                                GROUP BY Ic.categoryName, Ic.budgetId, B.userId, Ic.id, B.dateCreated
+                                GROUP BY Ic.categoryName, Ic.budgetId, B.userId, B.dateCreated
                                 ORDER BY B.dateCreated desc";
 
             var categoryInfo = db.Query<ItemCategory>(categorySql, categoryDynamicParameters);
@@ -85,14 +85,16 @@ namespace holiday_budget_planner.DataAccess
 
         }
 
-        public void AddNewItemCategory(ItemCategory itemCategoryAdded)
+        public void AddNewItemInfo(ItemCategory itemCategoryAdded)
         {
             var sql = @"INSERT INTO [dbo].[ItemCategory]
                         ([categoryName]
-                        ,[budgetId])
+                        ,[budgetId]
+                        ,[itemName]
+                        ,[price])
                        Output inserted.Id
                         VALUES
-                             (@categoryName,  @budgetId)";
+                             (@categoryName,  @budgetId, @itemName, @price)";
             using var db = new SqlConnection(_connectionString);
 
             var newId = db.ExecuteScalar<int>(sql, itemCategoryAdded);
@@ -100,20 +102,40 @@ namespace holiday_budget_planner.DataAccess
             itemCategoryAdded.Id = newId;
         }
 
-     /*   public void AddNewItem(Item itemAdded)
+        public IEnumerable<ItemCategory> GetAllCategories()
         {
-            var sql = @"INSERT INTO [dbo].[ItemCategory]
-                        ([itemName]
-                        ,[categoryName]
-                        ,[id]
-                        ,[budgetId]
-                        ,[price])
-                        VALUES
-                             (@itemName,  @price, @id)";
             using var db = new SqlConnection(_connectionString);
 
-            var newId = db.Execute(sql, itemAdded);
+            var sql = @"select categoryName 
+                        from ItemCategory
+                        GROUP BY categoryName";
+
+            var allCategories = db.Query<ItemCategory>(sql);
+
+            return allCategories;
+
+        }
+
+  /*      public IEnumerable<ItemCategory> GetItemsByBudgetId(int userId, int budgetId)
+        {
+            using var db = new SqlConnection(_connectionString);
+
+            var dynamicParameters = new DynamicParameters();
+            dynamicParameters.Add("userid", userId);
+            dynamicParameters.Add("budgetId", budgetId);
+
+            var sql = @"select Ic.categoryName, Ic.budgetId, Ic.price, Ic.itemName
+                        from ItemCategory Ic
+                        join Budget B on
+                        B.id = Ic.budgetId
+                        where B.Id = @budgetId and B.userId = @userId and Ic.itemName IS NOT null and Ic.price IS NOT NULL
+                        GROUP BY Ic.categoryName, Ic.budgetId, Ic.price, Ic.itemName";
+
+            var items = db.Query<ItemCategory>(sql, dynamicParameters);
+
+            return items;
+
         }*/
-        
+
     }
 }
