@@ -1,14 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500&family=Nanum+Myeongjo&display=swap');
-
 .navBar{
-  background-color: #457B9D;
-  border-bottom: 2.5px solid #1D3557;
+  background-color: #208371;
 }
 
 .navLink {
-  color: #F1FAEE;
-  font-family: 'Nanum Myeongjo', serif;
+  color: #ffffff;
+  font-family: 'Andika New Basic', sans-serif;
 }
 
 .navLink:hover{
@@ -16,26 +12,30 @@
 }
 
 .navbarBrand{
-  color: #F1FAEE;
+  color: #ffffff;
   font-family: 'Cinzel', serif;
   font-size: 20px;
 }
 
 .navbarBrand:hover{
-  color: #e7e4e4;
+  color: #F1FAEE;
 }
 
 .openNavbar{
-  background-color: #F1FAEE;
+  background-color: #FFFFFF;
 }
 
 .logOutBtn {
-  background-color: #A8DADC;
+  background-color: #FFFFFF;
   color: #3D3E3D;
-  font-family: 'Nanum Myeongjo', serif;
+  font-family: 'Andika New Basic', sans-serif;
   font-weight: bold;
   padding: 4px 10px;
-  border: solid 1px #F1FAEE;
+  border: solid 1px #31a791;
   border-radius: 5px;
   margin-top: 4px;
+}
+
+.logOutBtn:hover {
+  background-color: #F1FAEE;;
 }

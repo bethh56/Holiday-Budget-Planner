@@ -7,8 +7,8 @@ class BudgetDetails extends React.Component {
     return (
       <div className='budgetDetails'>
         <h1 className="holidayName">{budgetPlan.holidayName}</h1>
-        <h4>Amount Left To Spend:</h4>
-        <h1>${budgetPlan.budgetAmount}</h1>
+        <h6>Amount Left To Spend: </h6>
+        <span className="budgetAmount">${budgetPlan.budgetAmount}</span>
       </div>
     );
   }
