@@ -1,0 +1,41 @@
+.navBar{
+  background-color: #208371;
+}
+
+.navLink {
+  color: #ffffff;
+  font-family: 'Andika New Basic', sans-serif;
+}
+
+.navLink:hover{
+  color: #F1FAEE;
+}
+
+.navbarBrand{
+  color: #ffffff;
+  font-family: 'Cinzel', serif;
+  font-size: 20px;
+}
+
+.navbarBrand:hover{
+  color: #F1FAEE;
+}
+
+.openNavbar{
+  background-color: #FFFFFF;
+}
+
+.logOutBtn {
+  background-color: #FFFFFF;
+  color: #3D3E3D;
+  font-family: 'Andika New Basic', sans-serif;
+  font-weight: bold;
+  padding: 4px 10px;
+  border: solid 1px #31a791;
+  border-radius: 5px;
+  margin-top: 4px;
+}
+
+.logOutBtn:hover {
+  background-color: #F1FAEE;
+}

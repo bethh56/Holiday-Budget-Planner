@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Row, Col } from 'reactstrap';
 import './NewItemForm.scss';
 
 class ItemCatergoryForm extends React.Component {
@@ -42,12 +43,17 @@ class ItemCatergoryForm extends React.Component {
       priceOfItem,
     } = this.state;
 
+    const { nameOfCategory } = this.props;
+
     return (
-      <div className="GiftForm">
-        <h4>Add Item Category</h4>
+      <div className="newItemForm">
         <form>
+        <Col>
         <div className="form-group">
+          <Row>
             <label className="formLabel" htmlFor="itemName">Item Name</label>
+          </Row>
+          <Row>
             <input type="text"
             className="form-control"
             id="itemName"
@@ -55,19 +61,27 @@ class ItemCatergoryForm extends React.Component {
             value={nameOfItem}
             onChange={this.itemNameChange}
             />
+          </Row>
           </div>
+        </Col>
+        <Col>
           <div className="form-group">
+          <Row>
             <label className="formLabel" htmlFor="price">Price</label>
+          </Row>
+          <Row>
             <input type="text"
             className="form-control"
             id="price"
-            placeholder="Enter Price as number only"
+            placeholder="Enter Price"
             value={priceOfItem}
             onChange={this.priceChange}
             />
+          </Row>
           </div>
-          <button type="submit" className="submit btn btn-primary" onClick={this.saveItem}>Submit</button>
-          <button className="btn btn-primary ml-2" onClick={() => this.setState({ addItemForm: false })}>Close Form</button>
+          </Col>
+          <button type="submit" className="addItem" onClick={this.saveItem}><i class="fas fa-plus-circle"></i> Add to {nameOfCategory}</button>
+          <button className="closeItemFormBtn" onClick={() => this.setState({ addItemForm: false })}><i class="fas fa-times-circle"></i> Close Form</button>
         </form>
       </div>
     );

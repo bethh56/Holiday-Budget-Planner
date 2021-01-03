@@ -32,7 +32,7 @@ class ViewAllBudgets extends React.Component {
     const { budget } = this.state;
     const getPriorBudgets = budget.map((oldBudget) => (<PriorBudgetList key={oldBudget.id} oldBudget={oldBudget} removeBudget={this.removeBudget}/>));
     return (
-      <div className="viewAllBudgets">
+      <div className="viewAllBudgets text-center">
         <h1>View All Budgets</h1>
         {getPriorBudgets}
       </div>

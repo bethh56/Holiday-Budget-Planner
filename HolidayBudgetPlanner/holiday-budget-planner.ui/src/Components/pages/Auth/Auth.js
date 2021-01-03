@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import './Auth.scss';
 
 import authData from '../../../helpers/data/authData';
 
@@ -43,9 +44,9 @@ class Auth extends React.Component {
   render() {
     const { user } = this.state;
     return (
-      <div className="Login m-auto">
-        <div id="login-form">
-          <h1 className="text-center">Login</h1>
+      <div className="auth m-auto">
+        <div className="loginForm" id="login-form">
+          <h2 className="text-center mt-4">Please Login</h2>
           <form className="form-horizontal">
             <div className="form-group">
               <label htmlFor="inputEmail" className="control-label">
@@ -79,16 +80,16 @@ class Auth extends React.Component {
             </div>
             <div className="form-group">
               <div className="col-sm-12 text-center">
-                <Link to ={'/createNewUser'}>Need to Register?</Link>
+                <Link className='newUserFormBtn' to ={'/createNewUser'}>Need to Register?</Link>
               </div>
             </div>
-            <div className="form-group">
+            <div className="form-group text-center">
               <div>
                 <button
                   type="submit"
-                  className="btn btn-primary"
+                  className="loginBtn"
                   onClick={this.loginClickEvent}>
-                  Login
+                  <i class="fas fa-sign-in-alt"></i> Login
                 </button>
               </div>
             </div>

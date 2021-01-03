@@ -1,4 +1,12 @@
 import React from 'react';
+import {
+  Row,
+  FormGroup,
+  Form,
+  Input,
+  Label,
+  Col,
+} from 'reactstrap';
 import PropTypes from 'prop-types';
 import './GiftForm.scss';
 
@@ -52,41 +60,58 @@ class GiftForm extends React.Component {
 
     return (
       <div className="GiftForm">
-        <h4>Gift Form</h4>
-        <form>
-        <div className="form-group">
-            <label className="formLabel" htmlFor="recipientName">Recipient Name</label>
-            <input type="text"
+        <Form>
+          <Col>
+          <FormGroup>
+            <Row>
+            <Label className="formLabel" htmlFor="recipientName">Recipient Name</Label>
+            </Row>
+            <Row>
+            <Input type="text"
             className="form-control"
             id="recipientName"
             placeholder="Enter recipient"
             value={recepientOfGift}
             onChange={this.recepientChange}
             />
-          </div>
-          <div className="form-group">
-            <label className="formLabel" htmlFor="itemName">Item</label>
-            <input type="text"
+            </Row>
+          </FormGroup>
+          </Col>
+          <Col>
+          <FormGroup>
+            <Row>
+              <Label className="formLabel" htmlFor="itemName">Item</Label>
+            </Row>
+            <Row>
+            <Input type="text"
             className="form-control"
             id="itemName"
             placeholder="Enter item name"
             value={itemForGift}
             onChange={this.itemChange}
             />
-          </div>
-          <div className="form-group">
-            <label className="formLabel" htmlFor="priceOfItem">Price</label>
-            <input type="text"
+            </Row>
+          </FormGroup>
+          </Col>
+          <Col>
+          <FormGroup>
+            <Row>
+            <Label className="formLabel" htmlFor="priceOfItem">Price</Label>
+            </Row>
+            <Row>
+            <Input type="text"
             className="form-control"
             id="priceOfItem"
             placeholder="Enter Price"
             value={priceOfGift}
             onChange={this.priceChange}
             />
-          </div>
-          <button type="submit" className="submit btn btn-primary" onClick={this.saveGift}>Submit</button>
-          <button className="btn btn-primary ml-2" onClick={() => this.setState({ giftFormOpen: false })}>Close Form</button>
-        </form>
+            </Row>
+          </FormGroup>
+          </Col>
+          <button type="submit" className="giftFormBtn" onClick={this.saveGift}><i class="fas fa-gift"></i> Add Gift</button>
+          <button className="closeGiftFormBtn" onClick={() => this.setState({ giftFormOpen: false })}><i class="fas fa-times-circle"></i> Close Form</button>
+        </Form>
       </div>
     );
   }

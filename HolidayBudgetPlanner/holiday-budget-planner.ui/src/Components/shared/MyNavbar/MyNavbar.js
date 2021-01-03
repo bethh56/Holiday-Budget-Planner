@@ -47,17 +47,21 @@ class MyNavbar extends React.Component {
       if (authed === true) {
         return (
           <React.Fragment>
-           <NavbarToggler onClick={toggle} />
+           <NavbarToggler className="openNavbar" onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/viewAllBudgets">View All Budgets</NavLink>
+                <NavLink href="/viewAllBudgets">
+                  <span className="navLink">View All Budgets</span>
+                  </NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/addNewBudget">New Budget</NavLink>
+                <NavLink href="/addNewBudget">
+                  <span className="navLink">New Budget</span>
+                </NavLink>
               </NavItem>
               <NavItem>
-         `      <button className='btn btn-danger' onClick={this.logoutClickEvent}>Logout</button>
+         `      <button className='logOutBtn' onClick={this.logoutClickEvent}>Logout</button>
               </NavItem>
             </Nav>
           </Collapse>
@@ -69,8 +73,10 @@ class MyNavbar extends React.Component {
 
     return (
       <div>
-        <Navbar color="light" light expand="md">
-          <NavbarBrand href="/home">Holiday Budget Planner</NavbarBrand>
+        <Navbar className="navBar" light expand="md">
+          <NavbarBrand href="/home">
+            <span className="navbarBrand">Holiday Budget Planner</span>
+            </NavbarBrand>
           { buildNavbar() }
         </Navbar>
       </div>

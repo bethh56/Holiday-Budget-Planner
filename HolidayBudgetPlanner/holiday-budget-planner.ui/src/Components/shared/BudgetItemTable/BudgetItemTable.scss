@@ -1,3 +1,37 @@
 .BudgetItemTable{
-  color: green;
+  color: #292929;
+}
+
+.itemTotalSpent {
+  color: #FAA916;
+  font-weight: bold;
+}
+
+.deleteItem {
+  background-color: #A63446;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border: solid 1px #A63446;
+  border-radius: 3px;
+}
+
+.deleteItem:hover {
+  background-color: #c54054;
+}
+
+.addItemBtn {
+  margin-bottom: 35px;
+  background-color: #208371;
+  color: #ffffff;
+  border: solid 1px #208371;
+  border-radius: 5px;
+  width: 40%;
+}
+
+.addItemBtn:hover {
+  background-color: #29a18b;
+}
+
+.itemCategoryName{
+  font-weight: bold;
 }

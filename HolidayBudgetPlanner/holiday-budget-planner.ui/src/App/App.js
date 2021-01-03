@@ -37,7 +37,7 @@ const PublicRoute = ({ component: Component, authed, ...rest }) => {
 
 class App extends React.Component {
   state = {
-    authed: true,
+    authed: false,
   }
 
   componentDidMount() {

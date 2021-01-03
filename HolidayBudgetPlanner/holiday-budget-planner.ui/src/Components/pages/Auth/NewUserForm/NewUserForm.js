@@ -54,8 +54,8 @@ class NewUserForm extends React.Component {
     const { user } = this.state;
 
     return (
-      <div className="GiftForm">
-        <h4>Create New User</h4>
+      <div className="newUserForm m-auto">
+        <h3 className="userForm">Create New User</h3>
         <form>
         <div className="form-group">
             <label className="formLabel" htmlFor="userFirstName">First Name</label>
@@ -97,7 +97,9 @@ class NewUserForm extends React.Component {
             onChange={this.passwordChange}
             />
           </div>
-          <button type="submit" className="submit btn btn-primary" onClick={this.registerClickEvent}>Submit</button>
+          <div className="text-center">
+          <button type="submit" className="createNewUserBtn" onClick={this.registerClickEvent}>Submit</button>
+          </div>
         </form>
       </div>
     );
