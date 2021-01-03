@@ -1,0 +1,32 @@
+.GiftForm {
+  border: solid 2.5px #292929;
+  border-radius: 5px;
+  padding: 14px;
+  font-family: 'Andika New Basic', sans-serif;
+}
+
+.giftFormBtn {
+  background-color: #208371;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border: solid 1px #208371;
+  border-radius: 3px;
+  margin-right: 5px;
+}
+
+.giftFormBtn:hover{
+  background-color: #29a18b;
+}
+
+.closeGiftFormBtn{
+  background-color: #A63446;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border: solid 1px #A63446;
+  border-radius: 3px;
+  margin-left: 5px;
+}
+
+.closeGiftFormBtn:hover{
+  background-color: #c54054;
+}

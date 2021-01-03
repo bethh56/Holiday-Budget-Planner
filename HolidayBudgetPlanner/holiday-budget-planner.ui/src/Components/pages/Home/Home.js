@@ -122,9 +122,9 @@ class Home extends React.Component {
       <div className="home text-center">
         {buildCurrentViewedBudget}
         {buildGiftTable}
-        <button className="btn btn-primary" onClick={() => this.setState({ giftFormOpen: true })}>Add Gift</button>
+        { giftFormOpen ? <div/> : <button className="addGiftBtn col-12" onClick={() => this.setState({ giftFormOpen: true })}>Add Gift</button>}
         { giftFormOpen ? <GiftForm giftFormOpen={giftFormOpen} budget={budget.id} addGiftEvent={this.addGiftEvent}/> : ''}
-        <button className="btn btn-primary" onClick={() => this.setState({ itemFormOpen: true })}>Add Category</button>
+        <button className="btn btn-primary col-12" onClick={() => this.setState({ itemFormOpen: true })}>Add Category</button>
         { itemFormOpen ? <ItemCatergoryForm itemFormOpen={itemFormOpen} budget={budget.id} addItemCategoryEvent={this.addItemCategoryEvent}/> : ''}
         <h4>Purchased Items</h4>
         {buildItemTable}

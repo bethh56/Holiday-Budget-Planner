@@ -1,3 +1,16 @@
 .home {
   margin: auto;
 }
+
+.addGiftBtn {
+  width: 40%;
+  margin-bottom: 10px;
+  background-color: #208371;
+  color: #ffffff;
+  border: solid 1px #208371;
+  border-radius: 5px;
+}
+
+.addGiftBtn:hover {
+  background-color: #29a18b;
+}
