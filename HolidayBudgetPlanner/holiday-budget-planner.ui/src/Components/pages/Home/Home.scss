@@ -5,7 +5,6 @@
 
 .addGiftBtn {
   width: 40%;
-  margin-bottom: 10px;
   background-color: #208371;
   color: #ffffff;
   border: solid 1px #208371;
@@ -17,8 +16,7 @@
 }
 
 .addCategoryBtn {
-  width: 40%;
-  margin-bottom: 10px;
+  width: 50%;
   background-color: #208371;
   color: #ffffff;
   border: solid 1px #208371;
@@ -32,4 +30,9 @@
 
 .itemTables{
   margin-top: 60px;
+}
+
+.itemTables{
+  border-top: solid 2px #292929;
+  padding-top: 35px;
 }
