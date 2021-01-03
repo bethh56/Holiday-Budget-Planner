@@ -40,8 +40,7 @@ class ItemCatergoryForm extends React.Component {
     } = this.state;
 
     return (
-      <div className="GiftForm">
-        <h4>Add Item Category</h4>
+      <div className="categoryForm">
         <form>
         <div className="form-group">
             <label className="formLabel" htmlFor="itemCategory">Category Name</label>
@@ -53,8 +52,8 @@ class ItemCatergoryForm extends React.Component {
             onChange={this.itemCategoryNameChange}
             />
           </div>
-          <button type="submit" className="submit btn btn-primary" onClick={this.saveCateogry}>Submit</button>
-          <button className="btn btn-primary ml-2" onClick={() => this.setState({ itemFormOpen: false })}>Close Form</button>
+          <button type="submit" className="submitCategoryForm" onClick={this.saveCateogry}><i class="fas fa-plus-circle"></i> Add Category</button>
+          <button className="closeCategoryFormBtn" onClick={() => this.setState({ itemFormOpen: false })}><i class="fas fa-times-circle"></i> Close Form</button>
         </form>
       </div>
     );

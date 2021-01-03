@@ -120,14 +120,18 @@ class Home extends React.Component {
 
     return (
       <div className="home text-center">
-        {buildCurrentViewedBudget}
-        {buildGiftTable}
-        { giftFormOpen ? <div/> : <button className="addGiftBtn col-12" onClick={() => this.setState({ giftFormOpen: true })}>Add Gift</button>}
-        { giftFormOpen ? <GiftForm giftFormOpen={giftFormOpen} budget={budget.id} addGiftEvent={this.addGiftEvent}/> : ''}
-        <button className="btn btn-primary col-12" onClick={() => this.setState({ itemFormOpen: true })}>Add Category</button>
-        { itemFormOpen ? <ItemCatergoryForm itemFormOpen={itemFormOpen} budget={budget.id} addItemCategoryEvent={this.addItemCategoryEvent}/> : ''}
-        <h4>Purchased Items</h4>
-        {buildItemTable}
+        <div className="gifttable">
+          {buildCurrentViewedBudget}
+          {buildGiftTable}
+          { giftFormOpen ? <div/> : <button className="addGiftBtn col-12" onClick={() => this.setState({ giftFormOpen: true })}>Add Gift</button>}
+          { giftFormOpen ? <GiftForm giftFormOpen={giftFormOpen} budget={budget.id} addGiftEvent={this.addGiftEvent}/> : ''}
+        </div>
+        <div className="itemTables">
+          <h4>Purchased Items</h4>
+          { itemFormOpen ? <div/> : <button className="addCategoryBtn col-12" onClick={() => this.setState({ itemFormOpen: true })}>Add Category</button>}
+          { itemFormOpen ? <ItemCatergoryForm itemFormOpen={itemFormOpen} budget={budget.id} addItemCategoryEvent={this.addItemCategoryEvent}/> : ''}
+          {buildItemTable}
+        </div>
       </div>
     );
   }

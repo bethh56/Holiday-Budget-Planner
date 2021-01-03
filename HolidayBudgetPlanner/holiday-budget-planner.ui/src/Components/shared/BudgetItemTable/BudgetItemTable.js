@@ -33,15 +33,13 @@ class BudgetItemTable extends React.Component {
 
     return (
       <div className="BudgetItemTable">
-        <h4>{item.categoryName}</h4>
-        <h5>Amount Spent: ${item.totalPrice}</h5>
-        <button className="btn btn-primary" onClick={() => this.setState({ addItemForm: true })}>Add Item</button>
-        { addItemForm ? <NewItemForm addItemForm={addItemForm} nameOfCategory={item.categoryName} itemBudgetId={item.budgetId} addItemEvent={this.addItemEvent}/> : ''}
+        <h5>{item.categoryName} Total Spent: <span className="itemTotalSpent">${item.totalPrice} </span></h5>
         <Table>
       <thead>
         <tr>
           <th>Item Name</th>
           <th>price</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -58,6 +56,8 @@ class BudgetItemTable extends React.Component {
       ))}
       </tbody>
       </Table>
+      <button className="btn btn-primary" onClick={() => this.setState({ addItemForm: true })}>Add Item</button>
+      { addItemForm ? <NewItemForm addItemForm={addItemForm} nameOfCategory={item.categoryName} itemBudgetId={item.budgetId} addItemEvent={this.addItemEvent}/> : ''}
       </div>
     );
   }

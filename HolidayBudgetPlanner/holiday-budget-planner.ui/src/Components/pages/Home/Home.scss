@@ -1,5 +1,6 @@
 .home {
   margin: auto;
+  font-family: 'Andika New Basic', sans-serif;
 }
 
 .addGiftBtn {
@@ -13,4 +14,22 @@
 
 .addGiftBtn:hover {
   background-color: #29a18b;
+}
+
+.addCategoryBtn {
+  width: 40%;
+  margin-bottom: 10px;
+  background-color: #208371;
+  color: #ffffff;
+  border: solid 1px #208371;
+  border-radius: 5px;
+  margin-bottom: 35px;
+}
+
+.addCategoryBtn:hover {
+  background-color: #29a18b;
+}
+
+.itemTables{
+  margin-top: 60px;
 }
