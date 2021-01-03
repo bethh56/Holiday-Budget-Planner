@@ -1,3 +1,25 @@
 .amountSpent{
   margin-top: 0px;
 }
+
+.BudgetItemTable {
+  font-family: 'Andika New Basic', sans-serif;
+  color: #3D3E3D;
+}
+
+.dollarAmount {
+  color: #FAA916;
+  font-weight: bold;
+}
+
+.deleteGiftBtn {
+  background-color: #A63446;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border: solid 1px #A63446;
+  border-radius: 3px;
+}
+
+.deleteGiftBtn:hover {
+  background-color: #c54054;
+}
