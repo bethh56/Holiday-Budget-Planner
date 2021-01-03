@@ -1,4 +1,5 @@
 import React from 'react';
+import { Row, Col } from 'reactstrap';
 import PropTypes from 'prop-types';
 import './ItemCatergoryForm.scss';
 
@@ -40,11 +41,14 @@ class ItemCatergoryForm extends React.Component {
     } = this.state;
 
     return (
-      <div className="GiftForm">
-        <h4>Add Item Category</h4>
+      <div className="categoryForm">
         <form>
+        <Col>
         <div className="form-group">
+          <Row>
             <label className="formLabel" htmlFor="itemCategory">Category Name</label>
+          </Row>
+          <Row>
             <input type="text"
             className="form-control"
             id="itemCategory"
@@ -52,9 +56,11 @@ class ItemCatergoryForm extends React.Component {
             value={categoryNameChange}
             onChange={this.itemCategoryNameChange}
             />
+            </Row>
           </div>
-          <button type="submit" className="submit btn btn-primary" onClick={this.saveCateogry}>Submit</button>
-          <button className="btn btn-primary ml-2" onClick={() => this.setState({ itemFormOpen: false })}>Close Form</button>
+        </Col>
+          <button type="submit" className="submitCategoryForm" onClick={this.saveCateogry}><i class="fas fa-plus-circle"></i> Add Category</button>
+          <button className="closeCategoryFormBtn" onClick={() => this.setState({ itemFormOpen: false })}><i class="fas fa-times-circle"></i> Close Form</button>
         </form>
       </div>
     );

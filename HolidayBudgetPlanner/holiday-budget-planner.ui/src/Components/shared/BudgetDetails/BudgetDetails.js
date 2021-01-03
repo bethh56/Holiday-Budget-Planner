@@ -6,10 +6,9 @@ class BudgetDetails extends React.Component {
     const { budgetPlan } = this.props;
     return (
       <div className='budgetDetails'>
-        <h1>Budget Amount</h1>
-        <h2>${budgetPlan.budgetAmount}</h2>
-        <h2>{budgetPlan.holidayName}</h2>
-        <h2>BudgetId: {budgetPlan.id}</h2>
+        <h1 className="holidayName">{budgetPlan.holidayName}</h1>
+        <h6>Amount Left To Spend: </h6>
+        <span className="budgetAmount">${budgetPlan.budgetAmount}</span>
       </div>
     );
   }

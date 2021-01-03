@@ -12,14 +12,14 @@ class GiftTable extends React.Component {
     const { item, removeGift, giftLineItem } = this.props;
     return (
       <div className="BudgetItemTable">
-        <h4>Purchased Gifts</h4>
-        <h5>Amount Spent: ${item.totalPrice}</h5>
+        <h5>Purchased Gifts Total: <span className="dollarAmount">${item.totalPrice}</span></h5>
         <Table>
       <thead>
         <tr>
           <th>Gift Recepient</th>
           <th>Item</th>
           <th>Cost</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -28,7 +28,7 @@ class GiftTable extends React.Component {
           <td><p key={indx}>{i.recepient}</p></td>
           <td><p key={indx}>{i.item}</p></td>
           <td><p key={indx}>${i.price}</p></td>
-          <td> <button key={indx} className="btn btn-danger" onClick={() => removeGift(i.id)}><i className="fas fa-trash-alt"></i></button> </td>
+          <td> <button key={indx} className="deleteGiftBtn" onClick={() => removeGift(i.id)}><i className="fas fa-trash-alt"></i></button> </td>
           </tr>
           ))}
         </tbody>

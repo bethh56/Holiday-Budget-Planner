@@ -14,10 +14,10 @@ class PriorBudgetList extends React.Component {
     const { oldBudget, removeBudget } = this.props;
     return (
       <div className="viewAllBudgets">
-          <li className="mb-2">
-            <Link to ={`/previousBudget/${oldBudget.id}`}>{oldBudget.holidayName}  { this.formatDate(oldBudget.dateCreated) } </Link>
-            <button className="btn btn-danger mb-2" onClick={() => removeBudget(oldBudget.id)}><i className="fas fa-trash-alt"></i></button>
-          </li>
+          <ul className="text-center">
+            <Link className="link" to ={`/previousBudget/${oldBudget.id}`}>{oldBudget.holidayName}  { this.formatDate(oldBudget.dateCreated) } </Link>
+            <button className="deleteBudgetBtn" onClick={() => removeBudget(oldBudget.id)}><i className="fas fa-trash-alt"></i></button>
+          </ul>
       </div>
     );
   }
