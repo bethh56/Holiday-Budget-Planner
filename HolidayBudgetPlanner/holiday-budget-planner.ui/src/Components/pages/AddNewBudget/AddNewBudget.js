@@ -1,4 +1,5 @@
 import React from 'react';
+import { Row, Col } from 'reactstrap';
 import moment from 'moment';
 import budgetData from '../../../helpers/data/budgetData';
 import holidayData from '../../../helpers/data/holidayData';
@@ -61,9 +62,11 @@ class AddNewBudget extends React.Component {
       idOfHoliday,
     } = this.state;
     return (
-      <div className="addNewBudget">
-        <h1>Create New Budget</h1>
+      <div className="addNewBudget text-center">
+        <h4>Create New Budget</h4>
         <form>
+        <Col>
+        <Row>
         <label>
           Select a Holiday
           <select value={idOfHoliday} onChange={this.setHoliday}>
@@ -74,16 +77,22 @@ class AddNewBudget extends React.Component {
             }
           </select>
         </label>
+        </Row>
+        </Col>
+        <Col>
         <label>
           Planned Budget Amount:
+          <Row>
           <input
           type="text"
           className="form-control"
           id="item-name"
           value={budget}
           onChange={this.setBudget}/>
+          </Row>
         </label>
-        <button classname="btn btn-danger" onClick={this.saveNewBudget}>Submit</button>
+        </Col>
+        <button className="addNewBudgetBtn" onClick={this.saveNewBudget}> Submit </button>
       </form>
       </div>
     );

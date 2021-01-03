@@ -24,6 +24,7 @@ class MyNavbar extends React.Component {
 
   logoutClickEvent = (e) => {
     const { user } = this.state;
+    console.error('button click works');
     e.preventDefault();
     authData.logoutUser(user)
       .then(() => {
