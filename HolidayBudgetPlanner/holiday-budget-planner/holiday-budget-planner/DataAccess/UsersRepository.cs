@@ -47,11 +47,10 @@ namespace holiday_budget_planner.DataAccess
                            ,[LastName]
                            ,[Email]
                            ,[Password]
-                           ,[IsActive]
                            ,[Uid])
                          Output inserted.Id
                          VALUES
-                             (@firstName, @lastName, @email, @password, @isActive, @uid)";
+                             (@firstName, @lastName, @email, @password, @uid)";
             using var db = new SqlConnection(_connectionString);
 
             var newId = db.ExecuteScalar<int>(sql, userToAdd);
