@@ -22,7 +22,6 @@ namespace holiday_budget_planner.Controllers
         }
 
         [HttpGet("user{userId}")]
-        [AllowAnonymous]
         public IActionResult GetAllBudgetsByUserId(int userId)
         {
             var allBudget = _budgetRepo.GetAllBudgetsByUserId(userId);
@@ -32,7 +31,6 @@ namespace holiday_budget_planner.Controllers
         }
 
         [HttpGet("currentPlan/user{userId}")]
-        [AllowAnonymous]
         public IActionResult GetCurrentBudgetByUserId(int userId)
         {
             var currentBudget = _budgetRepo.GetCurrentBudget(userId);
@@ -42,7 +40,6 @@ namespace holiday_budget_planner.Controllers
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public IActionResult AddNewBudget(Budget newBudget)
         {
             _budgetRepo.AddNewBudget(newBudget);
@@ -52,7 +49,6 @@ namespace holiday_budget_planner.Controllers
         }
 
         [HttpDelete("removeBudget/{id}")]
-        [AllowAnonymous]
         public IActionResult RemoveBudget(int id)
         {
             _budgetRepo.RemoveBudget(id);

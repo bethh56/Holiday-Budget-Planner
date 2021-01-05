@@ -13,5 +13,6 @@ namespace holiday_budget_planner.Models
         public decimal BudgetAmount { get; set; }
         public DateTime DateCreated { get; set; }
         public int UserId { get; set; }
+        public string uid { get; set; }
     }
 }

@@ -3,6 +3,8 @@ import React from 'react';
 import budgetData from '../../../helpers/data/budgetData';
 import giftData from '../../../helpers/data/giftData';
 import itemData from '../../../helpers/data/itemData';
+import authData from '../../../helpers/data/authData';
+import userData from '../../../helpers/data/userData';
 
 import BudgetDetails from '../../shared/BudgetDetails/BudgetDetails';
 import BudgetItemTable from '../../shared/BudgetItemTable/BudgetItemTable';
@@ -21,13 +23,22 @@ class Home extends React.Component {
     holiday: [],
     giftFormOpen: false,
     itemFormOpen: false,
+    user: {},
+    loggedInUserId: '',
   }
 
   // gets the amount in the budget and is displayed in Budget Details
   getCurrentBudgetAmountInfo = () => {
-    budgetData.getCurrentBudget(1)
-      .then((budget) => this.setState({ budget }))
-      .catch((err) => console.error('unable to get budget info'));
+    const u = authData.getUid();
+    userData.getSingleUserIdByUid(u)
+
+      .then((getUserId) => {
+        const loggedInUserId = getUserId.data;
+        this.setState({ loggedInUserId });
+        budgetData.getCurrentBudget(loggedInUserId)
+          .then((budget) => this.setState({ budget }))
+          .catch((err) => console.error('unable to get budget info'));
+      });
   }
 
   getBudgetItems = () => {
@@ -63,6 +74,7 @@ class Home extends React.Component {
     this.getGiftInfo();
     this.getGiftLineItems();
     this.getBudgetLineItems();
+    // this.getUserByUid();
   }
 
   removeGift = (giftId) => {
