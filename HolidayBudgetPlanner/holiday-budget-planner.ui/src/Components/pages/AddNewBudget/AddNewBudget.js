@@ -1,17 +1,20 @@
 import React from 'react';
+import firebase from 'firebase';
 import { Row, Col } from 'reactstrap';
 import moment from 'moment';
 import budgetData from '../../../helpers/data/budgetData';
 import holidayData from '../../../helpers/data/holidayData';
+import userData from '../../../helpers/data/userData';
 import './AddNewBudget.scss';
+import authData from '../../../helpers/data/authData';
+// import authData from '../../../helpers/data/authData';
 
 class AddNewBudget extends React.Component {
   state = {
     idOfHoliday: '',
     budget: '',
     holiday: [],
-    // user: '2',
-    // date: '11/17/2020',
+    loggedInUserId: '',
   }
 
   setBudget = (e) => {
@@ -24,20 +27,31 @@ class AddNewBudget extends React.Component {
     this.setState({ idOfHoliday: e.target.value });
   }
 
+     getUserByUid = () => {
+       const u = authData.getUid();
+       userData.getSingleUserIdByUid(u)
+         .then((getUserId) => {
+           const loggedInUserId = getUserId.data;
+           this.setState({ loggedInUserId });
+           console.error('user id', loggedInUserId.data);
+         })
+         .catch((err) => console.error('unable to get budget line item info'));
+     }
+
   saveNewBudget = (e) => {
+    this.getUserByUid();
     e.preventDefault();
     const {
       idOfHoliday,
       budget,
-      // user,
-      // date,
+      loggedInUserId,
     } = this.state;
 
     const newItem = {
       holidayId: parseInt(idOfHoliday, NaN),
       budgetAmount: parseInt(budget, NaN),
       dateCreated: moment().format(),
-      userId: 1,
+      userId: loggedInUserId,
     };
 
     budgetData.addNewBudget(newItem)

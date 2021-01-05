@@ -3,6 +3,7 @@ import React from 'react';
 import budgetData from '../../../helpers/data/budgetData';
 import giftData from '../../../helpers/data/giftData';
 import itemData from '../../../helpers/data/itemData';
+import authData from '../../../helpers/data/authData';
 
 import BudgetDetails from '../../shared/BudgetDetails/BudgetDetails';
 import BudgetItemTable from '../../shared/BudgetItemTable/BudgetItemTable';
@@ -21,6 +22,8 @@ class Home extends React.Component {
     holiday: [],
     giftFormOpen: false,
     itemFormOpen: false,
+    user: {},
+    uid: authData.getUid(),
   }
 
   // gets the amount in the budget and is displayed in Budget Details
@@ -57,12 +60,23 @@ class Home extends React.Component {
       .catch((err) => console.error('unable to get budget line item info'));
   }
 
+  // getUserByUid = () => {
+  //   const uid = firebase.auth().currentUser;
+  //   userData.getSingleUserIdByUid(uid)
+  //     .then((user) => {
+  //       this.setState({ user });
+  //       console.error('user id', user);
+  //     })
+  //     .catch((err) => console.error('unable to get budget line item info'));
+  // }
+
   componentDidMount() {
     this.getCurrentBudgetAmountInfo();
     this.getBudgetItems();
     this.getGiftInfo();
     this.getGiftLineItems();
     this.getBudgetLineItems();
+    // this.getUserByUid();
   }
 
   removeGift = (giftId) => {

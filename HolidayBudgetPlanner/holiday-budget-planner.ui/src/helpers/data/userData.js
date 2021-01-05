@@ -19,7 +19,7 @@ const getAllUsers = () => new Promise((resolve, reject) => {
 
 const getSingleUser = (userId) => axios.get(`${baseUrl}/users/${userId}`);
 
-const getSingleUserIdByUid = () => axios.get(`${baseUrl}/users/uid`);
+const getSingleUserIdByUid = (uid) => axios.get(`${baseUrl}/users/uid/${uid}`);
 
 // eslint-disable-next-line import/no-anonymous-default-export
 export default { getAllUsers, getSingleUser, getSingleUserIdByUid };
