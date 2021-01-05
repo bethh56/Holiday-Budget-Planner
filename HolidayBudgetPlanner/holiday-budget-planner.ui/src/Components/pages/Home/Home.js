@@ -25,11 +25,12 @@ class Home extends React.Component {
     itemFormOpen: false,
     user: {},
     loggedInUserId: '',
+    uid: authData.getUid(),
   }
 
   getUserByUid = () => {
-    const u = authData.getUid();
-    userData.getSingleUserIdByUid(u)
+    const { uid } = this.state;
+    userData.getSingleUserIdByUid(uid)
       .then((getUserId) => {
         const loggedInUserId = getUserId.data;
         this.setState({ loggedInUserId });
@@ -39,8 +40,8 @@ class Home extends React.Component {
 
   // gets the amount in the budget and is displayed in Budget Details
   getCurrentBudgetAmountInfo = () => {
-    const u = authData.getUid();
-    userData.getSingleUserIdByUid(u)
+    const { uid } = this.state;
+    userData.getSingleUserIdByUid(uid)
       .then((getUserId) => {
         const loggedInUserId = getUserId.data;
         this.setState({ loggedInUserId });
@@ -51,14 +52,20 @@ class Home extends React.Component {
   }
 
   getBudgetItems = () => {
-    itemData.getBudgetItems(1)
-      .then((category) => this.setState({ category }))
-      .catch((err) => console.error('unable to get budget item info'));
+    const { uid } = this.state;
+    userData.getSingleUserIdByUid(uid)
+      .then((getUserId) => {
+        const loggedInUserId = getUserId.data;
+        this.setState({ loggedInUserId });
+        itemData.getBudgetItems(loggedInUserId)
+          .then((category) => this.setState({ category }))
+          .catch((err) => console.error('unable to get budget item info'));
+      });
   }
 
   getGiftInfo = () => {
-    const u = authData.getUid();
-    userData.getSingleUserIdByUid(u)
+    const { uid } = this.state;
+    userData.getSingleUserIdByUid(uid)
       .then((getUserId) => {
         const loggedInUserId = getUserId.data;
         this.setState({ loggedInUserId });
@@ -69,12 +76,11 @@ class Home extends React.Component {
   }
 
   getGiftLineItems = () => {
-    const u = authData.getUid();
-    userData.getSingleUserIdByUid(u)
+    const { uid } = this.state;
+    userData.getSingleUserIdByUid(uid)
       .then((getUserId) => {
         const loggedInUserId = getUserId.data;
         this.setState({ loggedInUserId });
-        giftData.getGiftBudget(loggedInUserId);
         giftData.getGiftItems(loggedInUserId)
           .then((giftLineItem) => this.setState({ giftLineItem }))
           .catch((err) => console.error('unable to get budget line item info'));
@@ -82,12 +88,15 @@ class Home extends React.Component {
   }
 
   getBudgetLineItems = () => {
-    itemData.getBudgetUserLineItems(1)
-      .then((itemlineItems) => {
-        this.setState({ itemlineItems });
-        console.error('get line items', itemlineItems);
-      })
-      .catch((err) => console.error('unable to get budget line item info'));
+    const { uid } = this.state;
+    userData.getSingleUserIdByUid(uid)
+      .then((getUserId) => {
+        const loggedInUserId = getUserId.data;
+        this.setState({ loggedInUserId });
+        itemData.getBudgetUserLineItems(loggedInUserId)
+          .then((itemlineItems) => this.setState({ itemlineItems }))
+          .catch((err) => console.error('unable to get budget line item info'));
+      });
   }
 
   componentDidMount() {
@@ -96,7 +105,6 @@ class Home extends React.Component {
     this.getGiftInfo();
     this.getGiftLineItems();
     this.getBudgetLineItems();
-    // this.getUserByUid();
   }
 
   removeGift = (giftId) => {
