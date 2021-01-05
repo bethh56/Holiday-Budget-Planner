@@ -70,8 +70,8 @@ class App extends React.Component {
               <Switch>
                 <PublicRoute path='/auth' component={Auth} authed= {authed}/>
                 <PublicRoute path='/createNewUser' component={NewUserForm} authed= {authed}/>
-                <PrivateRoute path='/viewAllBudgets' component={ViewAllBudgets} authed={authed}/>
-                <PrivateRoute path='/previousBudget' component={PreviousBudget} authed={authed}/>
+                <Route path='/viewAllBudgets' component={ViewAllBudgets} authed={authed}/>
+                <Route path='/previousBudget' component={PreviousBudget} authed={authed}/>
                 <Route path='/addNewBudget' component={AddNewBudget} authed={authed}/>
                 <PrivateRoute path='/home' component={Home} authed={authed}/>
                 <Redirect from='*' to='/home' />
