@@ -1,17 +1,26 @@
 import React from 'react';
 import budgetData from '../../../helpers/data/budgetData';
+import userData from '../../../helpers/data/userData';
+import authData from '../../../helpers/data/authData';
 import './ViewAllBudgets.scss';
 import PriorBudgetList from './PriorBudgetList/PriorBudgetList';
 
 class ViewAllBudgets extends React.Component {
   state = {
     budget: [],
+    loggedInUserId: '',
   }
 
   getListOfAllBudgets = () => {
-    budgetData.getAllBudgets(1)
-      .then((budget) => this.setState({ budget }))
-      .catch((err) => console.error('unable to get budget line item info'));
+    const u = authData.getUid();
+    userData.getSingleUserIdByUid(u)
+      .then((getUserId) => {
+        const loggedInUserId = getUserId.data;
+        this.setState({ loggedInUserId });
+        budgetData.getAllBudgets(loggedInUserId)
+          .then((budget) => this.setState({ budget }))
+          .catch((err) => console.error('unable to get budget line item info'));
+      });
   }
 
   componentDidMount() {
