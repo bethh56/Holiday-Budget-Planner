@@ -27,16 +27,15 @@ class AddNewBudget extends React.Component {
     this.setState({ idOfHoliday: e.target.value });
   }
 
-     getUserByUid = () => {
-       const u = authData.getUid();
-       userData.getSingleUserIdByUid(u)
-         .then((getUserId) => {
-           const loggedInUserId = getUserId.data;
-           this.setState({ loggedInUserId });
-           console.error('user id', loggedInUserId.data);
-         })
-         .catch((err) => console.error('unable to get budget line item info'));
-     }
+  getUserByUid = () => {
+    const u = authData.getUid();
+    userData.getSingleUserIdByUid(u)
+      .then((getUserId) => {
+        const loggedInUserId = getUserId.data;
+        this.setState({ loggedInUserId });
+      })
+      .catch((err) => console.error('unable to get budget line item info'));
+  }
 
   saveNewBudget = (e) => {
     this.getUserByUid();
