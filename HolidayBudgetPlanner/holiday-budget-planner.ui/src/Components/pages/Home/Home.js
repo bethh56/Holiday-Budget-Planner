@@ -26,8 +26,10 @@ class Home extends React.Component {
     user: {},
     loggedInUserId: '',
     uid: authData.getUid(),
+    itemTotalPrice: {},
   }
 
+  // not currently being used in this file, but see if you can use in each function so less repeated code
   getUserByUid = () => {
     const { uid } = this.state;
     userData.getSingleUserIdByUid(uid)
@@ -48,6 +50,18 @@ class Home extends React.Component {
         budgetData.getCurrentBudget(loggedInUserId)
           .then((budget) => this.setState({ budget }))
           .catch((err) => console.error('unable to get budget info'));
+      });
+  }
+
+  getPriceOfAllItems = () => {
+    const { uid } = this.state;
+    userData.getSingleUserIdByUid(uid)
+      .then((getUserId) => {
+        const loggedInUserId = getUserId.data;
+        this.setState({ loggedInUserId });
+        itemData.getItemsTotalPrice(loggedInUserId)
+          .then((itemTotalPrice) => this.setState({ itemTotalPrice }))
+          .catch((err) => console.error('unable to get item total price info'));
       });
   }
 
@@ -87,6 +101,7 @@ class Home extends React.Component {
       });
   }
 
+  // may need to delete this
   getBudgetLineItems = () => {
     const { uid } = this.state;
     userData.getSingleUserIdByUid(uid)
@@ -105,6 +120,7 @@ class Home extends React.Component {
     this.getGiftInfo();
     this.getGiftLineItems();
     this.getBudgetLineItems();
+    this.getPriceOfAllItems();
   }
 
   removeGift = (giftId) => {
@@ -153,9 +169,10 @@ class Home extends React.Component {
       itemFormOpen,
       giftLineItem,
       itemlineItems,
+      itemTotalPrice,
     } = this.state;
 
-    const buildCurrentViewedBudget = [budget].map((budgetPlan) => (<BudgetDetails key={budgetPlan.id} budgetPlan={budgetPlan}/>));
+    const buildCurrentViewedBudget = [budget].map((budgetPlan) => (<BudgetDetails key={budgetPlan.id} budgetPlan={budgetPlan} itemTotalPrice={itemTotalPrice}/>));
     // eslint-disable-next-line max-len
     const buildItemTable = category.map((item) => (<BudgetItemTable key={item.id} item={item} getBudgetLineItems={this.getBudgetLineItems} itemlineItems={itemlineItems} getBudgetItems={this.getBudgetItems} removeItem={this.removeItem}/>));
     const buildGiftTable = [gift].map((item) => (<GiftTable key={item.id} item={item} giftLineItem={giftLineItem} removeGift={this.removeGift}/>));
