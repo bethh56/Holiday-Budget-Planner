@@ -26,7 +26,7 @@ class Home extends React.Component {
     user: {},
     loggedInUserId: '',
     uid: authData.getUid(),
-    itemTotalPrice: {},
+    itemTotalPrice: '',
   }
 
   // not currently being used in this file, but see if you can use in each function so less repeated code
@@ -60,7 +60,10 @@ class Home extends React.Component {
         const loggedInUserId = getUserId.data;
         this.setState({ loggedInUserId });
         itemData.getItemsTotalPrice(loggedInUserId)
-          .then((itemTotalPrice) => this.setState({ itemTotalPrice }))
+          .then((price) => {
+            const itemTotalPrice = price[0].totalPrice;
+            this.setState({ itemTotalPrice });
+          })
           .catch((err) => console.error('unable to get item total price info'));
       });
   }
@@ -172,7 +175,8 @@ class Home extends React.Component {
       itemTotalPrice,
     } = this.state;
 
-    const buildCurrentViewedBudget = [budget].map((budgetPlan) => (<BudgetDetails key={budgetPlan.id} budgetPlan={budgetPlan} itemTotalPrice={itemTotalPrice}/>));
+    // eslint-disable-next-line max-len
+    const buildCurrentViewedBudget = [budget].map((budgetPlan) => (<BudgetDetails key={budgetPlan.id} budgetPlan={budgetPlan} itemTotalPrice={itemTotalPrice} gift={gift} getCurrentBudgetAmountInfo={this.getCurrentBudgetAmountInfo}/>));
     // eslint-disable-next-line max-len
     const buildItemTable = category.map((item) => (<BudgetItemTable key={item.id} item={item} getBudgetLineItems={this.getBudgetLineItems} itemlineItems={itemlineItems} getBudgetItems={this.getBudgetItems} removeItem={this.removeItem}/>));
     const buildGiftTable = [gift].map((item) => (<GiftTable key={item.id} item={item} giftLineItem={giftLineItem} removeGift={this.removeGift}/>));
