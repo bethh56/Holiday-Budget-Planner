@@ -116,26 +116,34 @@ namespace holiday_budget_planner.DataAccess
 
         }
 
-  /*      public IEnumerable<ItemCategory> GetItemsByBudgetId(int userId, int budgetId)
+        public IEnumerable<ItemCategory> GetItemTotalPrice (int userId)
         {
             using var db = new SqlConnection(_connectionString);
 
-            var dynamicParameters = new DynamicParameters();
-            dynamicParameters.Add("userid", userId);
-            dynamicParameters.Add("budgetId", budgetId);
+            var parameters = new { userId };
+            var getNewestBudgetSql = @"select TOP 1 B.DateCreated, B.id, B.userId
+                                      from Budget B
+                                      where B.userId = @userId AND B.id IS NOT null
+                                      ORDER BY B.dateCreated desc";
 
-            var sql = @"select Ic.categoryName, Ic.budgetId, Ic.price, Ic.itemName
-                        from ItemCategory Ic
-                        join Budget B on
-                        B.id = Ic.budgetId
-                        where B.Id = @budgetId and B.userId = @userId and Ic.itemName IS NOT null and Ic.price IS NOT NULL
-                        GROUP BY Ic.categoryName, Ic.budgetId, Ic.price, Ic.itemName";
+            var newestBudget = db.QueryFirstOrDefault<Budget>(getNewestBudgetSql, parameters);
 
-            var items = db.Query<ItemCategory>(sql, dynamicParameters);
 
-            return items;
 
-        }*/
+            var categoryDynamicParameters = new DynamicParameters();
+            categoryDynamicParameters.Add("id", newestBudget.Id);
+
+            var categorySql = @"select SUM(price) AS TotalPrice, B.id AS budgetId, B.userId, b.dateCreated
+                                    from ItemCategory Ic
+                                    join Budget B on
+                                    B.id = Ic.budgetId
+                                    where B.Id = @id
+                                    GROUP BY B.id, B.userId, b.dateCreated";
+
+            var categoryInfo = db.Query<ItemCategory>(categorySql, categoryDynamicParameters);
+
+            return categoryInfo;
+        }
 
     }
 }
