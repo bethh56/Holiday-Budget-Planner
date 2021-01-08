@@ -9,8 +9,6 @@ class BudgetItemTable extends React.Component {
   static propTypes = {
     getBudgetItems: PropTypes.func.isRequired,
     getBudgetLineItems: PropTypes.func.isRequired,
-    getPriceOfAllItems: PropTypes.func.isRequired,
-    getCurrentBudgetAmountInfo: PropTypes.func.isRequired,
   }
 
   state = {
@@ -19,19 +17,11 @@ class BudgetItemTable extends React.Component {
   }
 
   addItemEvent = (newItem) => {
-    const {
-      getBudgetItems,
-      getBudgetLineItems,
-      getPriceOfAllItems,
-      getCurrentBudgetAmountInfo,
-    } = this.props;
-
+    const { getBudgetItems, getBudgetLineItems } = this.props;
     itemData.addItemCategory(newItem)
       .then(() => {
         getBudgetItems();
         getBudgetLineItems();
-        getPriceOfAllItems();
-        getCurrentBudgetAmountInfo();
         this.setState({ addItemForm: false });
       })
       .catch((err) => console.error('unable to add item category', err));
@@ -43,8 +33,8 @@ class BudgetItemTable extends React.Component {
 
     return (
       <div className="BudgetItemTable">
-        <h5 className="itemCategoryName">{item.categoryName}</h5>
-        <h6> Total Spent: <span className="itemTotalSpent">${item.totalPrice} </span></h6>
+            <h5 className="itemCategoryName">{item.categoryName}</h5>
+            <h6> Total Spent: <span className="itemTotalSpent">${item.totalPrice} </span></h6>
         <Table>
       <thead>
         <tr>
@@ -56,7 +46,7 @@ class BudgetItemTable extends React.Component {
       <tbody>
       {itemlineItems.map((i, indx) => (
         i.lineItems.map((j) => (
-          (j.categoryName === item.categoryName)
+          (j.categoryName === item.categoryName && j.itemName != null && j.price != null)
             ? <tr>
           <td>{j.itemName}</td>
           <td>${j.price}</td>
