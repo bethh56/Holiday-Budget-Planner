@@ -140,6 +140,7 @@ class Home extends React.Component {
       .then(() => {
         this.getBudgetItems();
         this.getBudgetLineItems();
+        this.getPriceOfAllItems();
       })
       .catch((err) => console.error('unable to delete gift', err));
   }
@@ -158,6 +159,7 @@ class Home extends React.Component {
     itemData.addItemCategory(newCategory)
       .then(() => {
         this.getBudgetItems();
+        this.getBudgetLineItems();
         this.setState({ itemFormOpen: false });
       })
       .catch((err) => console.error('unable to add item category', err));
@@ -176,9 +178,9 @@ class Home extends React.Component {
     } = this.state;
 
     // eslint-disable-next-line max-len
-    const buildCurrentViewedBudget = [budget].map((budgetPlan) => (<BudgetDetails key={budgetPlan.id} budgetPlan={budgetPlan} itemTotalPrice={itemTotalPrice} gift={gift} getCurrentBudgetAmountInfo={this.getCurrentBudgetAmountInfo}/>));
+    const buildCurrentViewedBudget = [budget].map((budgetPlan) => (<BudgetDetails key={budgetPlan.id} budgetPlan={budgetPlan} itemTotalPrice={itemTotalPrice} gift={gift}/>));
     // eslint-disable-next-line max-len
-    const buildItemTable = category.map((item) => (<BudgetItemTable key={item.id} item={item} getBudgetLineItems={this.getBudgetLineItems} itemlineItems={itemlineItems} getBudgetItems={this.getBudgetItems} removeItem={this.removeItem}/>));
+    const buildItemTable = category.map((item) => (<BudgetItemTable key={item.id} item={item} getBudgetLineItems={this.getBudgetLineItems} itemlineItems={itemlineItems} getBudgetItems={this.getBudgetItems} getCurrentBudgetAmountInfo={this.getCurrentBudgetAmountInfo} getPriceOfAllItems={this.getPriceOfAllItems} removeItem={this.removeItem}/>));
     const buildGiftTable = [gift].map((item) => (<GiftTable key={item.id} item={item} giftLineItem={giftLineItem} removeGift={this.removeGift}/>));
 
     return (

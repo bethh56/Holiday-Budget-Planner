@@ -14,7 +14,6 @@ class BudgetDetails extends React.Component {
 
   render() {
     const { budgetPlan, itemTotalPrice, gift } = this.props;
-    console.error('gift', gift.totalPrice);
     return (
       <div className='budgetDetails'>
         <h1 className="holidayName">{budgetPlan.holidayName}</h1>
