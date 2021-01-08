@@ -8,7 +8,8 @@ class BudgetDetails extends React.Component {
   }
 
   amountLeftToSpend = (budgetAmount, itemTotal, giftTotal) => {
-    const total = budgetAmount - itemTotal - giftTotal;
+    const checkGift = (giftTotal === undefined) ? 0 : giftTotal;
+    const total = budgetAmount - itemTotal - checkGift;
     return total;
   }
 
@@ -18,7 +19,10 @@ class BudgetDetails extends React.Component {
       <div className='budgetDetails'>
         <h1 className="holidayName">{budgetPlan.holidayName}</h1>
         <h6>Amount Left To Spend: </h6>
-        <span className="budgetAmount">${this.amountLeftToSpend(budgetPlan.budgetAmount, itemTotalPrice, gift.totalPrice)}</span>
+        { this.amountLeftToSpend(budgetPlan.budgetAmount, itemTotalPrice, gift.totalPrice) >= 0
+          ? <span className="budgetAmount">${this.amountLeftToSpend(budgetPlan.budgetAmount, itemTotalPrice, gift.totalPrice)}</span>
+          : <span className="budgetAmountZeroOrBelow">${this.amountLeftToSpend(budgetPlan.budgetAmount, itemTotalPrice, gift.totalPrice)}</span>
+        }
       </div>
     );
   }
