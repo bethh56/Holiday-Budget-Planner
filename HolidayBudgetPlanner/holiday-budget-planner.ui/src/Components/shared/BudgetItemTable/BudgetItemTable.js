@@ -33,10 +33,9 @@ class BudgetItemTable extends React.Component {
     } = this.props;
     const { addItemForm } = this.state;
 
-    if (holiday === 'Christmas') {
-      return (
-        <div className={`budgetItemTable${holiday}`}>
-              <h5 className="itemCategoryName">{item.categoryName}</h5>
+    const buildBudgetItemTable = () => (
+      <div>
+                 <h5 className="itemCategoryName">{item.categoryName}</h5>
               <h6> Total Spent: <span className="itemTotalSpent">${item.totalPrice} </span></h6>
           <Table>
         <thead>
@@ -62,36 +61,18 @@ class BudgetItemTable extends React.Component {
         </Table>
         {addItemForm ? <div/> : <button className="addItemBtn" onClick={() => this.setState({ addItemForm: true })}><i class="fas fa-plus-circle"></i> {item.categoryName}</button>}
         { addItemForm ? <NewItemForm addItemForm={addItemForm} nameOfCategory={item.categoryName} holiday={holiday} itemBudgetId={item.budgetId} addItemEvent={this.addItemEvent}/> : ''}
+      </div>
+    );
+
+    if (holiday === 'Christmas' || holiday === 'Thanksgiving') {
+      return (
+        <div className={`budgetItemTable${holiday}`}>
+          {buildBudgetItemTable()}
         </div>
       );
     } return (
-        <div className="BudgetItemTable">
-              <h5 className="itemCategoryName">{item.categoryName}</h5>
-              <h6> Total Spent: <span className="itemTotalSpent">${item.totalPrice} </span></h6>
-          <Table>
-        <thead>
-          <tr>
-            <th>Item Name</th>
-            <th>Cost</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-        {itemlineItems.map((i, indx) => (
-          i.lineItems.map((j) => (
-            (j.categoryName === item.categoryName && j.itemName != null && j.price != null)
-              ? <tr>
-            <td>{j.itemName}</td>
-            <td>${j.price}</td>
-            <td> <button className="deleteItem" onClick={() => removeItem(j.id)}><i className="fas fa-trash-alt"></i></button> </td>
-            </tr>
-              : <></>
-          ))
-        ))}
-        </tbody>
-        </Table>
-        {addItemForm ? <div/> : <button className="addItemBtn" onClick={() => this.setState({ addItemForm: true })}><i class="fas fa-plus-circle"></i> {item.categoryName}</button>}
-        { addItemForm ? <NewItemForm addItemForm={addItemForm} nameOfCategory={item.categoryName} itemBudgetId={item.budgetId} addItemEvent={this.addItemEvent}/> : ''}
+        <div className="budgetItemTable">
+           {buildBudgetItemTable()}
         </div>
     );
   }

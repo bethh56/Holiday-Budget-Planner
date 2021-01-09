@@ -41,10 +41,9 @@ class ItemCatergoryForm extends React.Component {
     } = this.state;
     const { holiday } = this.props;
 
-    if (holiday === 'Christmas') {
-      return (
-        <div className={`categoryForm${holiday}`}>
-          <form>
+    const buildAddItemCategoryForm = () => (
+      <div>
+         <form>
           <Col>
           <div className="form-group">
             <Row>
@@ -64,31 +63,19 @@ class ItemCatergoryForm extends React.Component {
             <button type="submit" className="submitCategoryForm" onClick={this.saveCateogry}><i class="fas fa-plus-circle"></i> Add Category</button>
             <button className="closeCategoryFormBtn" onClick={() => this.setState({ itemFormOpen: false })}><i class="fas fa-times-circle"></i> Close Form</button>
           </form>
+      </div>
+    );
+
+    if (holiday === 'Christmas' || holiday === 'Thanksgiving') {
+      return (
+        <div className={`categoryForm${holiday}`}>
+          {buildAddItemCategoryForm()}
         </div>
       );
     }
     return (
       <div className="categoryForm">
-        <form>
-        <Col>
-        <div className="form-group">
-          <Row>
-            <label className="formLabel" htmlFor="itemCategory">Category Name</label>
-          </Row>
-          <Row>
-            <input type="text"
-            className="form-control"
-            id="itemCategory"
-            placeholder="Enter Category Name"
-            value={categoryNameChange}
-            onChange={this.itemCategoryNameChange}
-            />
-            </Row>
-          </div>
-        </Col>
-          <button type="submit" className="submitCategoryForm" onClick={this.saveCateogry}><i class="fas fa-plus-circle"></i> Add Category</button>
-          <button className="closeCategoryFormBtn" onClick={() => this.setState({ itemFormOpen: false })}><i class="fas fa-times-circle"></i> Close Form</button>
-        </form>
+        {buildAddItemCategoryForm()}
       </div>
     );
   }
