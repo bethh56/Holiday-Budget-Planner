@@ -1,4 +1,5 @@
 import React from 'react';
+import firebase from 'firebase';
 import {
   Collapse,
   Navbar,
@@ -8,9 +9,11 @@ import {
   NavItem,
   NavLink,
 } from 'reactstrap';
-
 import PropTypes from 'prop-types';
+
 import authData from '../../../helpers/data/authData';
+import userData from '../../../helpers/data/userData';
+import budgetData from '../../../helpers/data/budgetData';
 import './MyNavbar.scss';
 
 class MyNavbar extends React.Component {
@@ -20,6 +23,26 @@ class MyNavbar extends React.Component {
 
   state = {
     isOpen: false,
+    holiday: '',
+  }
+
+  getCurrentHoliday = () => {
+    userData.getSingleUserIdByUid('pwjlSsaIDzd4wj1veciEOrg9z3P2')
+      .then((getUserId) => {
+        const loggedInUserId = getUserId.data;
+        this.setState({ loggedInUserId });
+        budgetData.getCurrentBudget(loggedInUserId)
+          .then((budget) => {
+            this.setState({ budget });
+            const holiday = budget.holidayName;
+            this.setState({ holiday });
+          })
+          .catch((err) => console.error('unable to get budget info'));
+      });
+  }
+
+  componentDidMount() {
+    this.getCurrentHoliday();
   }
 
   logoutClickEvent = (e) => {
@@ -35,7 +58,8 @@ class MyNavbar extends React.Component {
   };
 
   render() {
-    const { isOpen } = this.state;
+    const { isOpen, holiday } = this.state;
+    console.error('myNavbar', holiday);
 
     const toggle = () => {
       this.setState({ isOpen: !this.state.isOpen });
@@ -71,15 +95,26 @@ class MyNavbar extends React.Component {
       return '';
     };
 
-    return (
-      <div>
-        <Navbar className="navBar" light expand="md">
-          <NavbarBrand href="/home">
-            <span className="navbarBrand">Holiday Budget Planner</span>
-            </NavbarBrand>
-          { buildNavbar() }
-        </Navbar>
-      </div>
+    if (holiday === 'Christmas') {
+      return (
+        <div>
+          <Navbar className={`navBar${holiday}`} light expand="md">
+            <NavbarBrand href="/home">
+              <span className="navbarBrand">Holiday Budget Planner</span>
+              </NavbarBrand>
+            { buildNavbar() }
+          </Navbar>
+        </div>
+      );
+    } return (
+        <div>
+          <Navbar className="navBar" light expand="md">
+            <NavbarBrand href="/home">
+              <span className="navbarBrand">Holiday Budget Planner</span>
+              </NavbarBrand>
+            { buildNavbar() }
+          </Navbar>
+        </div>
     );
   }
 }

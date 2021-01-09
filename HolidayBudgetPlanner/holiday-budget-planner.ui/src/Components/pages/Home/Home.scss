@@ -1,31 +1,66 @@
+.Christmas {
+  text-align: center;
+  font-family: 'Andika New Basic', sans-serif;
+  .addGiftBtn {
+    width: 40%;
+    background-color: #6A994E;
+    color: #ffffff;
+    border: solid 1px #6A994E;
+    border-radius: 5px;
+  }
+
+  .addGiftBtn:hover {
+    background-color: #79AC5D;
+  }
+
+  .addCategoryBtn {
+    width: 50%;
+    background-color: #6A994E;
+    color: #ffffff;
+    border: solid 1px #6A994E;
+    border-radius: 5px;
+    margin-bottom: 35px;
+  }
+
+  .addCategoryBtn:hover {
+    background-color: #79AC5D;
+  }
+}
+
 .home {
   margin: auto;
+  text-align: center;
   font-family: 'Andika New Basic', sans-serif;
+
+  .addGiftBtn {
+    width: 40%;
+    background-color: #208371;
+    color: #ffffff;
+    border: solid 1px #208371;
+    border-radius: 5px;
+  }
+
+  .addGiftBtn:hover {
+    background-color: #29a18b;
+  }
+
+  .addCategoryBtn {
+    width: 50%;
+    background-color: #208371;
+    color: #ffffff;
+    border: solid 1px #208371;
+    border-radius: 5px;
+    margin-bottom: 35px;
+  }
+
+  .addCategoryBtn:hover {
+    background-color: #29a18b;
+  }
 }
 
-.addGiftBtn {
-  width: 40%;
-  background-color: #208371;
-  color: #ffffff;
-  border: solid 1px #208371;
-  border-radius: 5px;
-}
 
-.addGiftBtn:hover {
-  background-color: #29a18b;
-}
-
-.addCategoryBtn {
-  width: 50%;
-  background-color: #208371;
-  color: #ffffff;
-  border: solid 1px #208371;
-  border-radius: 5px;
-  margin-bottom: 35px;
-}
-
-.addCategoryBtn:hover {
-  background-color: #29a18b;
+.purchaseItem {
+ color: black
 }
 
 .itemTables{

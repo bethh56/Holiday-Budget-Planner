@@ -1,7 +1,6 @@
 .BudgetItemTable{
   color: #292929;
-}
-
+  
 .itemTotalSpent {
   color: #FAA916;
   font-weight: bold;
@@ -31,7 +30,42 @@
 .addItemBtn:hover {
   background-color: #29a18b;
 }
+}
+
+.budgetItemTableChristmas{
+  color: #292929;
+    .itemTotalSpent {
+      color: #386641;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    .deleteItem {
+      background-color: #BC4749;
+      color: #FFFFFF;
+      padding: 2px 8px;
+      border: solid 1px #BC4749;
+      border-radius: 3px;
+    }
+
+    .deleteItem:hover {
+      background-color: #c54054;
+    }
+
+    .addItemBtn {
+      margin-bottom: 35px;
+      background-color: #65944C;
+      color: #ffffff;
+      border: solid 1px #65944C;
+      border-radius: 5px;
+      width: 40%;
+    }
+
+    .addItemBtn:hover {
+      background-color: #79AC5D;
+    }
+}
 
 .itemCategoryName{
   font-weight: bold;
+  font-family: 'Andika New Basic', sans-serif;
 }

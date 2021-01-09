@@ -2,30 +2,62 @@
   border: solid 2.5px #292929;
   border-radius: 5px;
   padding: 14px;
+
+    .submitCategoryForm {
+      background-color: #208371;
+      color: #FFFFFF;
+      padding: 2px 8px;
+      border: solid 1px #208371;
+      border-radius: 3px;
+      margin-right: 5px;
+    }
+    
+    .submitCategoryForm:hover{
+      background-color: #29a18b;
+    }
+    
+    .closeCategoryFormBtn{
+      background-color: #A63446;
+      color: #FFFFFF;
+      padding: 2px 8px;
+      border: solid 1px #A63446;
+      border-radius: 3px;
+      margin-left: 5px;
+    }
+    
+    .closeCategoryFormBtn:hover{
+      background-color: #c54054;
+    }
 }
 
-.submitCategoryForm {
-  background-color: #208371;
-  color: #FFFFFF;
-  padding: 2px 8px;
-  border: solid 1px #208371;
-  border-radius: 3px;
-  margin-right: 5px;
-}
-
-.submitCategoryForm:hover{
-  background-color: #29a18b;
-}
-
-.closeCategoryFormBtn{
-  background-color: #A63446;
-  color: #FFFFFF;
-  padding: 2px 8px;
-  border: solid 1px #A63446;
-  border-radius: 3px;
-  margin-left: 5px;
-}
-
-.closeCategoryFormBtn:hover{
-  background-color: #c54054;
+.categoryFormChristmas {
+  border: solid 2.5px #292929;
+  border-radius: 5px;
+  padding: 14px;
+  
+    .submitCategoryForm {
+      background-color: #65944C;
+      color: #FFFFFF;
+      padding: 2px 8px;
+      border: solid 1px #65944C;
+      border-radius: 3px;
+      margin-right: 5px;
+    }
+    
+    .submitCategoryForm:hover{
+      background-color: #79AC5D;
+    }
+    
+    .closeCategoryFormBtn{
+      background-color: #BC4749;
+      color: #FFFFFF;
+      padding: 2px 8px;
+      border: solid 1px #BC4749;
+      border-radius: 3px;
+      margin-left: 5px;
+    }
+    
+    .closeCategoryFormBtn:hover{
+      background-color: #c54054;
+    }
 }
