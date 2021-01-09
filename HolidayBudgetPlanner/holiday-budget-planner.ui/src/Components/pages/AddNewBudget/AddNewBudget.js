@@ -91,9 +91,8 @@ class AddNewBudget extends React.Component {
       holidayNameForStyling,
     } = this.state;
 
-    if (holidayNameForStyling === 'Christmas') {
-      return (
-        <div className={`addNewBudget${holidayNameForStyling}`}>
+    const buildAddNewBudgetPage = () => (
+      <div className='m-auto'>
           <h4 className='mb-3'>Create New Budget</h4>
           <form className='form'>
           <Col>
@@ -125,42 +124,19 @@ class AddNewBudget extends React.Component {
           </Col>
           <button className="addNewBudgetBtn" onClick={this.saveNewBudget}> Submit </button>
         </form>
+      </div>
+    );
+
+    if (holidayNameForStyling === 'Christmas' || holidayNameForStyling === 'Thanksgiving') {
+      return (
+        <div className={`addNewBudget${holidayNameForStyling}`}>
+          {buildAddNewBudgetPage()}
         </div>
       );
     }
     return (
       <div className="addNewBudget">
-        <h4 className='mb-3'>Create New Budget</h4>
-        <form className='form'>
-        <Col>
-        <Row>
-        <label className='m-auto'>
-          <select value={idOfHoliday} onChange={this.setHoliday}>
-          <option>Select a Holiday</option>
-            {
-              holiday.map((h) => (
-                <option value={h.id}>{h.holidayName}</option>
-              ))
-            }
-          </select>
-        </label>
-        </Row>
-        </Col>
-        <Col>
-        <label className='enterBudgetAmountField'>
-        Budget Amount:
-          <Row>
-          <input
-          type="text"
-          className="form-control"
-          id="item-name"
-          value={budget}
-          onChange={this.setBudget}/>
-          </Row>
-        </label>
-        </Col>
-        <button className="addNewBudgetBtn" onClick={this.saveNewBudget}> Submit </button>
-      </form>
+        {buildAddNewBudgetPage()}
       </div>
     );
   }

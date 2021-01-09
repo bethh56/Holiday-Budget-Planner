@@ -95,7 +95,7 @@ class MyNavbar extends React.Component {
       return '';
     };
 
-    if (holiday === 'Christmas') {
+    if (holiday === 'Christmas' || holiday === 'Thanksgiving') {
       return (
         <div>
           <Navbar className={`navBar${holiday}`} light expand="md">

@@ -62,3 +62,36 @@
   }
 }
 
+.newItemFormThanksgiving {
+  border: solid 2.5px #292929;
+  border-radius: 5px;
+  padding: 14px;
+
+  .addItem {
+    background-color: #51675A;
+    color: #FFFFFF;
+    padding: 2px 8px;
+    border: solid 1px #51675A;
+    border-radius: 3px;
+    margin-right: 5px;
+  }
+  
+  .addItem:hover{
+    background-color: #637E6E;
+  }
+  
+  .closeItemFormBtn{
+    background-color: #6A041D;
+    color: #FFFFFF;
+    padding: 2px 8px;
+    border: solid 1px #6A041D;
+    border-radius: 3px;
+    margin-left: 5px;
+  }
+  
+  .closeItemFormBtn:hover{
+    background-color: #c54054;
+  }
+}
+
+

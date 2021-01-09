@@ -1,4 +1,5 @@
 .Christmas {
+  margin: auto;
   text-align: center;
   font-family: 'Andika New Basic', sans-serif;
   .addGiftBtn {
@@ -24,6 +25,36 @@
 
   .addCategoryBtn:hover {
     background-color: #79AC5D;
+  }
+}
+
+.Thanksgiving {
+  margin: auto;
+  text-align: center;
+  font-family: 'Andika New Basic', sans-serif;
+  .addGiftBtn {
+    width: 40%;
+    background-color: #DD5E03;
+    color: #ffffff;
+    border: solid 1px #DD5E03;
+    border-radius: 5px;
+  }
+
+  .addGiftBtn:hover {
+    background-color: #FB710E;
+  }
+
+  .addCategoryBtn {
+    width: 50%;
+    background-color: #51675A;
+    color: #ffffff;
+    border: solid 1px #51675A;
+    border-radius: 5px;
+    margin-bottom: 35px;
+  }
+
+  .addCategoryBtn:hover {
+    background-color: #637E6E;
   }
 }
 

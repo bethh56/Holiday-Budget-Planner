@@ -60,10 +60,9 @@ class GiftForm extends React.Component {
 
     const { holiday } = this.props;
 
-    if (holiday === 'Christmas') {
-      return (
-        <div className={`giftForm${holiday}`}>
-          <Form>
+    const buildGiftForm = () => (
+      <div>
+         <Form>
             <Col>
             <FormGroup>
               <Row>
@@ -115,62 +114,18 @@ class GiftForm extends React.Component {
             <button type="submit" className="giftFormBtn" onClick={this.saveGift}><i class="fas fa-gift"></i> Add Gift</button>
             <button className="closeGiftFormBtn" onClick={() => this.setState({ giftFormOpen: false })}><i class="fas fa-times-circle"></i> Close Form</button>
           </Form>
+      </div>
+    );
+
+    if (holiday === 'Christmas' || holiday === 'Thanksgiving') {
+      return (
+        <div className={`giftForm${holiday}`}>
+         {buildGiftForm()}
         </div>
       );
     } return (
       <div className="GiftForm">
-        <Form>
-          <Col>
-          <FormGroup>
-            <Row>
-            <Label className="formLabel" htmlFor="recipientName">Recipient Name</Label>
-            </Row>
-            <Row>
-            <Input type="text"
-            className="form-control"
-            id="recipientName"
-            placeholder="Enter recipient"
-            value={recepientOfGift}
-            onChange={this.recepientChange}
-            />
-            </Row>
-          </FormGroup>
-          </Col>
-          <Col>
-          <FormGroup>
-            <Row>
-              <Label className="formLabel" htmlFor="itemName">Item</Label>
-            </Row>
-            <Row>
-            <Input type="text"
-            className="form-control"
-            id="itemName"
-            placeholder="Enter item name"
-            value={itemForGift}
-            onChange={this.itemChange}
-            />
-            </Row>
-          </FormGroup>
-          </Col>
-          <Col>
-          <FormGroup>
-            <Row>
-            <Label className="formLabel" htmlFor="priceOfItem">Price</Label>
-            </Row>
-            <Row>
-            <Input type="text"
-            className="form-control"
-            id="priceOfItem"
-            placeholder="Enter Price"
-            value={priceOfGift}
-            onChange={this.priceChange}
-            />
-            </Row>
-          </FormGroup>
-          </Col>
-          <button type="submit" className="giftFormBtn" onClick={this.saveGift}><i class="fas fa-gift"></i> Add Gift</button>
-          <button className="closeGiftFormBtn" onClick={() => this.setState({ giftFormOpen: false })}><i class="fas fa-times-circle"></i> Close Form</button>
-        </Form>
+          {buildGiftForm()}
       </div>
     );
   }

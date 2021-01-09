@@ -177,37 +177,32 @@ class Home extends React.Component {
     const buildItemTable = category.map((item) => (<BudgetItemTable key={item.id} item={item} getBudgetLineItems={this.getBudgetLineItems} itemlineItems={itemlineItems} getBudgetItems={this.getBudgetItems} getCurrentBudgetAmountInfo={this.getCurrentBudgetAmountInfo} getPriceOfAllItems={this.getPriceOfAllItems} removeItem={this.removeItem} holiday={holiday}/>));
     const buildGiftTable = [gift].map((item) => (<GiftTable key={item.id} item={item} giftLineItem={giftLineItem} holiday={holiday} removeGift={this.removeGift}/>));
 
-    if (holiday === 'Christmas') {
-      return (
-        <div className={holiday}>
+    const buildPage = () => (
+        <div className='m-auto'>
           <div className="gifttable">
-            {buildCurrentViewedBudget}
-            {buildGiftTable}
-            { giftFormOpen ? <div/> : <button className="addGiftBtn col-12" onClick={() => this.setState({ giftFormOpen: true })}><i class="fas fa-plus-circle"></i> Add Gift</button>}
-            { giftFormOpen ? <GiftForm giftFormOpen={giftFormOpen} budget={budget.id} holiday={holiday} addGiftEvent={this.addGiftEvent}/> : ''}
-          </div>
-          <div className="itemTables">
-            <h4 className="purchaseItem">Purchased Items</h4>
-            { itemFormOpen ? <div/> : <button className="addCategoryBtn col-12" onClick={() => this.setState({ itemFormOpen: true })}><i class="fas fa-plus-circle"></i> Add Category</button>}
-            { itemFormOpen ? <ItemCatergoryForm itemFormOpen={itemFormOpen} holiday={holiday} budget={budget.id} addItemCategoryEvent={this.addItemCategoryEvent}/> : ''}
-            {buildItemTable}
-          </div>
-        </div>
-      );
-    } return (
-      <div className='home'>
-        <div className="gifttable">
           {buildCurrentViewedBudget}
           {buildGiftTable}
           { giftFormOpen ? <div/> : <button className="addGiftBtn col-12" onClick={() => this.setState({ giftFormOpen: true })}><i class="fas fa-plus-circle"></i> Add Gift</button>}
-          { giftFormOpen ? <GiftForm giftFormOpen={giftFormOpen} budget={budget.id} addGiftEvent={this.addGiftEvent}/> : ''}
+          { giftFormOpen ? <GiftForm giftFormOpen={giftFormOpen} budget={budget.id} holiday={holiday} addGiftEvent={this.addGiftEvent}/> : ''}
         </div>
         <div className="itemTables">
           <h4 className="purchaseItem">Purchased Items</h4>
           { itemFormOpen ? <div/> : <button className="addCategoryBtn col-12" onClick={() => this.setState({ itemFormOpen: true })}><i class="fas fa-plus-circle"></i> Add Category</button>}
-          { itemFormOpen ? <ItemCatergoryForm itemFormOpen={itemFormOpen} budget={budget.id} addItemCategoryEvent={this.addItemCategoryEvent}/> : ''}
+          { itemFormOpen ? <ItemCatergoryForm itemFormOpen={itemFormOpen} holiday={holiday} budget={budget.id} addItemCategoryEvent={this.addItemCategoryEvent}/> : ''}
           {buildItemTable}
         </div>
+      </div>
+    );
+
+    if (holiday === 'Christmas' || holiday === 'Thanksgiving') {
+      return (
+        <div className={holiday}>
+          {buildPage()}
+        </div>
+      );
+    } return (
+      <div className='home'>
+        {buildPage()}
       </div>
     );
   }
