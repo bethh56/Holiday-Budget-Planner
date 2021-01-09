@@ -1,24 +1,47 @@
-.amountSpent{
-  margin-top: 0px;
+.BudgetGiftTable {
+  .amountSpent{
+    margin-top: 0px;
+  }
+  
+  .dollarAmount {
+    color: #FAA916;
+    font-weight: bold;
+  }
+  
+  .deleteGiftBtn {
+    background-color: #A63446;
+    color: #FFFFFF;
+    padding: 2px 8px;
+    border: solid 1px #A63446;
+    border-radius: 3px;
+  }
+  
+  .deleteGiftBtn:hover {
+    background-color: #c54054;
+  }
 }
 
-.BudgetItemTable {
-  color: #3D3E3D;
-}
-
-.dollarAmount {
-  color: #FAA916;
-  font-weight: bold;
-}
-
-.deleteGiftBtn {
-  background-color: #A63446;
-  color: #FFFFFF;
-  padding: 2px 8px;
-  border: solid 1px #A63446;
-  border-radius: 3px;
-}
-
-.deleteGiftBtn:hover {
-  background-color: #c54054;
+.budgetGiftTableChristmas {
+  color: black;
+  
+  .amountSpent{
+    margin-top: 0px;
+  }
+  
+  .dollarAmount {
+    color: #386641;
+    font-weight: bold;
+  }
+  
+  .deleteGiftBtn {
+    background-color: #BC4749;
+    color: #FFFFFF;
+    padding: 2px 8px;
+    border: solid 1px #BC4749;
+    border-radius: 3px;
+  }
+  
+  .deleteGiftBtn:hover {
+    background-color: #c54054;
+  }
 }

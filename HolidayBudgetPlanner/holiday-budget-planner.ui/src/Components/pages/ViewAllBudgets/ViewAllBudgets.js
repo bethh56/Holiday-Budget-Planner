@@ -9,11 +9,11 @@ class ViewAllBudgets extends React.Component {
   state = {
     budget: [],
     loggedInUserId: '',
+    holiday: '',
   }
 
   getListOfAllBudgets = () => {
-    const u = authData.getUid();
-    userData.getSingleUserIdByUid(u)
+    userData.getSingleUserIdByUid('pwjlSsaIDzd4wj1veciEOrg9z3P2')
       .then((getUserId) => {
         const loggedInUserId = getUserId.data;
         this.setState({ loggedInUserId });
@@ -23,8 +23,23 @@ class ViewAllBudgets extends React.Component {
       });
   }
 
+  getCurrentHoliday = () => {
+    userData.getSingleUserIdByUid('pwjlSsaIDzd4wj1veciEOrg9z3P2')
+      .then((getUserId) => {
+        const loggedInUserId = getUserId.data;
+        this.setState({ loggedInUserId });
+        budgetData.getCurrentBudget(loggedInUserId)
+          .then((budget) => {
+            const holiday = budget.holidayName;
+            this.setState({ holiday });
+          })
+          .catch((err) => console.error('unable to get budget info'));
+      });
+  }
+
   componentDidMount() {
     this.getListOfAllBudgets();
+    this.getCurrentHoliday();
   }
 
   removeBudget = (budgetId) => {
@@ -35,11 +50,9 @@ class ViewAllBudgets extends React.Component {
       .catch((err) => console.error('unable to delete budget', err));
   }
 
-  formatDate = (date) => `${date.slice(5, 10)}-${date.slice(0, 4)}`;
-
   render() {
-    const { budget } = this.state;
-    const getPriorBudgets = budget.map((oldBudget) => (<PriorBudgetList key={oldBudget.id} oldBudget={oldBudget} removeBudget={this.removeBudget}/>));
+    const { budget, holiday } = this.state;
+    const getPriorBudgets = budget.map((oldBudget) => (<PriorBudgetList key={oldBudget.id} oldBudget={oldBudget} holiday={holiday} removeBudget={this.removeBudget}/>));
     return (
       <div className="viewAllBudgets text-center">
         <h1>View All Budgets</h1>

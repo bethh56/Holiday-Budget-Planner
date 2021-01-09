@@ -1,5 +1,4 @@
 import React from 'react';
-import firebase from 'firebase';
 import { Row, Col } from 'reactstrap';
 import moment from 'moment';
 import budgetData from '../../../helpers/data/budgetData';
@@ -15,6 +14,7 @@ class AddNewBudget extends React.Component {
     budget: '',
     holiday: [],
     loggedInUserId: '',
+    holidayNameForStyling: '',
   }
 
   setBudget = (e) => {
@@ -64,8 +64,23 @@ class AddNewBudget extends React.Component {
       .catch((err) => console.error('unable to get holiday info'));
   }
 
+  getCurrentHoliday = () => {
+    userData.getSingleUserIdByUid('pwjlSsaIDzd4wj1veciEOrg9z3P2')
+      .then((getUserId) => {
+        const loggedInUserId = getUserId.data;
+        this.setState({ loggedInUserId });
+        budgetData.getCurrentBudget(loggedInUserId)
+          .then((budget) => {
+            const holidayNameForStyling = budget.holidayName;
+            this.setState({ holidayNameForStyling });
+          })
+          .catch((err) => console.error('unable to get budget info'));
+      });
+  }
+
   componentDidMount() {
     this.displayHolidayOptions();
+    this.getCurrentHoliday();
   }
 
   render() {
@@ -73,9 +88,48 @@ class AddNewBudget extends React.Component {
       holiday,
       budget,
       idOfHoliday,
+      holidayNameForStyling,
     } = this.state;
+
+    if (holidayNameForStyling === 'Christmas') {
+      return (
+        <div className={`addNewBudget${holidayNameForStyling}`}>
+          <h4 className='mb-3'>Create New Budget</h4>
+          <form className='form'>
+          <Col>
+          <Row>
+          <label className='m-auto'>
+            <select value={idOfHoliday} onChange={this.setHoliday}>
+            <option>Select a Holiday</option>
+              {
+                holiday.map((h) => (
+                  <option value={h.id}>{h.holidayName}</option>
+                ))
+              }
+            </select>
+          </label>
+          </Row>
+          </Col>
+          <Col>
+          <label className='enterBudgetAmountField'>
+          Budget Amount:
+            <Row>
+            <input
+            type="text"
+            className="form-control"
+            id="item-name"
+            value={budget}
+            onChange={this.setBudget}/>
+            </Row>
+          </label>
+          </Col>
+          <button className="addNewBudgetBtn" onClick={this.saveNewBudget}> Submit </button>
+        </form>
+        </div>
+      );
+    }
     return (
-      <div className="addNewBudget text-center">
+      <div className="addNewBudget">
         <h4 className='mb-3'>Create New Budget</h4>
         <form className='form'>
         <Col>

@@ -1,6 +1,12 @@
 .navBar{
   background-color: #208371;
+  font-family: 'Andika New Basic', sans-serif;
 }
+
+.navBarChristmas{
+  background-color: #386641;
+}
+
 
 .navLink {
   color: #ffffff;
@@ -13,8 +19,7 @@
 
 .navbarBrand{
   color: #ffffff;
-  font-family: 'Cinzel', serif;
-  font-size: 20px;
+  font-size: 25px;
 }
 
 .navbarBrand:hover{
@@ -34,8 +39,4 @@
   border: solid 1px #31a791;
   border-radius: 5px;
   margin-top: 4px;
-}
-
-.logOutBtn:hover {
-  background-color: #F1FAEE;
 }
