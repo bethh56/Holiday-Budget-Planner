@@ -20,13 +20,13 @@ class Home extends React.Component {
     gift: [],
     giftLineItem: [],
     itemlineItems: [],
-    holiday: [],
     giftFormOpen: false,
     itemFormOpen: false,
     user: {},
     loggedInUserId: '',
     uid: authData.getUid(),
     itemTotalPrice: '',
+    holiday: '',
   }
 
   // not currently being used in this file, but see if you can use in each function so less repeated code
@@ -48,7 +48,11 @@ class Home extends React.Component {
         const loggedInUserId = getUserId.data;
         this.setState({ loggedInUserId });
         budgetData.getCurrentBudget(loggedInUserId)
-          .then((budget) => this.setState({ budget }))
+          .then((budget) => {
+            this.setState({ budget });
+            const holiday = budget.holidayName;
+            this.setState({ holiday });
+          })
           .catch((err) => console.error('unable to get budget info'));
       });
   }
@@ -175,16 +179,34 @@ class Home extends React.Component {
       giftLineItem,
       itemlineItems,
       itemTotalPrice,
+      holiday,
     } = this.state;
 
     // eslint-disable-next-line max-len
-    const buildCurrentViewedBudget = [budget].map((budgetPlan) => (<BudgetDetails key={budgetPlan.id} budgetPlan={budgetPlan} itemTotalPrice={itemTotalPrice} gift={gift}/>));
+    const buildCurrentViewedBudget = [budget].map((budgetPlan) => (<BudgetDetails key={budgetPlan.id} budgetPlan={budgetPlan} itemTotalPrice={itemTotalPrice} gift={gift} holiday={holiday}/>));
     // eslint-disable-next-line max-len
     const buildItemTable = category.map((item) => (<BudgetItemTable key={item.id} item={item} getBudgetLineItems={this.getBudgetLineItems} itemlineItems={itemlineItems} getBudgetItems={this.getBudgetItems} getCurrentBudgetAmountInfo={this.getCurrentBudgetAmountInfo} getPriceOfAllItems={this.getPriceOfAllItems} removeItem={this.removeItem}/>));
     const buildGiftTable = [gift].map((item) => (<GiftTable key={item.id} item={item} giftLineItem={giftLineItem} removeGift={this.removeGift}/>));
 
-    return (
-      <div className="home text-center">
+    if (holiday === 'Christmas') {
+      return (
+        <div className={holiday}>
+          <div className="gifttable">
+            {buildCurrentViewedBudget}
+            {buildGiftTable}
+            { giftFormOpen ? <div/> : <button className="addGiftBtn col-12" onClick={() => this.setState({ giftFormOpen: true })}><i class="fas fa-plus-circle"></i> Add Gift</button>}
+            { giftFormOpen ? <GiftForm giftFormOpen={giftFormOpen} budget={budget.id} addGiftEvent={this.addGiftEvent}/> : ''}
+          </div>
+          <div className="itemTables">
+            <h4 className="purchaseItem">Purchased Items</h4>
+            { itemFormOpen ? <div/> : <button className="addCategoryBtn col-12" onClick={() => this.setState({ itemFormOpen: true })}><i class="fas fa-plus-circle"></i> Add Category</button>}
+            { itemFormOpen ? <ItemCatergoryForm itemFormOpen={itemFormOpen} budget={budget.id} addItemCategoryEvent={this.addItemCategoryEvent}/> : ''}
+            {buildItemTable}
+          </div>
+        </div>
+      );
+    } return (
+      <div className='home'>
         <div className="gifttable">
           {buildCurrentViewedBudget}
           {buildGiftTable}

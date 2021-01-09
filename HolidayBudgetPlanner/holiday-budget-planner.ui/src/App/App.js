@@ -16,7 +16,6 @@ import PreviousBudget from '../Components/pages/PreviousBudget/PreviousBudget';
 import NewUserForm from '../Components/pages/Auth/NewUserForm/NewUserForm';
 import Auth from '../Components/pages/Auth/Auth';
 
-// import ordersData from '../helpers/data/ordersData';
 import './App.scss';
 
 fbConnection();
@@ -64,12 +63,12 @@ class App extends React.Component {
       <div className="App">
         <BrowserRouter>
           <React.Fragment>
-            <MyNavbar authed={authed} />
+            <MyNavbar authed={authed}/>
             <div className="container">
               <div className="row">
               <Switch>
-                <PublicRoute path='/auth' component={Auth} authed= {authed}/>
-                <PublicRoute path='/createNewUser' component={NewUserForm} authed= {authed}/>
+                <PublicRoute path='/auth' component={Auth} authed={authed}/>
+                <PublicRoute path='/createNewUser' component={NewUserForm} authed={authed}/>
                 <Route path='/viewAllBudgets' component={ViewAllBudgets} authed={authed}/>
                 <Route path='/previousBudget' component={PreviousBudget} authed={authed}/>
                 <Route path='/addNewBudget' component={AddNewBudget} authed={authed}/>

@@ -36,6 +36,8 @@ class MyNavbar extends React.Component {
 
   render() {
     const { isOpen } = this.state;
+    const { holiday } = this.props;
+    console.error('myNavbar', holiday);
 
     const toggle = () => {
       this.setState({ isOpen: !this.state.isOpen });
