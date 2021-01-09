@@ -184,7 +184,7 @@ class Home extends React.Component {
             {buildCurrentViewedBudget}
             {buildGiftTable}
             { giftFormOpen ? <div/> : <button className="addGiftBtn col-12" onClick={() => this.setState({ giftFormOpen: true })}><i class="fas fa-plus-circle"></i> Add Gift</button>}
-            { giftFormOpen ? <GiftForm giftFormOpen={giftFormOpen} budget={budget.id} addGiftEvent={this.addGiftEvent}/> : ''}
+            { giftFormOpen ? <GiftForm giftFormOpen={giftFormOpen} budget={budget.id} holiday={holiday} addGiftEvent={this.addGiftEvent}/> : ''}
           </div>
           <div className="itemTables">
             <h4 className="purchaseItem">Purchased Items</h4>

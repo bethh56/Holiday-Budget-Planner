@@ -15,7 +15,7 @@ class GiftTable extends React.Component {
 
     if (holiday === 'Christmas') {
       return (
-        <div className={`budgetItemTable${holiday}`}>
+        <div className={`budgetGiftTable${holiday}`}>
         <h5>Purchased Gifts Total: <span className="dollarAmount">${item.totalPrice}</span></h5>
         <Table>
       <thead>
@@ -41,7 +41,7 @@ class GiftTable extends React.Component {
       );
     }
     return (
-      <div className="BudgetItemTable">
+      <div className="BudgetGiftTable">
         <h5>Purchased Gifts Total: <span className="dollarAmount">${item.totalPrice}</span></h5>
         <Table>
       <thead>
