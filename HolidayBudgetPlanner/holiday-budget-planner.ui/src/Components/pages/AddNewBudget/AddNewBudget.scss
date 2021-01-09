@@ -48,3 +48,24 @@
   }
 }
 
+.addNewBudgetThanksgiving {
+  color: #292929;
+  margin: auto;
+  margin-top: 25px;
+  font-family: 'Andika New Basic', sans-serif;
+  text-align: center;
+
+  .addNewBudgetBtn {
+    background-color: #DD5E03;
+    color: #FFFFFF;
+    padding: 2px 8px;
+    border: solid 1px #DD5E03;
+    border-radius: 3px;
+    margin-right: 5px;
+  }
+  
+  .addNewBudgetBtn:hover{
+    background-color: #FB710E;
+  }
+}
+

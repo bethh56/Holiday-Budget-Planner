@@ -17,10 +17,9 @@ class BudgetDetails extends React.Component {
     const {
       budgetPlan, itemTotalPrice, gift, holiday,
     } = this.props;
-    // console.error('budgetDetails', holiday);
-    if (holiday === 'Christmas') {
-      return (
-        <div className={holiday}>
+
+    const buildBudgetDetails = () => (
+      <div>
           <h1 className="holidayName">{budgetPlan.holidayName}</h1>
           <h6 className='amountLeftToSpendText'>Amount Left To Spend: </h6>
         { this.amountLeftToSpend(budgetPlan.budgetAmount, itemTotalPrice, gift.totalPrice) >= 0
@@ -28,15 +27,17 @@ class BudgetDetails extends React.Component {
           : <span className="budgetAmountZeroOrBelow">${this.amountLeftToSpend(budgetPlan.budgetAmount, itemTotalPrice, gift.totalPrice)}</span>
         }
       </div>
+    );
+
+    if (holiday === 'Christmas' || holiday === 'Thanksgiving') {
+      return (
+        <div className={holiday}>
+          {buildBudgetDetails()}
+      </div>
       );
     } return (
         <div className='budgetDetails'>
-          <h1 className="holidayName">{budgetPlan.holidayName}</h1>
-          <h6>Amount Left To Spend: </h6>
-        { this.amountLeftToSpend(budgetPlan.budgetAmount, itemTotalPrice, gift.totalPrice) >= 0
-          ? <span className="budgetAmount">${this.amountLeftToSpend(budgetPlan.budgetAmount, itemTotalPrice, gift.totalPrice)}</span>
-          : <span className="budgetAmountZeroOrBelow">${this.amountLeftToSpend(budgetPlan.budgetAmount, itemTotalPrice, gift.totalPrice)}</span>
-        }
+          {buildBudgetDetails()}
       </div>
     );
   }
