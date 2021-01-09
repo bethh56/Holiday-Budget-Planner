@@ -29,17 +29,6 @@ class Home extends React.Component {
     holiday: '',
   }
 
-  // not currently being used in this file, but see if you can use in each function so less repeated code
-  getUserByUid = () => {
-    const { uid } = this.state;
-    userData.getSingleUserIdByUid(uid)
-      .then((getUserId) => {
-        const loggedInUserId = getUserId.data;
-        this.setState({ loggedInUserId });
-      })
-      .catch((err) => console.error('unable to get budget line item info'));
-  }
-
   // gets the amount in the budget and is displayed in Budget Details
   getCurrentBudgetAmountInfo = () => {
     const { uid } = this.state;

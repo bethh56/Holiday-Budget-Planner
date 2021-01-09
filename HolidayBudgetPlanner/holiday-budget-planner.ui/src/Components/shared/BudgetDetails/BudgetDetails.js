@@ -17,7 +17,7 @@ class BudgetDetails extends React.Component {
     const {
       budgetPlan, itemTotalPrice, gift, holiday,
     } = this.props;
-    console.error('budgetDetails', holiday);
+    // console.error('budgetDetails', holiday);
     if (holiday === 'Christmas') {
       return (
         <div className={holiday}>
