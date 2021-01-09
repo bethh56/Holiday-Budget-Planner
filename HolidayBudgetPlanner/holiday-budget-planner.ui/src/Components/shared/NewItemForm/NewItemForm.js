@@ -43,8 +43,50 @@ class ItemCatergoryForm extends React.Component {
       priceOfItem,
     } = this.state;
 
-    const { nameOfCategory } = this.props;
+    const { nameOfCategory, holiday } = this.props;
 
+    if (holiday === 'Christmas') {
+      return (
+        <div className={`newItemForm${holiday}`}>
+          <form>
+          <Col>
+          <div className="form-group">
+            <Row>
+              <label className="formLabel" htmlFor="itemName">Item Name</label>
+            </Row>
+            <Row>
+              <input type="text"
+              className="form-control"
+              id="itemName"
+              placeholder="Enter Item Name"
+              value={nameOfItem}
+              onChange={this.itemNameChange}
+              />
+            </Row>
+            </div>
+          </Col>
+          <Col>
+            <div className="form-group">
+            <Row>
+              <label className="formLabel" htmlFor="price">Price</label>
+            </Row>
+            <Row>
+              <input type="text"
+              className="form-control"
+              id="price"
+              placeholder="Enter Price"
+              value={priceOfItem}
+              onChange={this.priceChange}
+              />
+            </Row>
+            </div>
+            </Col>
+            <button type="submit" className="addItem" onClick={this.saveItem}><i class="fas fa-plus-circle"></i> Add to {nameOfCategory}</button>
+            <button className="closeItemFormBtn" onClick={() => this.setState({ addItemForm: false })}><i class="fas fa-times-circle"></i> Close Form</button>
+          </form>
+        </div>
+      );
+    }
     return (
       <div className="newItemForm">
         <form>

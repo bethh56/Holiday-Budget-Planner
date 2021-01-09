@@ -24,7 +24,6 @@ class MyNavbar extends React.Component {
   state = {
     isOpen: false,
     holiday: '',
-    uid: 'pwjlSsaIDzd4wj1veciEOrg9z3P2',
   }
 
   getCurrentHoliday = () => {
