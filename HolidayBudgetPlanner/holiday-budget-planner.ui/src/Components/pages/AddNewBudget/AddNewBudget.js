@@ -76,13 +76,13 @@ class AddNewBudget extends React.Component {
     } = this.state;
     return (
       <div className="addNewBudget text-center">
-        <h4>Create New Budget</h4>
-        <form>
+        <h4 className='mb-3'>Create New Budget</h4>
+        <form className='form'>
         <Col>
         <Row>
-        <label>
-          Select a Holiday
+        <label className='m-auto'>
           <select value={idOfHoliday} onChange={this.setHoliday}>
+          <option>Select a Holiday</option>
             {
               holiday.map((h) => (
                 <option value={h.id}>{h.holidayName}</option>
@@ -93,8 +93,8 @@ class AddNewBudget extends React.Component {
         </Row>
         </Col>
         <Col>
-        <label>
-          Planned Budget Amount:
+        <label className='enterBudgetAmountField'>
+        Budget Amount:
           <Row>
           <input
           type="text"
