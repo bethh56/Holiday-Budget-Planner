@@ -175,7 +175,7 @@ class Home extends React.Component {
     const buildCurrentViewedBudget = [budget].map((budgetPlan) => (<BudgetDetails key={budgetPlan.id} budgetPlan={budgetPlan} itemTotalPrice={itemTotalPrice} gift={gift} holiday={holiday}/>));
     // eslint-disable-next-line max-len
     const buildItemTable = category.map((item) => (<BudgetItemTable key={item.id} item={item} getBudgetLineItems={this.getBudgetLineItems} itemlineItems={itemlineItems} getBudgetItems={this.getBudgetItems} getCurrentBudgetAmountInfo={this.getCurrentBudgetAmountInfo} getPriceOfAllItems={this.getPriceOfAllItems} removeItem={this.removeItem} holiday={holiday}/>));
-    const buildGiftTable = [gift].map((item) => (<GiftTable key={item.id} item={item} giftLineItem={giftLineItem} removeGift={this.removeGift}/>));
+    const buildGiftTable = [gift].map((item) => (<GiftTable key={item.id} item={item} giftLineItem={giftLineItem} holiday={holiday} removeGift={this.removeGift}/>));
 
     if (holiday === 'Christmas') {
       return (
