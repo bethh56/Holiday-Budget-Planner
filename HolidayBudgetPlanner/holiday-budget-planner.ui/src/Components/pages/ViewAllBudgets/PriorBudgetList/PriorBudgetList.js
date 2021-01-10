@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import budgetData from '../../../../helpers/data/budgetData';
 import ExpandedBudget from '../../../shared/ExpandedBudget/ExpandedBudget';
 import './PriorBudgetList.scss';
 
@@ -11,7 +10,6 @@ class PriorBudgetList extends React.Component {
 
   state = {
     openBudgetDetails: false,
-    closeBudgetDetails: true,
   }
 
   formatDate = (date) => `${date.slice(5, 10)}-${date.slice(0, 4)}`;
@@ -27,7 +25,10 @@ class PriorBudgetList extends React.Component {
             <h5>Created on: { this.formatDate(oldBudget.dateCreated) } </h5>
             <h6>Amount Remaining: ${oldBudget.budgetAmount}</h6>
             <button className="deleteBudgetBtn mr-1" onClick={() => removeBudget(oldBudget.id)}><i className="fas fa-trash-alt"></i> Delete</button>
-            { openBudgetDetails ? <div/> : <button className="viewBudget mr-1" onClick={() => this.setState({ openBudgetDetails: true })}>Expand Budget Details</button>}
+            { openBudgetDetails
+              ? <button className="viewBudget mr-1" onClick={() => this.setState({ openBudgetDetails: false })}>Close Budget Details</button>
+              : <button className="viewBudget mr-1" onClick={() => this.setState({ openBudgetDetails: true })}>Expand Budget Details</button>
+            }
             { openBudgetDetails ? <ExpandedBudget openBudgetDetails={openBudgetDetails} budgetId={oldBudget.id}/> : ''}
           </div>
         </div>
