@@ -1,6 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import budgetData from '../../../../helpers/data/budgetData';
+import ExpandedBudget from '../../../shared/ExpandedBudget/ExpandedBudget';
 import './PriorBudgetList.scss';
 
 class PriorBudgetList extends React.Component {
@@ -8,10 +9,16 @@ class PriorBudgetList extends React.Component {
     removeBudget: PropTypes.func.isRequired,
   }
 
+  state = {
+    openBudgetDetails: false,
+    closeBudgetDetails: true,
+  }
+
   formatDate = (date) => `${date.slice(5, 10)}-${date.slice(0, 4)}`;
 
   render() {
     const { oldBudget, removeBudget, holiday } = this.props;
+    const { openBudgetDetails } = this.state;
 
     const buildPriorBudgetList = () => (
         <div className="card m-auto">
@@ -20,7 +27,8 @@ class PriorBudgetList extends React.Component {
             <h5>Created on: { this.formatDate(oldBudget.dateCreated) } </h5>
             <h6>Amount Remaining: ${oldBudget.budgetAmount}</h6>
             <button className="deleteBudgetBtn mr-1" onClick={() => removeBudget(oldBudget.id)}><i className="fas fa-trash-alt"></i> Delete</button>
-            <Link className="viewBudget ml-1" to ={`/singlePreviousBudget/${oldBudget.id}`}>View Budget</Link>
+            { openBudgetDetails ? <div/> : <button className="viewBudget mr-1" onClick={() => this.setState({ openBudgetDetails: true })}>Expand Budget Details</button>}
+            { openBudgetDetails ? <ExpandedBudget openBudgetDetails={openBudgetDetails} budgetId={oldBudget.id}/> : ''}
           </div>
         </div>
     );
