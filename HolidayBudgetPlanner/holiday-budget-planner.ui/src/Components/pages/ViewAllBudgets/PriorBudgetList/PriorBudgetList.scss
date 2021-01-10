@@ -1,14 +1,5 @@
-.link{
-  color: #292929;
-  font-size: 20px;
-  margin: auto;
-}
-
-.link:hover {
-  color: #4e4d4d;
-}
-
 .priorBudgets{
+  margin-top: 15px;
   .deleteBudgetBtn {
     background-color: #A63446;
     color: #FFFFFF;
@@ -20,9 +11,20 @@
   .deleteBudgetBtn:hover {
     background-color: #c54054;
   }
+  .viewBudget {
+    background-color: #BC4749;
+    color: #FFFFFF;
+    padding: 2px 8px;
+    border: solid 1px #BC4749;
+    border-radius: 3px;
+  }
+  .viewBudget:hover {
+    background-color: #c54054;
+  }
 }
 
 .priorBudgetsChristmas{
+  margin-top: 15px;
   .deleteBudgetBtn {
     background-color: #BC4749;
     color: #FFFFFF;
@@ -34,9 +36,21 @@
   .deleteBudgetBtn:hover {
     background-color: #c54054;
   }
+
+  .viewBudget {
+    background-color: #65944C;
+    color: #FFFFFF;
+    padding: 2px 8px;
+    border: solid 1px #65944C;
+    border-radius: 3px;
+  }
+  .viewBudget:hover {
+    background-color: #79AC5D;
+  }
 }
 
 .priorBudgetsThanksgiving{
+  margin-top: 15px;
   .deleteBudgetBtn {
     background-color: #6A041D;
     color: #FFFFFF;
@@ -46,6 +60,16 @@
   }
   
   .deleteBudgetBtn:hover {
+    background-color: #c54054;
+  }
+  .viewBudget {
+    background-color: #BC4749;
+    color: #FFFFFF;
+    padding: 2px 8px;
+    border: solid 1px #BC4749;
+    border-radius: 3px;
+  }
+  .viewBudget:hover {
     background-color: #c54054;
   }
 }

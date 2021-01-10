@@ -17,14 +17,6 @@ const getBudgetUserLineItems = (userId) => new Promise((resolve, reject) => {
     .catch((err) => reject(err, 'error'));
 });
 
-const getCategoryNames = () => new Promise((resolve, reject) => {
-  axios.get(`${baseUrl}/ItemCategory/category`)
-    .then((response) => {
-      resolve(response.data);
-    })
-    .catch((err) => reject(err, 'error'));
-});
-
 const getItemsTotalPrice = (userId) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/ItemCategory/itemTotalPrice${userId}`)
     .then((response) => {
@@ -43,6 +35,5 @@ export default {
   getBudgetUserLineItems,
   deleteItem,
   addItemCategory,
-  getCategoryNames,
   getItemsTotalPrice,
 };

@@ -14,12 +14,15 @@ class PriorBudgetList extends React.Component {
     const { oldBudget, removeBudget, holiday } = this.props;
 
     const buildPriorBudgetList = () => (
-      <div>
-           <ul className="text-center">
-              <Link className="link" to ={`/previousBudget/${oldBudget.id}`}>{oldBudget.holidayName}  { this.formatDate(oldBudget.dateCreated) } </Link>
-              <button className="deleteBudgetBtn" onClick={() => removeBudget(oldBudget.id)}><i className="fas fa-trash-alt"></i></button>
-            </ul>
-      </div>
+        <div className="card m-auto">
+          <div className="card-body">
+            <h4>{oldBudget.holidayName}</h4>
+            <h5>Created on: { this.formatDate(oldBudget.dateCreated) } </h5>
+            <h6>Amount Remaining: ${oldBudget.budgetAmount}</h6>
+            <button className="deleteBudgetBtn mr-1" onClick={() => removeBudget(oldBudget.id)}><i className="fas fa-trash-alt"></i> Delete</button>
+            <Link className="viewBudget ml-1" to ={`/previousBudget/${oldBudget.id}`}>View Budget</Link>
+          </div>
+        </div>
     );
 
     if (holiday === 'Christmas' || holiday === 'Thanksgiving') {
