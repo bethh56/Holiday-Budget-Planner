@@ -7,8 +7,7 @@ import './BudgetItemTable.scss';
 
 class BudgetItemTable extends React.Component {
   static propTypes = {
-    getBudgetItems: PropTypes.func.isRequired,
-    getBudgetLineItems: PropTypes.func.isRequired,
+    renderPage: PropTypes.func.isRequired,
   }
 
   state = {
@@ -17,11 +16,10 @@ class BudgetItemTable extends React.Component {
   }
 
   addItemEvent = (newItem) => {
-    const { getBudgetItems, getBudgetLineItems } = this.props;
+    const { renderPage } = this.props;
     itemData.addItemCategory(newItem)
       .then(() => {
-        getBudgetItems();
-        getBudgetLineItems();
+        renderPage();
         this.setState({ addItemForm: false });
       })
       .catch((err) => console.error('unable to add item category', err));

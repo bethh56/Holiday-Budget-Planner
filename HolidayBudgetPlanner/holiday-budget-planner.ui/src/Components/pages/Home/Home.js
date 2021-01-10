@@ -29,101 +29,83 @@ class Home extends React.Component {
     holiday: '',
   }
 
-  // gets the amount in the budget and is displayed in Budget Details
+  // gets the amount in the budget and is displayed in Budget Details,
+  // also sets holiday which is being passed through each componet for styling purposes
   getCurrentBudgetAmountInfo = () => {
-    const { uid } = this.state;
-    userData.getSingleUserIdByUid(uid)
-      .then((getUserId) => {
-        const loggedInUserId = getUserId.data;
-        this.setState({ loggedInUserId });
-        budgetData.getCurrentBudget(loggedInUserId)
-          .then((budget) => {
-            this.setState({ budget });
-            const holiday = budget.holidayName;
-            this.setState({ holiday });
-          })
-          .catch((err) => console.error('unable to get budget info'));
-      });
-  }
+    const { loggedInUserId } = this.state;
+    budgetData.getCurrentBudget(loggedInUserId)
+      .then((budget) => {
+        this.setState({ budget });
+        const holiday = budget.holidayName;
+        this.setState({ holiday });
+      })
+      .catch((err) => console.error('unable to get budget info'));
+  };
 
+  // getting total price of items to be passed into budget details and deducted from starting budget amount
   getPriceOfAllItems = () => {
-    const { uid } = this.state;
-    userData.getSingleUserIdByUid(uid)
-      .then((getUserId) => {
-        const loggedInUserId = getUserId.data;
-        this.setState({ loggedInUserId });
-        itemData.getItemsTotalPrice(loggedInUserId)
-          .then((price) => {
-            const itemTotalPrice = price[0].totalPrice;
-            this.setState({ itemTotalPrice });
-          })
-          .catch((err) => console.error('unable to get item total price info'));
-      });
-  }
+    const { loggedInUserId } = this.state;
+    itemData.getItemsTotalPrice(loggedInUserId)
+      .then((price) => {
+        const itemTotalPrice = price[0].totalPrice;
+        this.setState({ itemTotalPrice });
+      })
+      .catch((err) => console.error('unable to get item total price info'));
+  };
 
-  getBudgetItems = () => {
-    const { uid } = this.state;
-    userData.getSingleUserIdByUid(uid)
-      .then((getUserId) => {
-        const loggedInUserId = getUserId.data;
-        this.setState({ loggedInUserId });
-        itemData.getBudgetItems(loggedInUserId)
-          .then((category) => this.setState({ category }))
-          .catch((err) => console.error('unable to get budget item info'));
-      });
-  }
+  getBudgetCatergory = () => {
+    const { loggedInUserId } = this.state;
+    itemData.getBudgetItems(loggedInUserId)
+      .then((category) => this.setState({ category }))
+      .catch((err) => console.error('unable to get budget item info'));
+  };
 
   getGiftInfo = () => {
-    const { uid } = this.state;
-    userData.getSingleUserIdByUid(uid)
-      .then((getUserId) => {
-        const loggedInUserId = getUserId.data;
-        this.setState({ loggedInUserId });
-        giftData.getGiftBudget(loggedInUserId)
-          .then((gift) => this.setState({ gift }))
-          .catch((err) => console.error('unable to get gift info'));
-      });
-  }
+    const { loggedInUserId } = this.state;
+    giftData.getGiftBudget(loggedInUserId)
+      .then((gift) => this.setState({ gift }))
+      .catch((err) => console.error('unable to get gift info'));
+  };
 
   getGiftLineItems = () => {
-    const { uid } = this.state;
-    userData.getSingleUserIdByUid(uid)
-      .then((getUserId) => {
-        const loggedInUserId = getUserId.data;
-        this.setState({ loggedInUserId });
-        giftData.getGiftItems(loggedInUserId)
-          .then((giftLineItem) => this.setState({ giftLineItem }))
-          .catch((err) => console.error('unable to get budget line item info'));
-      });
-  }
+    const { loggedInUserId } = this.state;
+    giftData.getGiftItems(loggedInUserId)
+      .then((giftLineItem) => this.setState({ giftLineItem }))
+      .catch((err) => console.error('unable to get budget line item info'));
+  };
 
   // may need to delete this
   getBudgetLineItems = () => {
+    const { loggedInUserId } = this.state;
+    itemData.getBudgetUserLineItems(loggedInUserId)
+      .then((itemlineItems) => this.setState({ itemlineItems }))
+      .catch((err) => console.error('unable to get budget line item info'));
+  };
+
+  renderPage = () => {
     const { uid } = this.state;
     userData.getSingleUserIdByUid(uid)
       .then((getUserId) => {
         const loggedInUserId = getUserId.data;
         this.setState({ loggedInUserId });
-        itemData.getBudgetUserLineItems(loggedInUserId)
-          .then((itemlineItems) => this.setState({ itemlineItems }))
-          .catch((err) => console.error('unable to get budget line item info'));
-      });
-  }
+        this.getCurrentBudgetAmountInfo();
+        this.getPriceOfAllItems();
+        this.getGiftInfo();
+        this.getGiftLineItems();
+        this.getBudgetCatergory();
+        this.getBudgetLineItems();
+      })
+      .catch((err) => console.error('unable to set loggedInUserId'));
+  };
 
   componentDidMount() {
-    this.getCurrentBudgetAmountInfo();
-    this.getBudgetItems();
-    this.getGiftInfo();
-    this.getGiftLineItems();
-    this.getBudgetLineItems();
-    this.getPriceOfAllItems();
+    this.renderPage();
   }
 
   removeGift = (giftId) => {
     giftData.deleteGift(giftId)
       .then(() => {
-        this.getGiftInfo();
-        this.getGiftLineItems();
+        this.renderPage();
       })
       .catch((err) => console.error('unable to delete gift', err));
   }
@@ -131,9 +113,7 @@ class Home extends React.Component {
   removeItem = (itemId) => {
     itemData.deleteItem(itemId)
       .then(() => {
-        this.getBudgetItems();
-        this.getBudgetLineItems();
-        this.getPriceOfAllItems();
+        this.renderPage();
       })
       .catch((err) => console.error('unable to delete gift', err));
   }
@@ -141,8 +121,7 @@ class Home extends React.Component {
   addGiftEvent = (newGift) => {
     giftData.addGift(newGift)
       .then(() => {
-        this.getGiftInfo();
-        this.getGiftLineItems();
+        this.renderPage();
         this.setState({ giftFormOpen: false });
       })
       .catch((err) => console.error('unable to add gift', err));
@@ -151,8 +130,7 @@ class Home extends React.Component {
   addItemCategoryEvent = (newCategory) => {
     itemData.addItemCategory(newCategory)
       .then(() => {
-        this.getBudgetItems();
-        this.getBudgetLineItems();
+        this.renderPage();
         this.setState({ itemFormOpen: false });
       })
       .catch((err) => console.error('unable to add item category', err));
@@ -171,10 +149,9 @@ class Home extends React.Component {
       holiday,
     } = this.state;
 
-    // eslint-disable-next-line max-len
     const buildCurrentViewedBudget = [budget].map((budgetPlan) => (<BudgetDetails key={budgetPlan.id} budgetPlan={budgetPlan} itemTotalPrice={itemTotalPrice} gift={gift} holiday={holiday}/>));
     // eslint-disable-next-line max-len
-    const buildItemTable = category.map((item) => (<BudgetItemTable key={item.id} item={item} getBudgetLineItems={this.getBudgetLineItems} itemlineItems={itemlineItems} getBudgetItems={this.getBudgetItems} getCurrentBudgetAmountInfo={this.getCurrentBudgetAmountInfo} getPriceOfAllItems={this.getPriceOfAllItems} removeItem={this.removeItem} holiday={holiday}/>));
+    const buildItemTable = category.map((item) => (<BudgetItemTable key={item.id} item={item} renderPage={this.renderPage} itemlineItems={itemlineItems} removeItem={this.removeItem} holiday={holiday}/>));
     const buildGiftTable = [gift].map((item) => (<GiftTable key={item.id} item={item} giftLineItem={giftLineItem} holiday={holiday} removeGift={this.removeGift}/>));
 
     const buildPage = () => (
