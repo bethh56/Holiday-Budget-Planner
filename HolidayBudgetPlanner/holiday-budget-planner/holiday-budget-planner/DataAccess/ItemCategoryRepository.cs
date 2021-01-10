@@ -16,7 +16,7 @@ namespace holiday_budget_planner.DataAccess
         public IEnumerable<ItemCategory> GetAllCurrentItemCategoriesByUserId(int userId)
         {
             using var db = new SqlConnection(_connectionString);
-            
+
             var parameters = new { userId };
             var getNewestBudgetSql = @"select TOP 1 B.DateCreated, B.id, B.userId
                                       from Budget B
@@ -67,12 +67,51 @@ namespace holiday_budget_planner.DataAccess
                             ic.LineItems = (List<Item>)item;
                     }
                 }
-                    
+
             }
 
             return categoryInfo;
 
         }
+
+        public IEnumerable<ItemCategory> GetAllCurrentItemCategoriesByBudgetId(int budgetId){
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"select Ic.categoryName, Ic.budgetId, B.userId, SUM(price) AS TotalPrice
+                                from ItemCategory Ic
+                                join Budget B on
+                                B.id = Ic.budgetId
+                                where B.Id = @budgetId
+                                GROUP BY Ic.categoryName, Ic.budgetId, B.userId";
+
+            var parameters = new { budgetId };
+
+            var categoryInfo = db.Query<ItemCategory>(sql, parameters);
+
+            foreach (var ic in categoryInfo)
+            {
+                var categoryName = ic.CategoryName;
+                var budget = ic.BudgetId;
+                var dynamicParameters = new DynamicParameters();
+                dynamicParameters.Add("categoryName", categoryName);
+                dynamicParameters.Add("budgetId", budget);
+
+                var itemSql = @"select Ic.itemName, Ic.price, Ic.categoryName, Ic.Id
+	                            from ItemCategory Ic
+	                            join Budget B on
+	                            Ic.budgetId = B.id
+								where Ic.categoryName = @categoryName AND B.Id = @budgetId
+                                GROUP BY Ic.itemName, Ic.price, Ic.categoryName, Ic.Id";
+
+                var item = db.Query<Item>(itemSql, dynamicParameters);
+
+                if (item.Count() > 0)
+                    ic.LineItems = (List<Item>)item;
+
+            }
+
+            return categoryInfo;
+        }
+
 
         public void RemoveItem(int id)
         {
