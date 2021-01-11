@@ -1,10 +1,13 @@
 import React from 'react';
 import { Table } from 'reactstrap';
+import giftData from '../../../helpers/data/giftData';
 import itemData from '../../../helpers/data/itemData';
 
 class ExpandedBudget extends React.Component {
   state = {
     item: [],
+    gift: [],
+    giftLineItems: [],
   }
 
   displayItemsFromPreviousBudget = () => {
@@ -14,16 +17,68 @@ class ExpandedBudget extends React.Component {
       .catch((err) => console.error('unable to get budget line item info'));
   }
 
+  displayGiftsFromPreviousBudget = () => {
+    const { budgetId } = this.props;
+    giftData.getGiftItemsByBudgetId(budgetId)
+      .then((gift) => {
+        this.setState({ gift });
+      })
+      .catch((err) => console.error('unable to get budget line item info'));
+  }
+
+  displayGiftItemsFromPreviousBudget = () => {
+    const { budgetId } = this.props;
+    giftData.getGiftLineItemsByBudgetId(budgetId)
+      .then((giftLineItems) => this.setState({ giftLineItems }))
+      .catch((err) => console.error('unable to get budget line item info'));
+  }
+
   componentDidMount() {
     this.displayItemsFromPreviousBudget();
+    this.displayGiftsFromPreviousBudget();
+    this.displayGiftItemsFromPreviousBudget();
   }
 
   render() {
-    const { item } = this.state;
+    const { item, gift, giftLineItems } = this.state;
 
-    return (
+    console.error(giftLineItems);
+
+    const buildPreviousBudgetGiftTable = () => (
       <div>
-        {item.map((i) => (
+        <div>
+          { !gift.totalPrice
+            ? <div/>
+            : <div>
+                <h5 className="purchasedGiftText">Purchased Gifts Total: <span className="dollarAmount">${gift.totalPrice}</span></h5>
+                <Table>
+              <thead>
+                <tr>
+                  <th>Gift Recepient</th>
+                  <th>Item</th>
+                  <th>Cost</th>
+                  <th></th>
+                </tr>
+              </thead>
+                <tbody>
+                {giftLineItems?.map((i, indx) => (
+                <tr>
+                <td><p key={indx}>{i.recepient}</p></td>
+                <td><p key={indx}>{i.item}</p></td>
+                <td><p key={indx}>${i.price}</p></td>
+                </tr>
+                ))}
+                </tbody>
+                </Table>
+                      </div>
+          }
+          </div>
+      </div>
+    );
+
+    const buildPreviousBudgetItemTable = () => (
+      <div>
+         {item.map((i) => (
              <div>
              {i.totalPrice === 0
                ? <div/>
@@ -54,8 +109,19 @@ class ExpandedBudget extends React.Component {
            </div>
           }
            </div>
-        ))
+         ))
       }
+      </div>
+    );
+
+    return (
+      <div>
+        <div>
+          {buildPreviousBudgetGiftTable()}
+        </div>
+        <div>
+          {buildPreviousBudgetItemTable()}
+        </div>
       </div>
     );
   }
