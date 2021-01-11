@@ -33,6 +33,14 @@ const getItemsTotalPrice = (userId) => new Promise((resolve, reject) => {
     .catch((err) => reject(err, 'error'));
 });
 
+const getItemsTotalPriceByBudgetId = (budgetId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/ItemCategory/budgetIdForTotalPrice/budgetId/${budgetId}`)
+    .then((response) => {
+      resolve(response.data);
+    })
+    .catch((err) => reject(err, 'error'));
+});
+
 const deleteItem = (itemId) => axios.delete(`${baseUrl}/ItemCategory/removeItem/${itemId}`);
 
 const addItemCategory = (newItemInfo) => axios.post(`${baseUrl}/itemCategory/`, newItemInfo);
@@ -45,4 +53,5 @@ export default {
   addItemCategory,
   getItemsTotalPrice,
   getItemsByBudgetId,
+  getItemsTotalPriceByBudgetId,
 };
