@@ -33,8 +33,8 @@ class BudgetItemTable extends React.Component {
 
     const buildBudgetItemTable = () => (
       <div>
-                 <h5 className="itemCategoryName">{item.categoryName}</h5>
-              <h6> Total Spent: <span className="itemTotalSpent">${item.totalPrice} </span></h6>
+        <h5 className="itemCategoryName">{item.categoryName}</h5>
+        <h6> Total Spent: <span className="itemTotalSpent">${item.totalPrice} </span></h6>
           <Table>
         <thead>
           <tr>
@@ -46,7 +46,7 @@ class BudgetItemTable extends React.Component {
         <tbody>
         {itemlineItems.map((i, indx) => (
           i.lineItems.map((j) => (
-            (j.categoryName === item.categoryName && j.itemName != null && j.price != null)
+            (j.categoryName === item.categoryName)
               ? <tr>
             <td>{j.itemName}</td>
             <td>${j.price}</td>

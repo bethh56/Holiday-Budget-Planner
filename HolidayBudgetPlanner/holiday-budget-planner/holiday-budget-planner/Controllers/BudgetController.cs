@@ -12,7 +12,7 @@ namespace holiday_budget_planner.Controllers
 {
     [Route("api/budget")]
     [ApiController]
-    [Authorize]
+
     public class BudgetController : ControllerBase
     {
         BudgetRepository _budgetRepo;
@@ -27,6 +27,15 @@ namespace holiday_budget_planner.Controllers
             var allBudget = _budgetRepo.GetAllBudgetsByUserId(userId);
 
             return Ok(allBudget);
+
+        }
+
+        [HttpGet("budgetId{budgetId}")]
+        public IActionResult GetSingleBudgetByBudgetId(int budgetId)
+        {
+            var singleBudget = _budgetRepo.GetSingleBudgetByBudgetId(budgetId);
+
+            return Ok(singleBudget);
 
         }
 

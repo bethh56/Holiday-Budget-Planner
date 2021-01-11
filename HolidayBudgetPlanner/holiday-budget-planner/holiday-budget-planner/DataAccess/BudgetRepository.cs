@@ -31,6 +31,23 @@ namespace holiday_budget_planner.DataAccess
 
         }
 
+        public Budget GetSingleBudgetByBudgetId(int budgetId)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"select *
+                        from Budget B
+	                        join Holiday
+	                        on Holiday.id = B.holidayId
+                        where B.Id = @budgetId";
+
+            var parameters = new { budgetId };
+
+            var singleBudgetbyBudgetId = db.QueryFirstOrDefault<Budget>(sql, parameters);
+
+            return singleBudgetbyBudgetId;
+
+        }
+
         public Budget GetCurrentBudget(int userId)
         {
             using var db = new SqlConnection(_connectionString);

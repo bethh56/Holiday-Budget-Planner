@@ -15,7 +15,7 @@ class GiftTable extends React.Component {
 
     const buildBudgetGiftTable = () => (
       <div>
-        <h5>Purchased Gifts Total: <span className="dollarAmount">${item.totalPrice}</span></h5>
+        <h5 className="purchasedGiftText">Purchased Gifts Total: <span className="dollarAmount">${item.totalPrice}</span></h5>
         <Table>
       <thead>
         <tr>
