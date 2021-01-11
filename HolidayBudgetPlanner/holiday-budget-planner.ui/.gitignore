@@ -4,6 +4,7 @@ package-lock.json
 dist/
 .firebase/
 src/helpers/apiKeys.json
+.firebase/
 
 # dependencies
 /node_modules
