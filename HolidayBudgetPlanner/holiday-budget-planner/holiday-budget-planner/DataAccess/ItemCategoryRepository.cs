@@ -184,5 +184,21 @@ namespace holiday_budget_planner.DataAccess
             return categoryInfo;
         }
 
+        public ItemCategory ItemTotalPriceByBudgetId(int budgetId)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"select SUM(price) AS TotalPrice
+                        from ItemCategory Ic
+                        join Budget B on
+                        B.id = Ic.budgetId
+                        where B.Id = @budgetId";
+
+            var parameters = new { budgetId };
+
+            var price = db.QueryFirstOrDefault<ItemCategory>(sql, parameters);
+
+            return price;
+        }
+
     }
 }

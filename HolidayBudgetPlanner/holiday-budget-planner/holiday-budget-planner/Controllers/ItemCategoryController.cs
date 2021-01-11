@@ -47,6 +47,15 @@ namespace holiday_budget_planner.Controllers
 
         }
 
+        [HttpGet("budgetIdForTotalPrice/budgetId/{budgetId}")]
+        public IActionResult ItemTotalPriceByBudgetId(int budgetId)
+        {
+            var totalPrice = _itemCategoryRepo.ItemTotalPriceByBudgetId(budgetId);
+
+            return Ok(totalPrice);
+
+        }
+
 
         [HttpGet("category")]
         public IActionResult GetAllCategories()
