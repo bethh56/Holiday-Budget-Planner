@@ -31,6 +31,16 @@ namespace holiday_budget_planner.Controllers
             return Ok(gifts);
         }
 
+
+        [HttpGet("budgetId{budgetId}")]
+        //[AllowAnonymous]
+        public IActionResult GetGiftsByBudgetId(int budgetId)
+        {
+            var gifts = _giftRepo.GetGiftsByBudgetId(budgetId);
+
+            return Ok(gifts);
+        }
+
         [HttpDelete("removeGift/{id}")]
         public IActionResult RemoveGift(int id)
         {

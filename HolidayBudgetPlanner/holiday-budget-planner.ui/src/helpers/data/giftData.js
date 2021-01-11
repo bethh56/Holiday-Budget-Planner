@@ -14,7 +14,22 @@ const getGiftItems = (userId) => new Promise((resolve, reject) => {
   axios.get(`${baseUrl}/gift/currentPlanGifts/user${userId}`)
     .then((response) => {
       resolve(response.data.giftInfo);
-      // console.error('gift data', response.data.lineItems);
+    })
+    .catch((err) => reject(err, 'error'));
+});
+
+const getGiftItemsByBudgetId = (budgetId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/gift/budgetId${budgetId}`)
+    .then((response) => {
+      resolve(response.data);
+    })
+    .catch((err) => reject(err, 'error'));
+});
+
+const getGiftLineItemsByBudgetId = (budgetId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/gift/budgetId${budgetId}`)
+    .then((response) => {
+      resolve(response.data.giftInfo);
     })
     .catch((err) => reject(err, 'error'));
 });
@@ -29,4 +44,6 @@ export default {
   getGiftItems,
   deleteGift,
   addGift,
+  getGiftItemsByBudgetId,
+  getGiftLineItemsByBudgetId,
 };

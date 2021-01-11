@@ -17,6 +17,15 @@ const getAllBudgets = (userId) => new Promise((resolve, reject) => {
     .catch((err) => reject(err, 'error'));
 });
 
+const getSingleBudgetByBudgetId = (budgetId) => new Promise((resolve, reject) => {
+  axios.get(`${baseUrl}/budget/budgetId${budgetId}`)
+    .then((response) => {
+      resolve(response.data);
+    })
+    .catch((err) => reject(err, 'error'));
+});
+
+
 const addNewBudget = (newBudget) => axios.post(`${baseUrl}/budget/`, newBudget);
 
 const deleteBudget = (budgetId) => axios.delete(`${baseUrl}/budget/removeBudget/${budgetId}`);
@@ -27,4 +36,5 @@ export default {
   addNewBudget,
   getAllBudgets,
   deleteBudget,
+  getSingleBudgetByBudgetId,
 };

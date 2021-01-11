@@ -29,10 +29,28 @@ namespace holiday_budget_planner.Controllers
 
         }
 
+        [HttpGet("budgetId{budgetId}")]
+        public IActionResult GetAllCurrentItemCategoriesByBudgetId(int budgetId)
+        {
+            var allItemCategories = _itemCategoryRepo.GetAllCurrentItemCategoriesByBudgetId(budgetId);
+
+            return Ok(allItemCategories);
+
+        }
+
         [HttpGet("itemTotalPrice{userId}")]
         public IActionResult GetItemTotalPrice(int userId)
         {
             var totalPrice = _itemCategoryRepo.GetItemTotalPrice(userId);
+
+            return Ok(totalPrice);
+
+        }
+
+        [HttpGet("budgetIdForTotalPrice/budgetId/{budgetId}")]
+        public IActionResult ItemTotalPriceByBudgetId(int budgetId)
+        {
+            var totalPrice = _itemCategoryRepo.ItemTotalPriceByBudgetId(budgetId);
 
             return Ok(totalPrice);
 
