@@ -25,7 +25,6 @@ const getSingleBudgetByBudgetId = (budgetId) => new Promise((resolve, reject) =>
     .catch((err) => reject(err, 'error'));
 });
 
-
 const addNewBudget = (newBudget) => axios.post(`${baseUrl}/budget/`, newBudget);
 
 const deleteBudget = (budgetId) => axios.delete(`${baseUrl}/budget/removeBudget/${budgetId}`);
