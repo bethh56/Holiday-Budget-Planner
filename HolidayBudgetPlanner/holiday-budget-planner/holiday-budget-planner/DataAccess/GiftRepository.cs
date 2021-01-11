@@ -58,6 +58,35 @@ namespace holiday_budget_planner.DataAccess
 
         }
 
+        public Gift GetGiftsByBudgetId(int budgetId)
+        {
+            using var db = new SqlConnection(_connectionString);
+            var sql = @"select G.budgetId, B.dateCreated, SUM(price) as TotalPrice
+                        from Gift G
+	                        join Budget B on 
+	                        B.id = G.budgetId
+	                        where  B.Id = @budgetId
+                        GROUP BY G.budgetId, B.dateCreated";
+
+            var parameters = new { budgetId };
+
+            var giftsByBudgetId = db.QueryFirstOrDefault<Gift>(sql, parameters);
+
+            var sqlForGifts = @"select G.recepient, G.item, G.price, G.id
+                                    from Gift G
+                                        join Budget B on 
+                                        B.id = G.budgetId
+                                        where B.Id = @budgetId
+                                    GROUP BY  G.recepient, G.item, G.price, G.id";
+
+            var giftItems = db.Query<GiftItem>(sqlForGifts, parameters);
+
+            if (giftItems.Count() > 0)
+                giftsByBudgetId.GiftInfo = giftItems.ToList();
+
+            return giftsByBudgetId;
+        }
+
         public void RemoveGift(int id)
         {
             using var db = new SqlConnection(_connectionString);
