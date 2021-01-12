@@ -15,7 +15,7 @@ namespace holiday_budget_planner.DataAccess
         static List<Users> user = new List<Users>();
 
 
-        const string _connectionString = "Data Source=tcp:holidaybudgetplanner.database.windows.net,1433;Initial Catalog=HolidayBudgetPlanner;User Id=bethh_56@holidaybudgetplanner;Password=S@ndydog56";
+        const string _connectionString = "Server=localhost;Database=HolidayBudgetPlanner;Trusted_Connection=True";
         public IEnumerable<Users> GetAllUsers()
         {
             using var db = new SqlConnection(_connectionString);
