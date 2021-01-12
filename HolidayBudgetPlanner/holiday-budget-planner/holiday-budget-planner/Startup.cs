@@ -30,9 +30,13 @@ namespace holiday_budget_planner
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            
             services.AddSingleton<IConfiguration>(Configuration);
-
             services.AddTransient<UsersRepository>();
+            services.AddTransient<BudgetRepository>();
+            services.AddTransient<HolidayRepository>();
+            services.AddTransient<ItemCategoryRepository>();
+            services.AddTransient<GiftRepository>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(opt =>

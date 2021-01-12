@@ -88,7 +88,7 @@ class Auth extends React.Component {
                   type="submit"
                   className="loginBtn"
                   onClick={this.loginClickEvent}>
-                  <i class="fas fa-sign-in-alt"></i> Login
+                  <i className="fas fa-sign-in-alt"></i> Login
                 </button>
               </div>
             </div>

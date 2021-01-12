@@ -42,8 +42,6 @@ class ExpandedBudget extends React.Component {
   render() {
     const { item, gift, giftLineItems } = this.state;
 
-    console.error(giftLineItems);
-
     const buildPreviousBudgetGiftTable = () => (
       <div>
         <div>

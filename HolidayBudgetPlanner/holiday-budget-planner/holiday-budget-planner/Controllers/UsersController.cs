@@ -12,6 +12,7 @@ namespace holiday_budget_planner.Controllers
 {
     [Route("api/users")]
     [ApiController]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         UsersRepository _userRepo;

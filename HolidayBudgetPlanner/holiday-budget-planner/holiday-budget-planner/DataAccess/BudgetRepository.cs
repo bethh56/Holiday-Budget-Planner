@@ -12,7 +12,7 @@ namespace holiday_budget_planner.DataAccess
     {
         static List<Budget> budget = new List<Budget>();
 
-        const string _connectionString = "Server=localhost;Database=HolidayBudgetPlanner;Trusted_Connection=True";
+        const string _connectionString = "Data Source=tcp:holidaybudgetplanner.database.windows.net,1433;Initial Catalog=HolidayBudgetPlanner;User Id=bethh_56@holidaybudgetplanner;Password=S@ndydog56";
 
         public IEnumerable<Budget> GetAllBudgetsByUserId(int userId)
         {

@@ -111,8 +111,8 @@ class GiftForm extends React.Component {
               </Row>
             </FormGroup>
             </Col>
-            <button type="submit" className="giftFormBtn" onClick={this.saveGift}><i class="fas fa-gift"></i> Add Gift</button>
-            <button className="closeGiftFormBtn" onClick={() => this.setState({ giftFormOpen: false })}><i class="fas fa-times-circle"></i> Close Form</button>
+            <button type="submit" className="giftFormBtn" onClick={this.saveGift}><i className="fas fa-gift"></i> Add Gift</button>
+            <button className="closeGiftFormBtn" onClick={() => this.setState({ giftFormOpen: false })}><i className="fas fa-times-circle"></i> Close Form</button>
           </Form>
       </div>
     );

@@ -60,8 +60,8 @@ class ItemCatergoryForm extends React.Component {
               </Row>
             </div>
           </Col>
-            <button type="submit" className="submitCategoryForm" onClick={this.saveCateogry}><i class="fas fa-plus-circle"></i> Add Category</button>
-            <button className="closeCategoryFormBtn" onClick={() => this.setState({ itemFormOpen: false })}><i class="fas fa-times-circle"></i> Close Form</button>
+            <button type="submit" className="submitCategoryForm" onClick={this.saveCateogry}><i className="fas fa-plus-circle"></i> Add Category</button>
+            <button className="closeCategoryFormBtn" onClick={() => this.setState({ itemFormOpen: false })}><i className="fas fa-times-circle"></i> Close Form</button>
           </form>
       </div>
     );
