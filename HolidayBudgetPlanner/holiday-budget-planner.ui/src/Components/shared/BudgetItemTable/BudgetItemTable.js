@@ -62,13 +62,14 @@ class BudgetItemTable extends React.Component {
       </div>
     );
 
-    if (holiday === 'Christmas' || holiday === 'Thanksgiving') {
-      return (
-        <div className={`budgetItemTable${holiday}`}>
-          {buildBudgetItemTable()}
-        </div>
-      );
-    } return (
+    // if (holiday === 'Christmas' || holiday === 'Thanksgiving') {
+    //   return (
+    //     <div className={`budgetItemTable${holiday}`}>
+    //       {buildBudgetItemTable()}
+    //     </div>
+    //   );
+    // }
+    return (
         <div className="budgetItemTable">
            {buildBudgetItemTable()}
         </div>

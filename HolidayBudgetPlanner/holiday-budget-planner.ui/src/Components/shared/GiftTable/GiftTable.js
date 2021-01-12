@@ -10,7 +10,7 @@ class GiftTable extends React.Component {
 
   render() {
     const {
-      item, removeGift, giftLineItem, holiday,
+      item, removeGift, giftLineItem,
     } = this.props;
 
     const buildBudgetGiftTable = () => (
@@ -39,13 +39,13 @@ class GiftTable extends React.Component {
       </div>
     );
 
-    if (holiday === 'Christmas' || holiday === 'Thanksgiving') {
-      return (
-        <div className={`budgetGiftTable${holiday}`}>
-          {buildBudgetGiftTable()}
-      </div>
-      );
-    }
+    // if (holiday === 'Christmas' || holiday === 'Thanksgiving') {
+    //   return (
+    //     <div className={`budgetGiftTable${holiday}`}>
+    //       {buildBudgetGiftTable()}
+    //   </div>
+    //   );
+    // }
     return (
       <div className="budgetGiftTable">
          {buildBudgetGiftTable()}

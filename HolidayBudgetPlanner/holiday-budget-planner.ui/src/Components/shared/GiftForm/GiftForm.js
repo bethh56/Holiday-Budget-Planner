@@ -117,13 +117,14 @@ class GiftForm extends React.Component {
       </div>
     );
 
-    if (holiday === 'Christmas' || holiday === 'Thanksgiving') {
-      return (
-        <div className={`giftForm${holiday}`}>
-         {buildGiftForm()}
-        </div>
-      );
-    } return (
+    // if (holiday === 'Christmas' || holiday === 'Thanksgiving') {
+    //   return (
+    //     <div className={`giftForm${holiday}`}>
+    //      {buildGiftForm()}
+    //     </div>
+    //   );
+    // }
+    return (
       <div className="GiftForm">
           {buildGiftForm()}
       </div>

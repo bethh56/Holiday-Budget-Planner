@@ -50,7 +50,7 @@ class PriorBudgetList extends React.Component {
   formatDate = (date) => `${date.slice(5, 10)}-${date.slice(0, 4)}`;
 
   render() {
-    const { oldBudget, removeBudget, holiday } = this.props;
+    const { oldBudget, removeBudget } = this.props;
     const { openBudgetDetails, itemTotalPrice, giftTotalPrice } = this.state;
 
     const buildPriorBudgetList = () => (
@@ -70,15 +70,15 @@ class PriorBudgetList extends React.Component {
         </div>
     );
 
-    if (holiday === 'Christmas' || holiday === 'Thanksgiving') {
-      return (
-        <div className={`priorBudgets${holiday}`}>
-          {buildPriorBudgetList()}
-        </div>
-      );
-    }
+    // if (holiday === 'Christmas' || holiday === 'Thanksgiving') {
+    //   return (
+    //     <div className={`priorBudgets${holiday}`}>
+    //       {buildPriorBudgetList()}
+    //     </div>
+    //   );
+    // }
     return (
-      <div className="priorBudgets">
+      <div className="priorBudgets container">
           {buildPriorBudgetList()}
       </div>
     );

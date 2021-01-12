@@ -66,13 +66,13 @@ class ItemCatergoryForm extends React.Component {
       </div>
     );
 
-    if (holiday === 'Christmas' || holiday === 'Thanksgiving') {
-      return (
-        <div className={`categoryForm${holiday}`}>
-          {buildAddItemCategoryForm()}
-        </div>
-      );
-    }
+    // if (holiday === 'Christmas' || holiday === 'Thanksgiving') {
+    //   return (
+    //     <div className={`categoryForm${holiday}`}>
+    //       {buildAddItemCategoryForm()}
+    //     </div>
+    //   );
+    // }
     return (
       <div className="categoryForm">
         {buildAddItemCategoryForm()}

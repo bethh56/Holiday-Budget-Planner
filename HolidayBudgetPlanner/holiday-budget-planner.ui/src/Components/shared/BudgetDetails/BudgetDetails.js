@@ -29,13 +29,14 @@ class BudgetDetails extends React.Component {
       </div>
     );
 
-    if (holiday === 'Christmas' || holiday === 'Thanksgiving') {
-      return (
-        <div className={holiday}>
-          {buildBudgetDetails()}
-      </div>
-      );
-    } return (
+    // if (holiday === 'Christmas' || holiday === 'Thanksgiving') {
+    //   return (
+    //     <div className={holiday}>
+    //       {buildBudgetDetails()}
+    //   </div>
+    //   );
+    // }
+    return (
         <div className='budgetDetails'>
           {buildBudgetDetails()}
       </div>

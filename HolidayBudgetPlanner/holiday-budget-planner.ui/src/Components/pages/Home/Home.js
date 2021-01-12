@@ -155,7 +155,7 @@ class Home extends React.Component {
     const buildGiftTable = [gift].map((item) => (<GiftTable key={item.id} item={item} giftLineItem={giftLineItem} holiday={holiday} removeGift={this.removeGift}/>));
 
     const buildPage = () => (
-        <div className='m-auto'>
+        <div className='m-auto container'>
           <div className="gifttable">
           {buildCurrentViewedBudget}
           {buildGiftTable}
