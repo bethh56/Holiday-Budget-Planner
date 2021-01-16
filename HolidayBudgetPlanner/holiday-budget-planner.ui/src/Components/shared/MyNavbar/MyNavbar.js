@@ -1,5 +1,4 @@
 import React from 'react';
-import firebase from 'firebase';
 import {
   Collapse,
   Navbar,
@@ -23,27 +22,28 @@ class MyNavbar extends React.Component {
 
   state = {
     isOpen: false,
-    holiday: '',
+    // holiday: '',
   }
 
-  getCurrentHoliday = () => {
-    userData.getSingleUserIdByUid('pwjlSsaIDzd4wj1veciEOrg9z3P2')
-      .then((getUserId) => {
-        const loggedInUserId = getUserId.data;
-        this.setState({ loggedInUserId });
-        budgetData.getCurrentBudget(loggedInUserId)
-          .then((budget) => {
-            this.setState({ budget });
-            const holiday = budget.holidayName;
-            this.setState({ holiday });
-          })
-          .catch((err) => console.error('unable to get budget info'));
-      });
-  }
+  // code block to try and style navbar by holiday
+  // getCurrentHoliday = () => {
+  //   userData.getSingleUserIdByUid('pwjlSsaIDzd4wj1veciEOrg9z3P2')
+  //     .then((getUserId) => {
+  //       const loggedInUserId = getUserId.data;
+  //       this.setState({ loggedInUserId });
+  //       budgetData.getCurrentBudget(loggedInUserId)
+  //         .then((budget) => {
+  //           this.setState({ budget });
+  //           const holiday = budget.holidayName;
+  //           this.setState({ holiday });
+  //         })
+  //         .catch((err) => console.error('unable to get budget info'));
+  //     });
+  // }
 
-  componentDidMount() {
-    this.getCurrentHoliday();
-  }
+  // componentDidMount() {
+  //   this.getCurrentHoliday();
+  // }
 
   logoutClickEvent = (e) => {
     const { user } = this.state;
@@ -58,8 +58,7 @@ class MyNavbar extends React.Component {
   };
 
   render() {
-    const { isOpen, holiday } = this.state;
-    console.error('myNavbar', holiday);
+    const { isOpen } = this.state;
 
     const toggle = () => {
       this.setState({ isOpen: !this.state.isOpen });
@@ -67,7 +66,6 @@ class MyNavbar extends React.Component {
 
     const buildNavbar = () => {
       const { authed } = this.props;
-      // console.error('auth in navbar', { authed });
       if (authed === true) {
         return (
           <React.Fragment>
@@ -95,18 +93,19 @@ class MyNavbar extends React.Component {
       return '';
     };
 
-    if (holiday === 'Christmas' || holiday === 'Thanksgiving') {
-      return (
-        <div>
-          <Navbar className={`navBar${holiday}`} light expand="md">
-            <NavbarBrand href="/home">
-              <span className="navbarBrand">Holiday Budget Planner</span>
-              </NavbarBrand>
-            { buildNavbar() }
-          </Navbar>
-        </div>
-      );
-    } return (
+    // if (holiday === 'Christmas' || holiday === 'Thanksgiving') {
+    //   return (
+    //     <div>
+    //       <Navbar className={`navBar${holiday}`} light expand="md">
+    //         <NavbarBrand href="/home">
+    //           <span className="navbarBrand">Holiday Budget Planner</span>
+    //           </NavbarBrand>
+    //         { buildNavbar() }
+    //       </Navbar>
+    //     </div>
+    //   );
+    // }
+    return (
         <div>
           <Navbar className="navBar" light expand="md">
             <NavbarBrand href="/home">

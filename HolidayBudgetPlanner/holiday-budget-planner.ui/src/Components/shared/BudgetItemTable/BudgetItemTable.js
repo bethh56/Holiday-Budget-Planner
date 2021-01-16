@@ -57,18 +57,19 @@ class BudgetItemTable extends React.Component {
         ))}
         </tbody>
         </Table>
-        {addItemForm ? <div/> : <button className="addItemBtn" onClick={() => this.setState({ addItemForm: true })}><i class="fas fa-plus-circle"></i> {item.categoryName}</button>}
+        {addItemForm ? <div/> : <button className="addItemBtn" onClick={() => this.setState({ addItemForm: true })}><i className="fas fa-plus-circle"></i> {item.categoryName}</button>}
         { addItemForm ? <NewItemForm addItemForm={addItemForm} nameOfCategory={item.categoryName} holiday={holiday} itemBudgetId={item.budgetId} addItemEvent={this.addItemEvent}/> : ''}
       </div>
     );
 
-    if (holiday === 'Christmas' || holiday === 'Thanksgiving') {
-      return (
-        <div className={`budgetItemTable${holiday}`}>
-          {buildBudgetItemTable()}
-        </div>
-      );
-    } return (
+    // if (holiday === 'Christmas' || holiday === 'Thanksgiving') {
+    //   return (
+    //     <div className={`budgetItemTable${holiday}`}>
+    //       {buildBudgetItemTable()}
+    //     </div>
+    //   );
+    // }
+    return (
         <div className="budgetItemTable">
            {buildBudgetItemTable()}
         </div>

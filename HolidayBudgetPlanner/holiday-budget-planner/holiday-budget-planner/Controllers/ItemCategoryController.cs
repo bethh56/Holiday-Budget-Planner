@@ -12,6 +12,7 @@ namespace holiday_budget_planner.Controllers
 {
     [Route("api/ItemCategory")]
     [ApiController]
+    [Authorize]
     public class ItemCategoryController : ControllerBase
     {
         ItemCategoryRepository _itemCategoryRepo;
