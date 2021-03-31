@@ -13,7 +13,7 @@ namespace holiday_budget_planner.Controllers
 {
     [Route("api/gift")]
     [ApiController]
-    // [Authorize]
+    [Authorize]
     public class GiftController : ControllerBase
     {
         GiftRepository _giftRepo;
@@ -23,7 +23,6 @@ namespace holiday_budget_planner.Controllers
         }
 
         [HttpGet("currentPlanGifts/user{userId}")]
-        //[AllowAnonymous]
         public IActionResult GetGifts(int userId)
         {
             var gifts = _giftRepo.GetGift(userId);
@@ -33,7 +32,6 @@ namespace holiday_budget_planner.Controllers
 
 
         [HttpGet("budgetId{budgetId}")]
-        //[AllowAnonymous]
         public IActionResult GetGiftsByBudgetId(int budgetId)
         {
             var gifts = _giftRepo.GetGiftsByBudgetId(budgetId);

@@ -12,8 +12,8 @@ namespace holiday_budget_planner.DataAccess
     {
         static List<Budget> budget = new List<Budget>();
 
-        const string _connectionString = "Server=localhost;Database=HolidayBudgetPlanner;Trusted_Connection=True";
 
+        const string _connectionString = "Server=localhost;Database=HolidayBudgetPlanner;Trusted_Connection=True";
         public IEnumerable<Holiday> GetAllHolidays()
         {
             using var db = new SqlConnection(_connectionString);

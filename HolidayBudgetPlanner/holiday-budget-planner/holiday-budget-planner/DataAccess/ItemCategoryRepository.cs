@@ -11,8 +11,8 @@ namespace holiday_budget_planner.DataAccess
     {
         static List<ItemCategory> ItemCategory = new List<ItemCategory>();
 
-        const string _connectionString = "Server=localhost;Database=HolidayBudgetPlanner;Trusted_Connection=True";
 
+        const string _connectionString = "Server=localhost;Database=HolidayBudgetPlanner;Trusted_Connection=True";
         public IEnumerable<ItemCategory> GetAllCurrentItemCategoriesByUserId(int userId)
         {
             using var db = new SqlConnection(_connectionString);

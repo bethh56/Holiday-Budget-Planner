@@ -14,7 +14,6 @@ namespace holiday_budget_planner.DataAccess
 
         const string _connectionString = "Server=localhost;Database=HolidayBudgetPlanner;Trusted_Connection=True";
 
-
         public Gift GetGift(int userId)
         {
             using var db = new SqlConnection(_connectionString);
