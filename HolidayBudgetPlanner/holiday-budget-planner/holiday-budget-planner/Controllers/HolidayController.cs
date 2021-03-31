@@ -11,7 +11,6 @@ namespace holiday_budget_planner.Controllers
 {
     [Route("api/holiday")]
     [ApiController]
-    [Authorize]
     public class HolidayController : ControllerBase
     {
         HolidayRepository _holidayRepo;
